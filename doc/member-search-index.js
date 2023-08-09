@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"com.annotations","c":"annotations_javadoc","l":"annotations_javadoc()","u":"%3Cinit%3E()"},{"p":"com.annotations","c":"annotations_javadoc","l":"main(String[])","u":"main(java.lang.String[])"}];updateSearchResults();
