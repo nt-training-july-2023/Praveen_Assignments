@@ -1,0 +1,5 @@
+package com.praveen.empMan.model;
+
+public class Emp {
+
+}

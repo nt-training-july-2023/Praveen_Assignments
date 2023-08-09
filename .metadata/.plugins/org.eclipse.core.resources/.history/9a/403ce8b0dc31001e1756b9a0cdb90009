@@ -1,0 +1,48 @@
+package Maps;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+
+
+
+public class maps {
+		public  HashMap<Integer,String> add(){
+			Scanner input = new Scanner(System.in);
+			System.out.println("Enter number of pairs you want add in the map");
+			int n=input.nextInt();
+			
+			HashMap<Integer,String> map = new HashMap<Integer,String>();
+			int key;
+			for(int i=0;i<n;i++) {
+				System.out.println("Enter the key: Employee ID");
+				key = input.nextInt();
+				System.out.println("Enter the value: Employee Name");
+			   String value = input.next();
+				map.put(key,value);
+				}
+			  
+			  return map;
+			
+			}
+		public void printele(HashMap<Integer,String> map) {
+			for(Map.Entry<Integer,String> m: map.entrySet()) {
+				
+				Integer key = m.getKey();
+				String value = m.getValue();
+				System.out.println("Key:"+key+"Value:"+value);
+				
+			}
+
+			
+		}
+		public static void main(String[] args) {
+		
+			maps obj = new maps();
+		    obj.add();
+		
+		
+	}
+
+}

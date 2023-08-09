@@ -1,0 +1,5 @@
+package com.praveen.empMan.Service;
+
+public class EmployeeService {
+
+}

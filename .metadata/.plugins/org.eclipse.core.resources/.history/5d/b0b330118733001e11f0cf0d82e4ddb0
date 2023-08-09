@@ -1,0 +1,28 @@
+package Maps;
+
+import java.util.HashMap;
+
+public class Threshold {
+	
+	static void add(HashMap<Integer,String> hm) {
+		hm.put(1,"Kodavali");
+		hm.put(2, "Mohan");
+		hm.put(3, "Venkata");
+		hm.put(4, "Praveen");
+	}
+	static void print(HashMap<Integer,String> hm) {
+		System.out.println(hm);
+	}
+	static void threshold(HashMap<Integer, String> hm) {
+		System.out.println(hm.size());
+	}
+	
+	
+	public static void main(String[] args) {
+		
+		HashMap<Integer,String> hm = new HashMap<>();
+		print(hm);
+		threshold(hm);
+	}
+
+}

@@ -1,0 +1,7 @@
+package com.praveen.empMan.controller;
+
+public class EmployeeController {
+	
+	public List<Employee>
+
+}

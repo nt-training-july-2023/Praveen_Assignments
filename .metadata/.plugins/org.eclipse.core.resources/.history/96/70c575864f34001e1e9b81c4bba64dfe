@@ -1,0 +1,25 @@
+package com.praveen.FirstJPA;
+
+import org.hibernate.Session;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	
+    	Session 
+    	
+    	Emp reg = new Emp();
+    	reg.setEmpid(001);
+    	reg.setEmpname("Praveen");
+    	reg.setEmpage(21);
+    	
+     
+    	
+
+    }
+}

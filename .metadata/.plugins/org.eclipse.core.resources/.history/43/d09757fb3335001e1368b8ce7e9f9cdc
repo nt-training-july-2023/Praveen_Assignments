@@ -1,0 +1,31 @@
+package com.praveen.empMan.Service;
+
+import java.util.List;
+
+import com.praveen.empMan.model.Employee;
+
+public class EmployeeService {
+	
+	private final EmployeeRepository employeeRepository;
+	
+	
+	public EmployeeService(EmployeeRepository employeeRepository) {
+		this.employeeRepository = employeeRepository;
+		
+	}
+	
+	public List<Employee> getAllEmployee(){
+		return employeeRepository.getAllEmployee();
+	}
+	
+	public Employee getEmployeeById(int emp_id) {
+		Employee employee = employeeRepository.getEmployeeById(emp_id);
+		if(employee==null) {
+			throw new EmployeeNotFounException("Employee with ID "+ id + " not found");
+		}
+		return employee;
+	}
+	
+	public Employee addEmployee(Employee)
+
+}
