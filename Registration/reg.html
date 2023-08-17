@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="reg.css">
+        <title>Registration</title>
+    </head>
+
+    <body>
+
+        <div class="container">
+            <div class="title">Registration</div>
+        
+
+        <form>
+
+            <div class = "main-content">
+                <div class="input-box">
+                    <label for = "username">First Name:</label>
+                    <input type="text" id="username" name="First_Name" placeholder="Enter your first name" required class="input">
+                </div>
+
+                <div class="input-box">
+                    <label for="username">Last Name:</label>
+                    <input type="text" id="username" name="Last_name" placeholder="Enter your last name" required
+                        class="input">
+                </div>
+
+                <div class="input-box">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required class="input">
+                </div>
+
+                <div class="input-box">
+                    <label for="mobile-number">Mobile Number:</label>
+                    <input type="tel" id="mobile-number" name="mobile-number" placeholder="Enter your mobile number"
+                        required>
+                </div>
+
+
+                <div class="input-box">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="confirm-password">Confirm Password:</label>
+                    <input type="password" id="confirm-password" name="confirm-password"
+                        placeholder="Confirm your password" required>
+                </div>
+
+                <div class ="gender-category">
+                    <span class ="gender-title">Gender</span>
+                    <label><input type="radio" name="gender" value="male" required>Male</label>
+                    <label><input type="radio" name="gender" value="female" required>Female</label>
+                    <label><input type="radio" name="gender" value="other" required>Others</label>
+
+                </div>
+
+            </div>
+
+            <div class="button-container">
+                <button type="Submit" onclick="ValidateForm()">Register</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="reg.js"></script>
+
+ 
+    </body>
+
+
+</html>
