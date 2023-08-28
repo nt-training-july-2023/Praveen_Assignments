@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.backend.EMS.DTO.Admin_DTO;
+import com.backend.EMS.DTO.Login_DTO;
 import com.backend.EMS.Model.Admin;
 import com.backend.EMS.Repository.AdminRepository;
 
@@ -34,6 +35,9 @@ public class AdminService {
         admin.setContact_no(admin_DTO.getContact_no());
         
         admin.setPassword(this.passwordEncoder.encode(admin_DTO.getPassword()));
+        admin.setConfirmPassword(this.passwordEncoder.encode(admin_DTO.getConfirmPassword()));
+        
+        
         
        // admin.setPassword(admin_DTO.getPassword());
 		admin = adminRepository.save(admin);
@@ -69,21 +73,21 @@ public class AdminService {
 //	
 	
 	
-	public boolean isEmailExist(Admin_DTO admin_DTO) {
-		if(adminRepository.findByEmail(admin_DTO.getEmail()) != null) {
+	public boolean isEmailExist(Login_DTO login_DTO) {
+		if(adminRepository.findByEmail(login_DTO.getEmail()) != null) {
 			return true;
 		}
 		else {
 			return false;
 		}
 	}
-	public boolean userValidation(Admin_DTO admin_DTO) {
+	public boolean userValidation(Login_DTO login_DTO) {
 		
-		Admin admin = adminRepository.findByEmail(admin_DTO.getEmail());
+		Admin admin = adminRepository.findByEmail(login_DTO.getEmail());
 		
 		if(admin!=null) {
 			
-			return passwordEncoder.matches(admin_DTO.getPassword(), admin.getPassword());
+			return passwordEncoder.matches(login_DTO.getPassword(), admin.getPassword());
 		}
 		return false;
 	}

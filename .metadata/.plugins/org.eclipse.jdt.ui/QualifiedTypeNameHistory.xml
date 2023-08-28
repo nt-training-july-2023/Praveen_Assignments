@@ -19,4 +19,6 @@
     <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ResponseBody"/>
     <fullyQualifiedTypeName name="jakarta.persistence.Id"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.DTO.Response_DTO"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.Model.Admin"/>
 </qualifiedTypeNameHistroy>
