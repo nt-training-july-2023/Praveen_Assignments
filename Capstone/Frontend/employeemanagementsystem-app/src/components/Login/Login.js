@@ -14,16 +14,19 @@ function Login() {
 
   const handleLogin = async (event) => {
     event.preventDefault();
+
     try {
       const response = await axios.post('http://localhost:8080/api/login', {
         email,
         password,
       });
-
+      if(email===""||password===""){
+        return alert("please fill the details");
+      }
       if (response.data.statusCode === 200) {
 
         // console.log(response.data.statusCode);
-        
+        // alert("login successful");
         setMessage1('Login Successful');
         setEmail('');
         setPassword('');
@@ -51,8 +54,7 @@ function Login() {
   };
 
   return (
-
-    <div className="login-page">
+    <div className='login-page'>
     <div className="login-container">
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
@@ -80,84 +82,8 @@ function Login() {
       
       </div>
     </div>
-  </div>
+    </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
-    // <div className="Login-form-container">
-    //     <form className="Login-form" >
-    //       <div className="Login-form-content">
-    //         <h3 className="Login-form-title">Login</h3>
-    //         <div className="text-center" style={{marginBottom:"25px"}}>
-    //           Not registered yet?{" "}
-    //           <span className="link-primary" style={{cursor:"pointer"}} /*onClick={redirectToRegister}*/>
-    //             Sign Up
-    //           </span>
-    //         </div>
-    //         <div className="form-group mt-1">
-    //           <label>Email address</label>
-    //           <input
-    //             type="email"
-    //             className="form-control mt-2"
-    //             value={email}
-    //             onChange={(e) => setEmail(e.target.value)}
-    //             required
-    //           />
-    //         </div>
-    //         <div className="form-group mt2">
-    //           <label>Password</label>
-    //           <input
-    //             type="password"
-    //             className="form-control mt-2"
-    //             value={password}
-    //             onChange={(e) => setPassword(e.target.value)}
-    //             required
-    //           />
-    //         </div>
-    //         <div className="d-grid gap-2 mt-3">
-    //           <button type="submit"  className="btn btn-primary">
-    //             Submit
-    //           </button>
-
-              
-
-    //           {/* <button type="submit" onClick={redirectToRegister} className="btn btn-primary">
-    //             Register
-    //           </button> */}
-    //         </div>
-    //       </div>
-    //     </form>
-    //   </div>  
     );
 }
 
