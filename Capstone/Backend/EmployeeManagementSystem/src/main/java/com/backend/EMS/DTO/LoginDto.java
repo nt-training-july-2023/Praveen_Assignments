@@ -3,12 +3,15 @@ package com.backend.EMS.DTO;
 
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 
 /**
  * Data Transfer Object (DTO) for handling login information.
  */
-@Data
+@Getter
+@Setter
 public class LoginDto {
 
     /**

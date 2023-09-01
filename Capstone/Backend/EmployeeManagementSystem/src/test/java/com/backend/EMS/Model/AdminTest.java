@@ -1,11 +1,9 @@
 package com.backend.EMS.Model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import com.backend.EMS.DTO.AdminDto;
 
 class AdminTest {
     private Admin admin;
@@ -98,25 +96,25 @@ class AdminTest {
 
     @Test
     void testGetLocation() {
-        admin.setLocation("New York");
-        assertEquals("New York", admin.getLocation());
+        admin.setLocation(Location.Raipur);
+        assertEquals("Raipur", admin.getLocation());
     }
 
     @Test
     void testSetLocation() {
-        admin.setLocation("New York");
-        assertEquals("New York", admin.getLocation());
+        admin.setLocation(Location.Raipur);
+        assertEquals("Raipur", admin.getLocation());
     }
 
     @Test
     void testGetDesignation() {
-        admin.setDesignation("Manager");
-        assertEquals("Manager", admin.getDesignation());
+        admin.setDesignation(Designation.Engineer);
+        assertEquals("Engineer", admin.getDesignation());
     }
 
     @Test
     void testSetDesignation() {
-        admin.setDesignation("Manager");
+        admin.setDesignation(Designation.Engineer);
         assertEquals("Manager", admin.getDesignation());
     }
 
@@ -163,14 +161,14 @@ class AdminTest {
 //        admin.setEmpId("N1123");
 //        admin.setDob("1990-01-01");
 //        admin.setDoj("2021-01-01");
-//        admin.setLocation("New York");
+//        admin.setLocation("Raipur");
 //        admin.setDesignation("Manager");
 //        admin.setContactNo(1234567890L);
 //        admin.setPassword("myPassword");
 //        admin.setConfirmPassword("myPassword");
 //
 //        String expectedString = "AdminDto [name=Praveen, email=Praveen@example.com, empId=N1123, dob=1990-01-01, " +
-//                "doj=2021-01-01, location=New York, designation=Manager, contactNo=1234567890, " +
+//                "doj=2021-01-01, location=Raipur, designation=Manager, contactNo=1234567890, " +
 //                "password=myPassword, confirmPassword=myPassword]";
 //        assertEquals(expectedString, admin.toString());
 //    }

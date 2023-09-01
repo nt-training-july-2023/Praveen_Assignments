@@ -1,6 +1,9 @@
 package com.backend.EMS.DTO;
 
 
+import com.backend.EMS.Model.Designation;
+import com.backend.EMS.Model.Location;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -52,14 +55,14 @@ public class AdminDto {
     /**
      * The location of the admin.
      */
-    @NotBlank(message = "Location cannot be empty")
-    private String location;
+//    @NotBlank(message = "Location cannot be empty")
+    private Location location;
 
     /**
      * The designation of the admin.
      */
-    @NotBlank(message = "Designation cannot be empty")
-    private String designation;
+//    @NotBlank(message = "Designation cannot be empty")
+    private Designation designation;
 
     /**
      * The contact number of the admin.
@@ -70,8 +73,7 @@ public class AdminDto {
     /**
      * The password of the admin.
      */
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$",
-            message = "Password should be at least 6 characters long, have a maximum length of 16, and must contain a mix of characters, digits, special characters")
+    @NotBlank(message = "Password should not be empty")
     private String password;
 
     /**

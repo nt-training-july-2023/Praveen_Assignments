@@ -15,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import com.backend.EMS.DTO.AdminDto;
 import com.backend.EMS.DTO.LoginDto;
 import com.backend.EMS.DTO.ResponseDto;
+import com.backend.EMS.Model.Designation;
+import com.backend.EMS.Model.Location;
 import com.backend.EMS.Service.AdminService;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,11 +40,11 @@ class AdminControllerTest {
         adminDto.setEmail("praveen@example.com");
         adminDto.setDob("14-01-22");
         adminDto.setDoj("23-2-23");
-        adminDto.setLocation("Raipur");
+        adminDto.setLocation(Location.Raipur);
         adminDto.setConfirmPassword("password123");
         adminDto.setPassword("password123");
         adminDto.setContactNo(1234567890L);
-        adminDto.setDesignation("SDE-1");
+        adminDto.setDesignation(Designation.Engineer);
         // Set up other fields of the adminDto
         
         // Mock the behavior of the adminService.addAdmin method

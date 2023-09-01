@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './LoginStyle.css'
+import { Base64 } from 'js-base64';
 
 
 
@@ -10,15 +11,18 @@ function Login() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [message1, setMessage1] = useState('');
-  const navigate = useNavigate();
+  const navigate = useNavigate() 
+  const hashedpassword= Base64.encode(password) 
 
   const handleLogin = async (event) => {
     event.preventDefault();
 
+   
+
     try {
       const response = await axios.post('http://localhost:8080/api/login', {
-        email,
-        password,
+        email:email,
+        password:hashedpassword,
       });
       if(email===""||password===""){
         return alert("please fill the details");

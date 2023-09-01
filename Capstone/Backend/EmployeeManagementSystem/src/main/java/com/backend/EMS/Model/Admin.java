@@ -2,18 +2,24 @@ package com.backend.EMS.Model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Entity class representing an admin.
  */
-@Data
+
 @Entity
-@Table(name = "Admin")
+@Getter
+@Setter
+@Table(name = "Employee")
 public class Admin {
 
     /**
@@ -32,13 +38,14 @@ public class Admin {
     /**
      * The email of the admin.
      */
-    @Column(nullable = false)
+    
+    @Column(nullable = false,unique=true)
     private String email;
 
     /**
      * The employee ID of the admin.
      */
-    @Column(nullable = false)
+    @Column(nullable = false,unique=true)
     private String empId;
 
     /**
@@ -56,19 +63,19 @@ public class Admin {
     /**
      * The location of the admin.
      */
-    @Column(nullable = false)
-    private String location;
+    @Enumerated(EnumType.STRING)
+    private Location location;
 
     /**
      * The designation of the admin.
      */
-    @Column(nullable = false)
-    private String designation;
+    @Enumerated(EnumType.STRING)
+    private Designation designation;
 
     /**
      * The contact number of the admin.
      */
-    @Column(nullable = false)
+    @Column(nullable = false,unique=true)
     private Long contactNo;
 
     /**
@@ -82,5 +89,8 @@ public class Admin {
      */
     @Column(nullable = false)
     private String confirmPassword;
+    
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
 

@@ -1,11 +1,15 @@
 package com.backend.EMS.Service;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.backend.EMS.DTO.AdminDto;
 import com.backend.EMS.DTO.LoginDto;
+import com.backend.EMS.Exception.userAlreadyFound;
 import com.backend.EMS.Model.Admin;
 import com.backend.EMS.Repository.AdminRepository;
 
@@ -14,36 +18,35 @@ import com.backend.EMS.Repository.AdminRepository;
  */
 /**
  * This class provides services for managing administrative user data and
- * authentication-related functionality.
- * It uses an {@link AdminRepository} for data storage and
- * retrieval and a {@link BCryptPasswordEncoder}
- * for secure password encoding and verification.
+ * authentication-related functionality. It uses an {@link AdminRepository} for
+ * data storage and retrieval and a {@link BCryptPasswordEncoder} for secure
+ * password encoding and verification.
  */
 @Service
 public class AdminService {
-/**
- * The repository for administrator data.
- */
+    /**
+     * The repository for administrator data.
+     */
     private final AdminRepository adminRepository;
-/**
- *@param passwordEncoder
- *The encoder used to securely hash and verify passwords
- */
+    /**
+     * @param passwordEncoder The encoder used to securely hash and verify passwords
+     */
     private final BCryptPasswordEncoder passwordEncoder;
+
     /**
      * Constructs a new instance of the AdminManager class.
      *
-     * @param adminRepositorys The repository used for accessing
-     * and managing administrative user data.
-     * @param passwordEncoders The encoder used to
-     *  securely hash and verify passwords.
+     * @param adminRepositorys The repository used for accessing and managing
+     *                         administrative user data.
+     * @param passwordEncoders The encoder used to securely hash and verify
+     *                         passwords.
      */
     @Autowired
-    public AdminService(final AdminRepository adminRepositorys,
-        final BCryptPasswordEncoder passwordEncoders) {
+    public AdminService(final AdminRepository adminRepositorys,BCryptPasswordEncoder passwordEncoders) {
         this.adminRepository = adminRepositorys;
         this.passwordEncoder = passwordEncoders;
     }
+
     /**
      * Add a new admin to the database.
      *
@@ -60,9 +63,20 @@ public class AdminService {
         admin.setDesignation(adminDto.getDesignation());
         admin.setContactNo(adminDto.getContactNo());
 
-        admin.setPassword(this.passwordEncoder.encode(adminDto.getPassword()));
-        admin.setConfirmPassword(this.passwordEncoder.
-        encode(adminDto.getConfirmPassword()));
+        admin.setPassword(adminDto.getPassword());
+        admin.setConfirmPassword(adminDto.getConfirmPassword());
+        if (adminRepository.findByEmail(adminDto.getEmail()) != null) {
+//            System.out.println("inside findbyemail");
+
+            throw new userAlreadyFound("Email is already registered");
+        }
+        if (adminRepository.findByEmpId(adminDto.getEmpId()) != null) {
+
+            throw new userAlreadyFound("EmpId is already registered");
+        }
+        if (adminRepository.findByContactNo(adminDto.getContactNo()) != null) {
+            throw new userAlreadyFound("ContactNo is already registered");
+        }
 
         adminRepository.save(admin);
 //        List<Admin> admins = adminRepository.findAll();
@@ -74,13 +88,13 @@ public class AdminService {
 //           adminRepository.save(admin);
 //           return false;
 //        }
-//        return ResponseEntity.ok("added");
 
-//        if (admin == null) {
-//            return ResponseEntity.ok("not added");
-//        } else {
-//            return ResponseEntity.ok("added");
-//        }
+    }
+    
+    public static String decodePassword(String pwd) {
+        byte[] decodeBytes =Base64.getDecoder().decode(pwd);
+        return new String(decodeBytes, StandardCharsets.UTF_8);
+        
     }
 
     /**
@@ -103,8 +117,7 @@ public class AdminService {
         Admin admin = adminRepository.findByEmail(loginDto.getEmail());
 
         if (admin != null) {
-            return passwordEncoder.matches(loginDto.getPassword(),
-                    admin.getPassword());
+            return passwordEncoder.matches(decodePassword(loginDto.getPassword()), admin.getPassword());
         }
         return false;
     }

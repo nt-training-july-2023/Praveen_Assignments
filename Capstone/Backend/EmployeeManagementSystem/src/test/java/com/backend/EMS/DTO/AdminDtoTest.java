@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.backend.EMS.Model.Designation;
+import com.backend.EMS.Model.Location;
+
 class AdminDtoTest {
     private AdminDto adminDto;
 
@@ -77,26 +80,26 @@ class AdminDtoTest {
 
     @Test
     void testGetLocation() {
-        adminDto.setLocation("New York");
-        assertEquals("New York", adminDto.getLocation());
+        adminDto.setLocation(Location.Indore);
+        assertEquals("Indore", adminDto.getLocation());
     }
 
     @Test
     void testSetLocation() {
-        adminDto.setLocation("New York");
-        assertEquals("New York", adminDto.getLocation());
+        adminDto.setLocation(Location.Canda);
+        assertEquals("Canada", adminDto.getLocation());
     }
 
     @Test
     void testGetDesignation() {
-        adminDto.setDesignation("Manager");
-        assertEquals("Manager", adminDto.getDesignation());
+        adminDto.setDesignation(Designation.Engineer);
+        assertEquals("Engineer", adminDto.getDesignation());
     }
 
     @Test
     void testSetDesignation() {
-        adminDto.setDesignation("Manager");
-        assertEquals("Manager", adminDto.getDesignation());
+        adminDto.setDesignation(Designation.Engineer);
+        assertEquals("Engineer", adminDto.getDesignation());
     }
 
     @Test

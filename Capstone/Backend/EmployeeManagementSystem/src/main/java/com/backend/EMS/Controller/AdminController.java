@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.backend.EMS.DTO.AdminDto;
 import com.backend.EMS.DTO.LoginDto;
 import com.backend.EMS.DTO.ResponseDto;
+import com.backend.EMS.Exception.userAlreadyFound;
 //import com.backend.EMS.Exception.UserNotFound;
 import com.backend.EMS.Service.AdminService;
 
@@ -43,7 +44,7 @@ public class AdminController {
         // Initialize a response DTO
         ResponseDto responseDto = new ResponseDto();
         // Check for validation errors
-        System.out.println(bindingResult.hasErrors());
+//        System.out.println(bindingResult.hasErrors());    
         if (bindingResult.hasErrors()) {
             // Set response values for validation errors
             responseDto.setStatusCode(HttpStatus.BAD_REQUEST.value());
@@ -66,11 +67,18 @@ public class AdminController {
 //            responseDto.setStatusCode(HttpStatus.CREATED.value());
 //            responseDto.setMessage("Admin Registered successfully");
 //            }
-        } catch (Exception e) {
+        } 
+        catch(userAlreadyFound e) {
+            responseDto.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            responseDto.setMessage(e.getMessage());
+            
+        }
+        catch (Exception e) {
             // Set response values for registration error
             responseDto.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-            responseDto.setMessage("Error Occurred");
-        }
+            responseDto.setMessage("Errorrr Occurred");
+           
+        } 
         return responseDto;
     }
 

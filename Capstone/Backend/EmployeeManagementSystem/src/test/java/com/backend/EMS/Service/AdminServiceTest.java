@@ -18,6 +18,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.backend.EMS.DTO.AdminDto;
 import com.backend.EMS.DTO.LoginDto;
 import com.backend.EMS.Model.Admin;
+import com.backend.EMS.Model.Designation;
+import com.backend.EMS.Model.Location;
 import com.backend.EMS.Repository.AdminRepository;
 
 
@@ -45,11 +47,11 @@ class AdminServiceTest {
         adminDto.setEmail("praveen@example.com");
         adminDto.setDob("14-01-22");
         adminDto.setDoj("23-2-23");
-        adminDto.setLocation("Raipur");
+        adminDto.setLocation(Location.Raipur);
         adminDto.setConfirmPassword("password123");
         adminDto.setPassword("password123");
         adminDto.setContactNo(1234567890L);
-        adminDto.setDesignation("SDE-1");
+        adminDto.setDesignation(Designation.Engineer);
 
         when(passwordEncoder.encode(adminDto.getPassword())).thenReturn("encodedPassword");
         when(adminRepository.save(any())).thenReturn(new Admin()); // Simulate successful save
@@ -68,11 +70,11 @@ class AdminServiceTest {
         adminDto.setEmail("praveen@example.com");
         adminDto.setDob("14-01-22");
         adminDto.setDoj("23-2-23");
-        adminDto.setLocation("Raipur");
+        adminDto.setLocation(Location.Raipur);
         adminDto.setConfirmPassword("password123");
         adminDto.setPassword("password123");
         adminDto.setContactNo(1234567890L);
-        adminDto.setDesignation("SDE-1");
+        adminDto.setDesignation(Designation.Engineer);
         // Set up other fields of the adminDto
 
         when(passwordEncoder.encode(adminDto.getPassword())).thenReturn("encodedPassword");
