@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.backend.EMS.DTO.AdminDto;
 import com.backend.EMS.DTO.LoginDto;
 import com.backend.EMS.DTO.ResponseDto;
-import com.backend.EMS.Exception.userAlreadyFound;
+import com.backend.EMS.Exception.UserNotFound;
 //import com.backend.EMS.Exception.UserNotFound;
 import com.backend.EMS.Service.AdminService;
 
@@ -29,9 +29,8 @@ public class AdminController {
      * The AdminService instance used for managing admin-related operations.
      */
     @Autowired
-     private AdminService adminService;
-    
-    
+    private AdminService adminService;
+
     /**
      * Endpoint to register a new admin.
      *
@@ -39,8 +38,7 @@ public class AdminController {
      * @return A response DTO indicating the registration status.
      */
     @PostMapping("/adminRegistration")
-    public final ResponseDto registerAdmin(@RequestBody @Valid
-            final  AdminDto adminDto, BindingResult bindingResult) {
+    public final ResponseDto registerAdmin(@RequestBody @Valid final AdminDto adminDto, BindingResult bindingResult) {
         // Initialize a response DTO
         ResponseDto responseDto = new ResponseDto();
         // Check for validation errors
@@ -52,33 +50,12 @@ public class AdminController {
             responseDto.setData(bindingResult.getAllErrors());
             return responseDto;
         }
-
-        try {
-            // Call the service to add the admin
-            adminService.addAdmin(adminDto);
+        // Call the service to add the admin
+        if (adminService.addAdmin(adminDto)) {
             // Set response values for successful registration
             responseDto.setStatusCode(HttpStatus.CREATED.value());
             responseDto.setMessage("Admin Registered successfully");
-//            if(adminService.addAdmin(adminDto)) {
-//                responseDto.setStatusCode(HttpStatus.CONFLICT.value());
-//                responseDto.setMessage("Admin already Registered");
-//            }else {
-//            // Set response values for successful registration
-//            responseDto.setStatusCode(HttpStatus.CREATED.value());
-//            responseDto.setMessage("Admin Registered successfully");
-//            }
-        } 
-        catch(userAlreadyFound e) {
-            responseDto.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-            responseDto.setMessage(e.getMessage());
-            
         }
-        catch (Exception e) {
-            // Set response values for registration error
-            responseDto.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-            responseDto.setMessage("Errorrr Occurred");
-           
-        } 
         return responseDto;
     }
 
@@ -101,14 +78,11 @@ public class AdminController {
                 responseDto.setStatusCode(HttpStatus.OK.value());
                 responseDto.setMessage("Login Successful");
             } else {
-                // Set response values for incorrect password
-                responseDto.setStatusCode(HttpStatus.UNAUTHORIZED.value());
-                responseDto.setMessage("Password Incorrect");
+                ;
+                throw new UserNotFound("Password Incorrectt");
             }
         } else {
-            // Set response values for email not registered
-            responseDto.setStatusCode(HttpStatus.NOT_FOUND.value());
-            responseDto.setMessage("Email not registered");
+            throw new UserNotFound("Email is not registered");
         }
         return responseDto;
     }

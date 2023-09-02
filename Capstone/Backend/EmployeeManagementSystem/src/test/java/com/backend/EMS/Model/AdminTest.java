@@ -97,25 +97,25 @@ class AdminTest {
     @Test
     void testGetLocation() {
         admin.setLocation(Location.Raipur);
-        assertEquals("Raipur", admin.getLocation());
+        assertEquals(Location.Raipur, admin.getLocation());
     }
 
     @Test
     void testSetLocation() {
         admin.setLocation(Location.Raipur);
-        assertEquals("Raipur", admin.getLocation());
+        assertEquals(Location.Raipur, admin.getLocation());
     }
 
     @Test
     void testGetDesignation() {
         admin.setDesignation(Designation.Engineer);
-        assertEquals("Engineer", admin.getDesignation());
+        assertEquals(Designation.Engineer, admin.getDesignation());
     }
 
     @Test
     void testSetDesignation() {
         admin.setDesignation(Designation.Engineer);
-        assertEquals("Manager", admin.getDesignation());
+        assertEquals(Designation.Engineer, admin.getDesignation());
     }
 
     @Test

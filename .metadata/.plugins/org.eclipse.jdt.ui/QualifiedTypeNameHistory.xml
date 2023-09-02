@@ -15,7 +15,6 @@
     <fullyQualifiedTypeName name="com.praveen.FirstJPA.Emp"/>
     <fullyQualifiedTypeName name="com.praveen.empMan.model.Employee"/>
     <fullyQualifiedTypeName name="com.praveen.empMan.Service.EmployeeService"/>
-    <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
     <fullyQualifiedTypeName name="jakarta.persistence.Id"/>
     <fullyQualifiedTypeName name="com.backend.EMS.DTO.Response_DTO"/>
     <fullyQualifiedTypeName name="org.junit.jupiter.api.Test"/>
@@ -35,7 +34,6 @@
     <fullyQualifiedTypeName name="jakarta.validation.Valid"/>
     <fullyQualifiedTypeName name="org.mockito.Mock"/>
     <fullyQualifiedTypeName name="org.springframework.security.core.userdetails.UsernameNotFoundException"/>
-    <fullyQualifiedTypeName name="com.backend.EMS.Exception.UserNotFound"/>
     <fullyQualifiedTypeName name="lombok.Getter"/>
     <fullyQualifiedTypeName name="lombok.Setter"/>
     <fullyQualifiedTypeName name="jakarta.persistence.Enumerated"/>
@@ -43,4 +41,9 @@
     <fullyQualifiedTypeName name="com.backend.EMS.Model.Location"/>
     <fullyQualifiedTypeName name="com.backend.EMS.Model.Designation"/>
     <fullyQualifiedTypeName name="com.backend.EMS.Exception.userAlreadyFound"/>
+    <fullyQualifiedTypeName name="java.util.Base64"/>
+    <fullyQualifiedTypeName name="java.nio.charset.StandardCharsets"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.Exception.UserNotFound"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ResponseStatus"/>
+    <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
 </qualifiedTypeNameHistroy>

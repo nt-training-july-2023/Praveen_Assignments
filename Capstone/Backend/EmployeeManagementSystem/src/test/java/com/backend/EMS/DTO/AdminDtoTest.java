@@ -81,25 +81,25 @@ class AdminDtoTest {
     @Test
     void testGetLocation() {
         adminDto.setLocation(Location.Indore);
-        assertEquals("Indore", adminDto.getLocation());
+        assertEquals(Location.Indore, adminDto.getLocation());
     }
 
     @Test
     void testSetLocation() {
         adminDto.setLocation(Location.Canda);
-        assertEquals("Canada", adminDto.getLocation());
+        assertEquals(Location.Canda, adminDto.getLocation());
     }
 
     @Test
     void testGetDesignation() {
         adminDto.setDesignation(Designation.Engineer);
-        assertEquals("Engineer", adminDto.getDesignation());
+        assertEquals(Designation.Engineer, adminDto.getDesignation());
     }
 
     @Test
     void testSetDesignation() {
         adminDto.setDesignation(Designation.Engineer);
-        assertEquals("Engineer", adminDto.getDesignation());
+        assertEquals(Designation.Engineer, adminDto.getDesignation());
     }
 
     @Test

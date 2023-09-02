@@ -1,8 +1,12 @@
 package com.backend.EMS.Exception;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 /**
  * Custom exception class to represent a user not found scenario.
  */
+@ResponseStatus(HttpStatus.NOT_FOUND)
 public class UserNotFound extends RuntimeException {
 
 

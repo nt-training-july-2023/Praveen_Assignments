@@ -42,7 +42,7 @@ public class AdminService {
      *                         passwords.
      */
     @Autowired
-    public AdminService(final AdminRepository adminRepositorys,BCryptPasswordEncoder passwordEncoders) {
+    public AdminService(final AdminRepository adminRepositorys, BCryptPasswordEncoder passwordEncoders) {
         this.adminRepository = adminRepositorys;
         this.passwordEncoder = passwordEncoders;
     }
@@ -52,7 +52,7 @@ public class AdminService {
      *
      * @param adminDto The adminDto
      */
-    public final void addAdmin(final AdminDto adminDto) {
+    public final boolean addAdmin(final AdminDto adminDto) {
         Admin admin = new Admin();
         admin.setName(adminDto.getName());
         admin.setEmail(adminDto.getEmail());
@@ -79,6 +79,7 @@ public class AdminService {
         }
 
         adminRepository.save(admin);
+        return true;
 //        List<Admin> admins = adminRepository.findAll();
 //        System.out.println(admins);
 //        if (!admins.isEmpty()) {
@@ -90,11 +91,11 @@ public class AdminService {
 //        }
 
     }
-    
+
     public static String decodePassword(String pwd) {
-        byte[] decodeBytes =Base64.getDecoder().decode(pwd);
+        byte[] decodeBytes = Base64.getDecoder().decode(pwd);
         return new String(decodeBytes, StandardCharsets.UTF_8);
-        
+
     }
 
     /**
