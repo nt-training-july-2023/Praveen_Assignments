@@ -126,17 +126,17 @@ class AdminDtoTest {
         assertEquals("myPassword", adminDto.getPassword());
     }
 
-    @Test
-    void testGetConfirmPassword() {
-        adminDto.setConfirmPassword("myPassword");
-        assertEquals("myPassword", adminDto.getConfirmPassword());
-    }
-
-    @Test
-    void testSetConfirmPassword() {
-        adminDto.setConfirmPassword("myPassword");
-        assertEquals("myPassword", adminDto.getConfirmPassword());
-    }
+//    @Test
+//    void testGetConfirmPassword() {
+//        adminDto.setConfirmPassword("myPassword");
+//        assertEquals("myPassword", adminDto.getConfirmPassword());
+//    }
+//
+//    @Test
+//    void testSetConfirmPassword() {
+//        adminDto.setConfirmPassword("myPassword");
+//        assertEquals("myPassword", adminDto.getConfirmPassword());
+//    }
 
 //    @Test
 //    void testToString() {

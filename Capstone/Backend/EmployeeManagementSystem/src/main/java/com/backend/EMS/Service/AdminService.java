@@ -64,7 +64,7 @@ public class AdminService {
         admin.setContactNo(adminDto.getContactNo());
 
         admin.setPassword(adminDto.getPassword());
-        admin.setConfirmPassword(adminDto.getConfirmPassword());
+//        admin.setConfirmPassword(adminDto.getConfirmPassword());
         if (adminRepository.findByEmail(adminDto.getEmail()) != null) {
 //            System.out.println("inside findbyemail");
 

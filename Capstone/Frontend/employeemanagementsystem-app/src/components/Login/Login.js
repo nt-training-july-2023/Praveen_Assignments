@@ -47,11 +47,13 @@ function Login() {
         password: hashedpassword,
       });
 
-      if (response.data.statusCode === 200) {
+      if (response.status === 200) {
         setMessage1("Login Successful");
         setEmail("");
         setPassword("");
         setMessage("");
+        navigate("/adminDashboard");
+        
       }
     } catch (error) {
       setMessage(error.response.data.message);
@@ -63,8 +65,12 @@ function Login() {
     navigate("/register");
   };
 
+
+
+
   return (
     <div className="login-page">
+      {/* <header>Employee Management Portal</header> */}
       {/* <h2>Employee Management Portal</h2> */}
       <div className="login-container">
         <h2>Login</h2>

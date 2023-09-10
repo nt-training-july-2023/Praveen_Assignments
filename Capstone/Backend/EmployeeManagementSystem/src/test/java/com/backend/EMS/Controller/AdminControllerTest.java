@@ -41,7 +41,7 @@ class AdminControllerTest {
         adminDto.setDob("14-01-22");
         adminDto.setDoj("23-2-23");
         adminDto.setLocation(Location.Raipur);
-        adminDto.setConfirmPassword("password123");
+//        adminDto.setConfirmPassword("password123");
         adminDto.setPassword("password123");
         adminDto.setContactNo(1234567890L);
         adminDto.setDesignation(Designation.Engineer);

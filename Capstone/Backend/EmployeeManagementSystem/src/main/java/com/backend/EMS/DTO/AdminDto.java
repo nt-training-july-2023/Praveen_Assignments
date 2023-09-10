@@ -1,8 +1,11 @@
 package com.backend.EMS.DTO;
 
 
+import java.util.List;
+
 import com.backend.EMS.Model.Designation;
 import com.backend.EMS.Model.Location;
+import com.backend.EMS.Model.Role;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -20,17 +23,19 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AdminDto {
+    private Long id;
 
     /**
      * The name of the admin.
      */
     @NotBlank(message = "Name cannot be empty")
+//    @Pattern(regexp="^[[A-Za-z\\s]$]")
     private String name;
 
     /**
      * The email of the admin.
      */
-    @Email(message = "Email must be a valid email address")
+//    @Email(message = "Email must be a valid email address")
     @Pattern(regexp = ".+@nucleusteq\\.com$", message = "Email must end with @nucleusteq.com")
     private String email;
 
@@ -61,7 +66,7 @@ public class AdminDto {
     /**
      * The designation of the admin.
      */
-//    @NotBlank(message = "Designation cannot be empty")
+//    @NotBlank(message = "Designation cannot be empty")-
     private Designation designation;
 
     /**
@@ -79,14 +84,19 @@ public class AdminDto {
     /**
      * The confirmation password for validation.
      */
-    @NotBlank(message = "Confirm Password cannot be empty")
-    private String confirmPassword;
+//    private String confirmPassword;
+    /**
+     * The role of employee.
+     */
+    private Role role;
 
     /**
-     * Get the name of the admin.
-     *
-     * @return The name.
+     * The skills of employee
      */
+    private List<String> skills;
+    
+    
+  
 
 }
 

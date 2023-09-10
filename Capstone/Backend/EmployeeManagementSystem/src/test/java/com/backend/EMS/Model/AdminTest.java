@@ -142,17 +142,17 @@ class AdminTest {
         assertEquals("myPassword", admin.getPassword());
     }
 
-    @Test
-    void testGetConfirmPassword() {
-        admin.setConfirmPassword("myPassword");
-        assertEquals("myPassword", admin.getConfirmPassword());
-    }
-
-    @Test
-    void testSetConfirmPassword() {
-        admin.setConfirmPassword("myPassword");
-        assertEquals("myPassword", admin.getConfirmPassword());
-    }
+//    @Test
+//    void testGetConfirmPassword() {
+//        admin.setConfirmPassword("myPassword");
+//        assertEquals("myPassword", admin.getConfirmPassword());
+//    }
+//
+//    @Test
+//    void testSetConfirmPassword() {
+//        admin.setConfirmPassword("myPassword");
+//        assertEquals("myPassword", admin.getConfirmPassword());
+//    }
 
 //    @Test
 //    void testToString() {

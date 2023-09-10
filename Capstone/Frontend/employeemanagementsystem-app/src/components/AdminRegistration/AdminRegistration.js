@@ -187,13 +187,15 @@ function AdminRegistration() {
         toastId,
       });
       return; // Exit the function if there are errors
-    } else if (email !== "ankita@nucleusteq.com") {
-      toast.error("Admin is already registered", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-      return;
-    } else {
+    }
+    //  else if (email !== "ankita@nucleusteq.com") {
+    //   toast.error("Admin is already registered", {
+    //     position: "top-right",
+    //     autoClose: 3000,
+    //   });
+    //   return;
+    // }
+     else {
       try {
         const response = await axios.post(
           "http://localhost:8080/api/adminRegistration",
@@ -207,7 +209,7 @@ function AdminRegistration() {
             designation: designation,
             contactNo: contactNo,
             password: hashedpassword,
-            confirmPassword: hashedpassword,
+            // confirmPassword: hashedpassword,
           }
         );
 
@@ -217,7 +219,7 @@ function AdminRegistration() {
         //   return alert("admin is already registered")
 
         // }
-        if (response.data.statusCode === 201) {
+        if (response.status === 200) {
           toast.success("Admin Registered", {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 3000, //3 seconds
@@ -460,7 +462,7 @@ function AdminRegistration() {
         </button>
       </div>
     </div>
-    // </div>
+    //  </div>
   );
 }
 

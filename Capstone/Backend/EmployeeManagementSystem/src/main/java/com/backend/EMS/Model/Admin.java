@@ -1,14 +1,18 @@
 package com.backend.EMS.Model;
 
+import java.util.List;
+
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -87,10 +91,17 @@ public class Admin {
     /**
      * The confirmation password for the admin.
      */
-    @Column(nullable = false)
-    private String confirmPassword;
-    
+//    @Column
+//    private String confirmPassword;
+    /**
+     * The role for the employee.
+     */
     @Enumerated(EnumType.STRING)
     private Role role;
+    /**
+     * The skills for the employee.
+     */
+    @Column
+    private List<String> skills;
 }
 

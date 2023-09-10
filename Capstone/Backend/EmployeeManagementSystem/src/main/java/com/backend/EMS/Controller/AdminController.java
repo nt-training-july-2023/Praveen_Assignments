@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.backend.EMS.DTO.AdminDto;
 import com.backend.EMS.DTO.LoginDto;
 import com.backend.EMS.DTO.ResponseDto;
+import com.backend.EMS.Exception.AnnotationValidation;
 import com.backend.EMS.Exception.UserNotFound;
+import com.backend.EMS.Service.AddEmployeeService;
 //import com.backend.EMS.Exception.UserNotFound;
 import com.backend.EMS.Service.AdminService;
 
@@ -42,21 +44,40 @@ public class AdminController {
         // Initialize a response DTO
         ResponseDto responseDto = new ResponseDto();
         // Check for validation errors
-//        System.out.println(bindingResult.hasErrors());    
+        System.out.println(bindingResult.hasErrors());    
         if (bindingResult.hasErrors()) {
             // Set response values for validation errors
-            responseDto.setStatusCode(HttpStatus.BAD_REQUEST.value());
-            responseDto.setMessage("Validation failed");
-            responseDto.setData(bindingResult.getAllErrors());
-            return responseDto;
+            System.out.println(bindingResult.getAllErrors());
+            throw new AnnotationValidation("Validation failed from backend");
+          
+      
+//            responseDto.setMessage("Validation failed");
+////            responseDto.setData(bindingResult.getAllErrors());
+//            return responseDto;
         }
         // Call the service to add the admin
         if (adminService.addAdmin(adminDto)) {
             // Set response values for successful registration
-            responseDto.setStatusCode(HttpStatus.CREATED.value());
             responseDto.setMessage("Admin Registered successfully");
         }
         return responseDto;
+    }
+    
+    @Autowired
+    private AddEmployeeService addEmployeeService;
+    
+    @PostMapping("/addEmployee")
+    public final ResponseDto addEmployee(@RequestBody AdminDto adminDto) {
+//        Initialize a responseDto
+        ResponseDto responseDto = new ResponseDto();
+        // Call the service to add the employee
+        if (addEmployeeService.addEmployee(adminDto)) {
+            // Set response values for successful registration
+            responseDto.setMessage("Employee Added successfully");
+        }
+        return responseDto;
+        
+        
     }
 
     /**
@@ -75,7 +96,6 @@ public class AdminController {
             // Validate the user's credentials
             if (adminService.userValidation(loginDto)) {
                 // Set response values for successful login
-                responseDto.setStatusCode(HttpStatus.OK.value());
                 responseDto.setMessage("Login Successful");
             } else {
                 ;

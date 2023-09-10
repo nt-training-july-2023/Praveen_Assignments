@@ -1,4 +1,6 @@
 package com.backend.EMS;
+import org.hibernate.annotations.Bag;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -13,6 +15,11 @@ public class EmployeeManagementSystemApplication {
      */
     public static void main(final String[] args) {
         SpringApplication.run(EmployeeManagementSystemApplication.class, args);
+    }
+    
+    @Bag
+    public ModelMapper modelmapper() {
+        return new ModelMapper();
     }
 
 }
