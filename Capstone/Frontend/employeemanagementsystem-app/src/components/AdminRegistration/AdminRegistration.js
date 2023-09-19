@@ -7,6 +7,7 @@ import locations from "../Dropdowns/Locations";
 import bcrypt from "bcryptjs";
 import { Slide, toast } from "react-toastify"; // Import toast and ToastContainer from react-toastify
 import "react-toastify/dist/ReactToastify.css"; // Import the default styles
+import Main_Header from "../Header/Main_Header";
 
 function AdminRegistration() {
   const [name, setName] = useState("");
@@ -59,13 +60,6 @@ function AdminRegistration() {
     if (!email.endsWith("@nucleusteq.com")) {
       setEmailError("Email must end with @nucleusteq.com");
     }
-    // else if(email!=="ankita@nucleusteq.com"){
-    //   setEmailError("Admin is already registered")
-    //   toast.error("Admin is already registered", {
-    //     position: "top-right",
-    //     autoClose: 3000
-    //   });
-    // }
     else {
       setEmailError("");
     }
@@ -188,13 +182,13 @@ function AdminRegistration() {
       });
       return; // Exit the function if there are errors
     }
-    //  else if (email !== "ankita@nucleusteq.com") {
-    //   toast.error("Admin is already registered", {
-    //     position: "top-right",
-    //     autoClose: 3000,
-    //   });
-    //   return;
-    // }
+     else if (email !== "ankita.sharma@nucleusteq.com") {
+      toast.error("Admin is already registered", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
+    }
      else {
       try {
         const response = await axios.post(
@@ -259,7 +253,8 @@ function AdminRegistration() {
     }
   };
   return (
-    // <div className="container">
+
+     <div className="container">
     <div className="form">
       <div className="form-header">
         {/* <div className="RegistrationFormContainer" > */}
@@ -462,7 +457,8 @@ function AdminRegistration() {
         </button>
       </div>
     </div>
-    //  </div>
+      </div>
+  
   );
 }
 

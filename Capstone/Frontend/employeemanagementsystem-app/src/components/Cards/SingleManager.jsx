@@ -4,7 +4,7 @@ import axios from "axios";
 // import "./Manager.css";
 
 function SingleManagerCard({employee}) {
-  console.log(employee.id);
+  // console.log(employee.id);
   const [projectList, setProjectList] = useState([]);
   const [selectedProject, setSelectedProject] = useState("");
 
@@ -25,6 +25,8 @@ function SingleManagerCard({employee}) {
   function handleChange(event) {
     setSelectedProject(event.target.value);
   }
+
+  
  
   return (
     <div className="container">
@@ -55,7 +57,8 @@ function SingleManagerCard({employee}) {
               </div>
 
               <p>
-                <span style={{ fontWeight: "bold" }}>Location : </span>
+                <span style={{ fontWeight: "bold" }}>L
+                ocation : </span>
                 {employee.location}
               </p>
               <p>
@@ -75,13 +78,28 @@ function SingleManagerCard({employee}) {
               </p>
               <br></br>
               <p style={{ marginTop: "1rem" }}>
-                <span style={{ fontWeight: "bold" }}>Skills : </span>{" "}
+                <span style={{ fontWeight: "bold" }}>Project Skills : </span>{" "}
                 {projectList
                   .filter(
                     (project) => project.id.toString() === selectedProject
                   )
                   .map((project) =>
                     project.requiredSkills.map((skill, index) => (
+                      <span key={index}>
+                        {index === 0 ? "" : ", "}
+                        {skill}
+                      </span>
+                    ))
+                  )}
+              </p>
+              <p style={{ marginTop: "1rem" }}>
+                <span style={{ fontWeight: "bold" }}>Team : </span>{" "}
+                {projectList
+                  .filter(
+                    (project) => project.id.toString() === selectedProject
+                  )
+                  .map((project) =>
+                    project.team.map((skill, index) => (
                       <span key={index}>
                         {index === 0 ? "" : ", "}
                         {skill}

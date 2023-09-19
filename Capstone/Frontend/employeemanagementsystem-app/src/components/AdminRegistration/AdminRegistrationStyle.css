@@ -34,7 +34,7 @@ body{
 }
 .form-header{
   text-align: center;
-  font-family: 'Forum', cursive;
+  /* font-family: 'Forum', cursive; */
 }
 .form-group{
   display: flex;

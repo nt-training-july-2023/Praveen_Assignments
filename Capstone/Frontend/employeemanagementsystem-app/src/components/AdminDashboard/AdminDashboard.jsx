@@ -33,11 +33,19 @@ function AdminDashboard() {
   };
 
   const logout = () => {
-    // Add your logout logic here
-    // For example, you can clear the user's session or token and redirect them to the login page
-    // Replace the following line with your actual logout logic
+    localStorage.removeItem('IsLoggedIn');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('email');
     navigate("/")
   };
+
+  const userRole = localStorage.getItem('userRole');
+  if(userRole!='Admin'){
+    return(
+      // <div>UnauthrizedAccess</div>
+      <h1>unauthorized access</h1>
+    )
+  }
 
   return (
     <div className="body-container">
@@ -72,6 +80,9 @@ function AdminDashboard() {
         </div>
         <div>
           <div className="tab-buttons">
+          <button className="logout-btn" onClick={logout}>
+            Logout
+          </button>
             <button
               className={`add-employee-btn ${
                 activeTab === "Employee" ? "active" : ""
@@ -81,10 +92,10 @@ function AdminDashboard() {
               Add Employee
             </button>
             <button
-              className={`add-employee-btn ${
+              className={`add-manager-btn ${
                 activeTab === "Manager" ? "active" : ""
               }`}
-              onClick={toAddManager}
+              // onClick={toAddManager}
             >
               Add Manager
             </button>
@@ -95,12 +106,10 @@ function AdminDashboard() {
               onClick={toAddProject}
             >
               Add Project
-            </button>
+            </button> 
+         </div>
+         
           </div>
-          <button className="logout-btn" onClick={logout}>
-            Logout
-          </button>
-        </div>
       </div>
       <div className="card-container">
         {activeTab === "Employee" && (

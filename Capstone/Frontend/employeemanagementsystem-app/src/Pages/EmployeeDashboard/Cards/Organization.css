@@ -1,0 +1,70 @@
+.EDcard-card-container {
+    /* display: flex;
+    flex-wrap: wrap;
+    height: 200px ;
+    overflow-y: scroll;
+    padding: 20px; */
+    display:flex;
+    flex-wrap: wrap;
+    padding: 15px;
+    overflow-y: scroll;
+    /* height: 500px ; */
+  }
+  
+  .EDcard-card-container::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+  
+  .EDcard-card {
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgb(139, 132, 138);
+    margin: 5px;
+    height:180px ;
+    width: 24rem;
+    margin-top: 2rem;
+    margin-left: 1rem;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+  
+  .EDcard-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .EDcard-column {
+    flex: 1 1;
+    padding: 10px;
+  }
+  
+  .EDcard-card h2 {
+    font-size: 1.5rem !important;
+    margin-bottom: 0.5rem;
+    color: #000000;
+  }
+  
+  p {
+    margin: 0.5rem 0;
+    font-size: 1rem !important;
+    color: #000000;
+  }
+  
+  .EDcard-assign-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px !important;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .EDcard-assign-button:hover {
+    background-color: #0056b3;
+  }
+  
+

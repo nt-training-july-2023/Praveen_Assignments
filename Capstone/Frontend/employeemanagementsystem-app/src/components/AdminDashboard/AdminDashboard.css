@@ -1,119 +1,14 @@
-/* 
-.body-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.nav-bar {
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
-  width: 100%;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.nav-bar h4 {
-  margin: 0;
-  font-size: 24px;
-}
-
-.tabs {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.employee-tab,
-.manager-tab,
-.project-tab {
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.employee-tab.active,
-.manager-tab.active,
-.project-tab.active {
-  background-color: #555;
-}
-
-.tab-buttons {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.add-employee-btn,
-.add-manager-btn,
-.add-project-btn {
-  cursor: pointer;
-  padding: 5px 10px;
-  margin-left: 10px;
-  background-color: #ff6347;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.add-employee-btn,
-.add-manager-btn,
-.add-project-btn {
-  display: none;
-}
-
-
-.add-employee-btn.active,
-.add-manager-btn.active,
-.add-project-btn.active {
-  display: block;
-  padding: 10px 15px;
-  margin-top: 12px;
-  background-color: #77b1eb;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 20px;
-} */
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 
 
 .body-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: #ffffff;
+  /* min-height: 100vh; */
 }
 
 .nav-bar {
-  background-color: #333;
+  background: linear-gradient(#19161a, #420248);
   color: #fff;
   padding: 20px;
   width: 100%;
@@ -127,14 +22,16 @@
 }
 
 .nav-bar h4 {
-  margin: 0;
-  font-size: 24px;
+  margin-top: -30%;
+  font-size: 30px;
+  /* font-style: italic; */
 }
 
 .tabs {
   display: flex;
   justify-content: center;
   margin-top: 10px;
+  margin-bottom:-5%;
 }
 
 .employee-tab,
@@ -160,100 +57,7 @@
 
 .add-employee-btn,
 .add-project-btn,
-.logout-btn {
-  cursor: pointer;
-  padding: 10px 15px;
-  margin: 5px;
-  background-color: #ff6347;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-  display: none;
-}
-
-.add-employee-btn.active,
-.add-project-btn.active,
-.logout-btn.active {
-  display: block;
-  padding: 10px 15px;
-  margin-top: 12px;
-  background-color: #77b1eb;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 20px;
-} */
-
-
-
-
-
-.body-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.nav-bar {
-  background: linear-gradient(#19161a, #420248);
-  color: #fff;
-  padding: 20px;
-  width: 100%;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.nav-bar h4 {
-  margin: 0;
-  font-size: 30px;
-  font-style: italic;
-}
-
-.tabs {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.employee-tab,
-.manager-tab,
-.project-tab {
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.employee-tab.active,
-.manager-tab.active,
-.project-tab.active {
-  background-color: #555;
-}
-
-.tab-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.add-employee-btn,
-.add-project-btn {
+.add-manager-btn {
   cursor: pointer;
   padding: 10px 15px;
   margin: 5px;
@@ -274,6 +78,7 @@
   display: block;
   padding: 10px 15px;
   margin-top: 12px;
+  /* opacity: 0; */
   background-color: #107deb;
   color: #fff;
   border: none;
@@ -281,6 +86,20 @@
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease;
+}
+.add-manager-btn.active{
+  display: block;
+  padding: 10px 15px;
+  margin-top: 12px;
+  /* opacity: 0; */
+  background-color: #107deb;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  opacity: 0;
 }
 .add-project-btn:hover ,.add-employee-btn:hover{ 
   background-color: rgb(13, 10, 107)!important;

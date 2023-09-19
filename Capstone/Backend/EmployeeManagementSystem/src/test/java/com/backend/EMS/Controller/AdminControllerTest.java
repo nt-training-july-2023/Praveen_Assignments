@@ -1,93 +1,139 @@
 package com.backend.EMS.Controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
-
+import com.backend.EMS.Controller.AdminController;
+import com.backend.EMS.DTO.*;
+import com.backend.EMS.Exception.AnnotationValidation;
+import com.backend.EMS.Service.AddEmployeeService;
+import com.backend.EMS.Service.AdminService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
+import org.mockito.MockitoAnnotations;
 import org.springframework.validation.BindingResult;
 
-import com.backend.EMS.DTO.AdminDto;
-import com.backend.EMS.DTO.LoginDto;
-import com.backend.EMS.DTO.ResponseDto;
-import com.backend.EMS.Model.Designation;
-import com.backend.EMS.Model.Location;
-import com.backend.EMS.Service.AdminService;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-@ExtendWith(MockitoExtension.class)
-class AdminControllerTest {
-    
-    @Mock
-    private AdminService adminService; 
-    
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+
+public class AdminControllerTest {
+
     @InjectMocks
     private AdminController adminController;
-    BindingResult bindingResult;
-    
 
+    @Mock
+    private AdminService adminService;
 
-    @Test
-    void testRegisterAdmin() {
-        // Create an AdminDto with relevant data
-        AdminDto adminDto = new AdminDto();
-        adminDto.setName("praveen");
-        adminDto.setEmpId("N0123");
-        adminDto.setEmail("praveen@example.com");
-        adminDto.setDob("14-01-22");
-        adminDto.setDoj("23-2-23");
-        adminDto.setLocation(Location.Raipur);
-//        adminDto.setConfirmPassword("password123");
-        adminDto.setPassword("password123");
-        adminDto.setContactNo(1234567890L);
-        adminDto.setDesignation(Designation.Engineer);
-        // Set up other fields of the adminDto
-        
-        // Mock the behavior of the adminService.addAdmin method
-//        when(adminService.addAdmin(adminDto)).thenReturn(true);
-        
-        // Call the registerAdmin method of the adminController
-//        ResponseDto responseDto = adminController.registerAdmin(adminDto,bindingResult);
-//        
-//        // Assert the expected response values
-//        assertEquals(HttpStatus.CREATED.value(), responseDto.getStatusCode());
-//        assertEquals("Admin Registered successfully", responseDto.getMessage());
-        
-        // Mock the behavior of the BindingResult object
-        BindingResult bindingResult = Mockito.mock(BindingResult.class);
-        Mockito.when(bindingResult.hasErrors()).thenReturn(false); // Set this according to your test case
-        
-        // Call the registerAdmin method of the adminController
-        ResponseDto responseDto = adminController.registerAdmin(adminDto, bindingResult);
-        
-        // Assert the expected response values
-        assertEquals(HttpStatus.CREATED.value(), responseDto.getStatusCode());
-        assertEquals("Admin Registered successfully", responseDto.getMessage());
-      
+    @Mock
+    private AddEmployeeService addEmployeeService;
+
+    @Mock
+    private BindingResult bindingResult;
+
+    @BeforeEach
+    public void init() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    void testLogin() {
-     // Create a LoginDto with relevant data
+    public void testRegisterAdmin_Success() {
+        EmployeeDto employeeDto = new EmployeeDto();
+        when(adminService.addAdmin(any(EmployeeDto.class))).thenReturn(new ResponseDto("Registration successful"));
+
+        ResponseDto response = adminController.registerAdmin(employeeDto, bindingResult);
+
+        verify(adminService, times(1)).addAdmin(any(EmployeeDto.class));
+
+        assertEquals("Registration successful", response.getMessage());
+    }
+
+    @Test
+    public void testAddEmployee_Success() {
+        EmployeeDto employeeDto = new EmployeeDto();
+        when(addEmployeeService.addEmployee(any(EmployeeDto.class))).thenReturn(new ResponseDto("Employee added successfully"));
+
+        ResponseDto response = adminController.addEmployee(employeeDto, bindingResult);
+
+        verify(addEmployeeService, times(1)).addEmployee(any(EmployeeDto.class));
+
+        assertEquals("Employee added successfully", response.getMessage());
+    }
+    @Test
+    public void testLogin_Success() {
         LoginDto loginDto = new LoginDto();
-        loginDto.setEmail("praveen@example.com");
-        loginDto.setPassword("password123");
-        // Set up other fields of the loginDto
         
-        // Mock the behavior of the adminService.isEmailExist and adminService.userValidation methods
-        when(adminService.isEmailExist(loginDto)).thenReturn(true);
-        when(adminService.userValidation(loginDto)).thenReturn(true);
+        // Create a LoginResponseDto and set the message using the setter method
+        LoginResponseDto loginResponseDto = new LoginResponseDto();
+        loginResponseDto.setMessage("Login successful");
         
-        // Call the login method of the adminController
-        ResponseDto responseDto = adminController.login(loginDto);
-        
-        // Assert the expected response values
-        assertEquals(HttpStatus.OK.value(), responseDto.getStatusCode());
-        assertEquals("Login Successful", responseDto.getMessage());
+        // Mock the behavior of the adminService
+        when(adminService.login(any(LoginDto.class))).thenReturn(loginResponseDto);
+
+        LoginResponseDto response = adminController.login(loginDto);
+
+        verify(adminService, times(1)).login(any(LoginDto.class));
+
+        // Assert the response
+        assertNotNull(response);
+        assertEquals("Login successful", response.getMessage());
     }
 
+    @Test
+    public void testUpdateEmployee_Success() {
+        Long id = 1L;
+        Map<String, Long> updatedDetails = new HashMap<>();
+        updatedDetails.put("projectId", 2L);
+        updatedDetails.put("managerId", 3L);
+
+        when(addEmployeeService.updateEmployee(eq(id), eq(2L), eq(3L))).thenReturn(new ResponseDto("Employee updated successfully"));
+
+        ResponseDto response = adminController.updateEmployee(id, updatedDetails);
+
+        verify(addEmployeeService, times(1)).updateEmployee(eq(id), eq(2L), eq(3L));
+
+        assertEquals("Employee updated successfully", response.getMessage());
+    }
+
+    @Test
+    public void testGetAllManagersAndEmployees_Success() {
+        List<EmployeeOutDto> employeeList = Arrays.asList(new EmployeeOutDto(), new EmployeeOutDto());
+        when(addEmployeeService.getAllEmployeesAndManagers()).thenReturn(employeeList);
+
+        List<EmployeeOutDto> response = adminController.getAllManagersAndEmployees();
+
+        verify(addEmployeeService, times(1)).getAllEmployeesAndManagers();
+
+        assertEquals(2, response.size());
+    }
+
+    @Test
+    public void testGetByEmployeeEmail_Success() {
+        String email = "test@example.com";
+        EmployeeOutDto employee = new EmployeeOutDto();
+        when(addEmployeeService.getEmployeeByEmail(eq(email))).thenReturn(employee);
+
+        EmployeeOutDto response = adminController.getByEmployeeEmail(email);
+
+        verify(addEmployeeService, times(1)).getEmployeeByEmail(eq(email));
+
+        assertNotNull(response);
+    }
+
+//    @Test
+//    public void testUpdateSkill_Success() {
+//        Long id = 1L;
+//        EmployeeDto employeeDto = new EmployeeDto();
+//        when(addEmployeeService.updateSkills(eq(id), any(EmployeeDto.class))).thenReturn(new ResponseDto("Skills updated successfully"));
+//
+//        ResponseDto response = adminController.updateSkill(id, employeeDto);
+//
+//        verify(addEmployeeService, times(1)).updateSkills(eq(id), any(EmployeeDto.class));
+//
+//        assertEquals("Skills updated successfully", response.getMessage());
+//    }
 }

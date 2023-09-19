@@ -1,31 +1,72 @@
 package com.backend.EMS.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.util.Objects;
 
 /**
  * Data Transfer Object (DTO) for handling response information.
  */
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class ResponseDto {
     /**
-     * The Http statusCode associated with the response.
+     * The Response message associated with the response.
      */
-//    private int statusCode;
-//    /**
-//     * The Response message associated with the response.
-//     */
     private String message;
-    
- 
-//    /**
-//     * The Response data is associated with the response.
-//     */
-//    private Object data;
-}
 
+    /**
+     * Get the message associated with the response.
+     *
+     * @return The message associated with the response.
+     */
+    public final String getMessage() {
+        return message;
+    }
+
+    /**
+     * Set the message associated with the response.
+     *
+     * @param messages The message associated with the response.
+     */
+    public final void setMessage(final String messages) {
+        this.message = messages;
+    }
+
+    /**
+     * Default constructor for ResponseDto.
+     */
+    public ResponseDto() {
+        super();
+    }
+
+    @Override
+    public final String toString() {
+        return "ResponseDto [message=" + message + "]";
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(message);
+    }
+
+    @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        ResponseDto other = (ResponseDto) obj;
+        return Objects.equals(message, other.message);
+    }
+
+    /**
+     *
+     * @param messages the messages
+     */
+    public ResponseDto(final String messages) {
+        super();
+        this.message = messages;
+    }
+}

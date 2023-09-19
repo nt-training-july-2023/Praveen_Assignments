@@ -11,21 +11,34 @@
     height: 0;
   }
   
-  .card {
+  .AD-card {
     display: flex;
-    border: none;
-    border-radius: 10px;
-    background-color: #fffbfb;
-    box-shadow: 0 4px 6px rgb(73, 27, 65);
-    margin: 10px;
-    height:250px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgb(139, 132, 138);
+    margin: 5px;
+    height:210px ;
     width: 24rem;
-    margin-left: 12rem;
+    margin-top: 2rem;
+    margin-left: 1rem;
     flex-shrink: 0;
     transition: transform 0.2s ease;
+    /* display: flex;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin: 5px;
+    width: 24rem;
+    margin-top: 2rem;
+    margin-left: 1rem;
+    flex-shrink: 0;
+    height: 14rem; */
   }
   
-  .card:hover {
+  .AD-card:hover {
     transform: scale(1.02);
   }
   
@@ -46,17 +59,18 @@
     color: #000000;
   }
   
-  .assign-button {
+  .AD-assign-button {
     background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 5px 10px;
+    margin-top: 5px;
+    padding: 8px 10px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.2s ease;
   }
   
-  .assign-button:hover {
+  .AD-assign-button:hover {
     background-color: #0056b3;
   }
   

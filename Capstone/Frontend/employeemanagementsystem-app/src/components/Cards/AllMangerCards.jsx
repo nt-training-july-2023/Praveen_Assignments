@@ -5,7 +5,6 @@ import SingleManagerCard from "./SingleManager";
 import "./Manager.css";
 
 export default function ManagerList() {
-  const navigate = useNavigate();
   const [employees, setEmployees] = useState([]);
 
   const getAllManager = async () => {

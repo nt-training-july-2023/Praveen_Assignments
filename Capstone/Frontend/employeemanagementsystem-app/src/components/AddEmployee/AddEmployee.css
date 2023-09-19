@@ -2,14 +2,13 @@ body{
     margin: 0;
     padding: 0;
     
-    /* background:linear-gradient(#33ccff , #660066); */
   }
-  
+ 
   .form {
     background: linear-gradient(#dde3e6, #8991ce);
     max-width: 500px;
     min-height: 500px;
-    margin: 0 auto;
+    margin: 0 0;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -34,7 +33,7 @@ body{
   }
   .form-header{
     text-align: center;
-    font-family: 'Forum', cursive;
+    
   }
   .form-group{
     display: flex;
@@ -97,4 +96,5 @@ body{
   .button-cancel:hover {
     background-color: #8B0000;
   }
+
   

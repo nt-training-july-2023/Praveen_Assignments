@@ -5,7 +5,7 @@ import { Slide, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import SkillsDropDown from "../Dropdowns/Skills";
-import Select from "react-select";
+import MultipleSelectDropdown from "../MultipleSelectDropdown/MultipleSelectDropdown";
 
 function AddProject() {
   const [projectName, setProjectName] = useState("");
@@ -14,13 +14,14 @@ function AddProject() {
   const [requiredSkills, setRequiredSkills] = useState([]);
   const [description, setDescription] = useState("");
   const [managerList, setManagerList] = useState([]);
+  const [selectedSkills]=useState([]);
 
   const [projectNameError, setProjectNameError] = useState("");
   const [managerIdError, setManagerIdError] = useState("");
   const [startDateError, setStartDateError] = useState("");
   const [requiredSkillsError, setRequiredSkillsError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
-
+  
   //   const [skills,setSkills]=useState([
   //     "skill1",
   //     "skill2",
@@ -170,6 +171,7 @@ function AddProject() {
     }
   };
   return (
+
     <div className="form">
       <div className="form-header">
         <h2>ADD PROJECT</h2>
@@ -252,8 +254,8 @@ function AddProject() {
         )}
 
         <div className="form-group">
-          <label className="form-label">skillsRequired</label>
-          <Select
+          <label className="form-label">SkillsRequired</label>
+          {/* <Select
             className="zzz"
             options={SkillsDropDown.map((skill) => ({
               value: skill,
@@ -266,6 +268,19 @@ function AddProject() {
               value: skill,
               label: skill,
             }))}
+            onBlur={validateRequiredSkills}
+          /> */}
+          <MultipleSelectDropdown
+            options={SkillsDropDown.map((skill) => ({
+              value: skill,
+              label: skill,
+            }))}
+            selectedOptions={selectedSkills.map((skill) => ({
+              value: skill,
+              label: skill,
+            }))}
+            onChange={handleSkillChange}
+            placeholder="Select Skills"
             onBlur={validateRequiredSkills}
           />
         </div>
@@ -308,6 +323,7 @@ function AddProject() {
         </button>
       </div>
     </div>
+
   );
 }
 

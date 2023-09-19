@@ -1,10 +1,14 @@
 package com.backend.EMS.Exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+/**
+ * Custom exception class to represent validations for dto.
+ */
+public class AnnotationValidation extends RuntimeException {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-
-public class AnnotationValidation extends RuntimeException{
     /**
      * Constructs a new UserNotFound exception with the specified error message.
      *

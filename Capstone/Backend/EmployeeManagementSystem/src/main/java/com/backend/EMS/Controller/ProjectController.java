@@ -11,21 +11,29 @@ import com.backend.EMS.DTO.ProjectDto;
 import com.backend.EMS.DTO.ResponseDto;
 import com.backend.EMS.Service.AddProjectService;
 
+/**
+ * Controller class for managing project-related operations.
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
 public class ProjectController {
-    @Autowired 
+    /**
+     * Autowired service for adding projects.
+     */
+    @Autowired
     private AddProjectService addProjectService;
-    
+    /**
+     * Add a new project.
+     *
+     * @param projectDto The ProjectDto containing project details to be added.
+     * @return A ResponseDto indicating the
+        success or failure of the project addition.
+     */
     @PostMapping("/addProject")
-    public final ResponseDto addProject(@RequestBody ProjectDto projectDto) {
-        ResponseDto responseDto = new ResponseDto();
-        if(addProjectService.addProject(projectDto)) {
-            responseDto.setMessage("Project Added Successfully");
-        }
-        return responseDto;
-        
+    public final ResponseDto addProject(@RequestBody
+            final ProjectDto projectDto) {
+        return addProjectService.addProject(projectDto);
     }
-
 }
+

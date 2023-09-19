@@ -1,23 +1,27 @@
 package com.backend.EMS.Controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.backend.EMS.DTO.AdminDto;
+import com.backend.EMS.DTO.EmployeeDto;
+import com.backend.EMS.DTO.EmployeeOutDto;
 import com.backend.EMS.DTO.LoginDto;
+import com.backend.EMS.DTO.LoginResponseDto;
 import com.backend.EMS.DTO.ResponseDto;
+import com.backend.EMS.DTO.UpdateSkillsDto;
 import com.backend.EMS.Exception.AnnotationValidation;
-import com.backend.EMS.Exception.UserNotFound;
 import com.backend.EMS.Service.AddEmployeeService;
-//import com.backend.EMS.Exception.UserNotFound;
 import com.backend.EMS.Service.AdminService;
-
 import jakarta.validation.Valid;
 
 /**
@@ -36,48 +40,46 @@ public class AdminController {
     /**
      * Endpoint to register a new admin.
      *
-     * @param adminDto The admin DTO containing registration details.
+     * @param employeeDto   The admin DTO containing registration details.
+     * @param bindingResult The bindingResult containing validation errors.
      * @return A response DTO indicating the registration status.
      */
     @PostMapping("/adminRegistration")
-    public final ResponseDto registerAdmin(@RequestBody @Valid final AdminDto adminDto, BindingResult bindingResult) {
-        // Initialize a response DTO
-        ResponseDto responseDto = new ResponseDto();
+    public final ResponseDto registerAdmin(@RequestBody @Valid
+            final EmployeeDto employeeDto,
+            final BindingResult bindingResult) {
         // Check for validation errors
-        System.out.println(bindingResult.hasErrors());    
         if (bindingResult.hasErrors()) {
             // Set response values for validation errors
-            System.out.println(bindingResult.getAllErrors());
             throw new AnnotationValidation("Validation failed from backend");
-          
-      
-//            responseDto.setMessage("Validation failed");
-////            responseDto.setData(bindingResult.getAllErrors());
-//            return responseDto;
         }
         // Call the service to add the admin
-        if (adminService.addAdmin(adminDto)) {
-            // Set response values for successful registration
-            responseDto.setMessage("Admin Registered successfully");
-        }
-        return responseDto;
+        return adminService.addAdmin(employeeDto);
     }
-    
+
+    /**
+     * The AddEmployeeService instance used for managing
+     *  add employee related operations.
+     */
     @Autowired
     private AddEmployeeService addEmployeeService;
-    
+
+    /**
+     * Endpoint to add a new employee.
+     *
+     * @param employeeDto   The admin DTO containing registration details.
+     * @param bindingResult The bindingResult containing validation errors.
+     * @return A response DTO indicating the registration status.
+     */
     @PostMapping("/addEmployee")
-    public final ResponseDto addEmployee(@RequestBody AdminDto adminDto) {
-//        Initialize a responseDto
-        ResponseDto responseDto = new ResponseDto();
-        // Call the service to add the employee
-        if (addEmployeeService.addEmployee(adminDto)) {
-            // Set response values for successful registration
-            responseDto.setMessage("Employee Added successfully");
+    public final ResponseDto addEmployee(@RequestBody @Valid
+            final EmployeeDto employeeDto,
+            final BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            // Set response values for validation errors
+            throw new AnnotationValidation("Validation failed from backend");
         }
-        return responseDto;
-        
-        
+        return addEmployeeService.addEmployee(employeeDto);
     }
 
     /**
@@ -87,23 +89,70 @@ public class AdminController {
      * @return A response DTO indicating the login status.
      */
     @PostMapping("/login")
-    public final ResponseDto login(@RequestBody final LoginDto loginDto) {
-        // Initialize a response DTO
-        ResponseDto responseDto = new ResponseDto();
+    public final LoginResponseDto login(@RequestBody final LoginDto loginDto) {
+        return adminService.login(loginDto);
+    }
 
-        // Check if the email exists
-        if (adminService.isEmailExist(loginDto)) {
-            // Validate the user's credentials
-            if (adminService.userValidation(loginDto)) {
-                // Set response values for successful login
-                responseDto.setMessage("Login Successful");
-            } else {
-                ;
-                throw new UserNotFound("Password Incorrectt");
-            }
-        } else {
-            throw new UserNotFound("Email is not registered");
-        }
-        return responseDto;
+    /**
+     * Update employee details, including project and manager, by ID.
+     *
+     * @param id              The unique identifier of the employee.
+     * @param updatedDetails  A map containing updated
+     *  details like projectId and managerId.
+     * @return A ResponseDto representing the result of the update operation.
+     */
+    @PutMapping("/updateEmployee/{id}")
+    public final ResponseDto updateEmployee(@PathVariable final Long id,
+            @RequestBody final Map<String, Long> updatedDetails) {
+        Long projectId = updatedDetails.get("projectId");
+        Long managerId = updatedDetails.get("managerId");
+        return addEmployeeService.updateEmployee(id, projectId, managerId);
+    }
+
+    /**
+     * Retrieve a list of all employees, including managers, from the system.
+     *
+     * @return A list of EmployeeOutDto objects containing
+     *  information for all employees and managers.
+     */
+    @GetMapping("/allManagersAndEmployees")
+    public final List<EmployeeOutDto> getAllManagersAndEmployees() {
+        return addEmployeeService.getAllEmployeesAndManagers();
+    }
+
+    /**
+     * Retrieve an employee's information by their email address.
+     *
+     * @param email The email address of the employee to look up.
+     * @return An EmployeeOutDto containing the informationt
+     *  of the employee with the provided email address.
+     */
+    @GetMapping("/employee/email/{email}")
+    public final EmployeeOutDto getByEmployeeEmail(@PathVariable
+            final String email) {
+        return addEmployeeService.getEmployeeByEmail(email);
+    }
+
+    /**
+     * Update a skill record identified by its
+     *  unique ID using an HTTP PUT request.
+     *
+     * This endpoint allows clients to update a specific skill record
+     * by providing its unique identifier in the URL path
+     *  and the updated data in the request body.
+     *
+     * @param id              The unique identifier of the
+     *  skill record to be updated.
+     * @param updateSkillsDto The data containing the updates
+     *  to be applied to the skill record.
+     * @return A ResponseDto representing the result of the update operation.
+     */
+    @PutMapping("/updateSkill/{id}")
+    public final ResponseDto updateSkill(@PathVariable final Long id,
+            @RequestBody final UpdateSkillsDto updateSkillsDto) {
+        // Call the service to perform the skill record
+//        update and return a response.
+        return addEmployeeService.updateSkills(id, updateSkillsDto);
     }
 }
+

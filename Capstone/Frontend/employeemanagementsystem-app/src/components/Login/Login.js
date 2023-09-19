@@ -5,6 +5,7 @@ import "./LoginStyle.css";
 import { Base64 } from "js-base64";
 import { toast } from "react-toastify"; // Import toast and ToastContainer from react-toastify
 import "react-toastify/dist/ReactToastify.css"; // Import the default styles
+import Main_Header from "../Header/Main_Header";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -52,7 +53,22 @@ function Login() {
         setEmail("");
         setPassword("");
         setMessage("");
-        navigate("/adminDashboard");
+        console.log(response.data.role)
+
+
+        localStorage.setItem('IsLoggedIn',true);
+        localStorage.setItem('userRole',response.data.role);
+        localStorage.setItem('email',response.data.email);
+
+        if(response.data.role==="Admin"){
+          navigate("/adminDashboard");
+        }
+        else if(response.data.role==="Employee"){
+          navigate("/employeeDashboard");
+        }
+        else if (response.data.role==="Manager"){
+          navigate("/managerDashboard");
+        }
         
       }
     } catch (error) {
@@ -69,11 +85,20 @@ function Login() {
 
 
   return (
+    <>
+    
+    {/* <Main_Header /> */}
     <div className="login-page">
-      {/* <header>Employee Management Portal</header> */}
-      {/* <h2>Employee Management Portal</h2> */}
+      <div>
+      <div className="main-header">
+        <h1 className="lh1"> 
+        Employee Management Portal
+        </h1>
+      </div>
+      {/* <h2 className="login_heading">Employee Management Portal</h2> */}
       <div className="login-container">
         <h2>Login</h2>
+        <br></br>
         <form onSubmit={handleLogin}>
           <div className="fields">
             <input
@@ -87,10 +112,17 @@ function Login() {
               onBlur={validateEmail}
             />
           </div>
-
+         <div className="error-message">
+          {/* {!emailError&&(<span></span>)} */}
           {emailError && (
-            <span style={{ fontSize: "12px", color: "red" }}>{emailError}</span>
+            <span className="span-error">
+              {emailError}
+              </span>
           )}
+          <br></br>
+          </div>
+        
+          
           <div className="fields">
             <input
               type="password"
@@ -103,16 +135,21 @@ function Login() {
               onBlur={validatePassword}
             />
           </div>
+          <div className="error-message">
+            
           {passwordError && (
-            <span style={{ fontSize: "12px", color: "red" }}>
+            <span className="span-error">
               {passwordError}
             </span>
           )}
+           <br></br>
+          </div>
+        
           <button type="submit">Login</button>
         </form>
-        <div className="message">{message}</div>
-        <div className="message1">{message1}</div>
-
+        {/* <div className="message">{message} <br></br></div>
+        <div className="message1">{message1}<br></br></div> */}
+        <br></br>
         <div className="Admin">
           Not a user? {""}
           <span
@@ -121,9 +158,15 @@ function Login() {
           >
             Sign Up
           </span>
+          <div className="message">{message} <br></br></div>
+        <div className="message1">{message1}<br></br></div>
         </div>
       </div>
+      </div>
     </div>
+    
+    
+    </>
   );
 }
 

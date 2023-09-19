@@ -5,25 +5,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class AdminTest {
-    private Admin admin;
+class EmployeeTest {
+    private Employee employee;
 
     @BeforeEach
     public void setUp() {
-        admin = new Admin();
+        employee = new Employee();
     }
     
 
 	@Test
 	void testGetId() {
-		  admin.setId(1L);
-	      assertEquals(1L, admin.getId());
+		  employee.setId(1L);
+	      assertEquals(1L, employee.getId());
 	}
 
 	@Test
 	void testSetId() {
-		  admin.setId(1L);
-	      assertEquals(1L, admin.getId());
+		  employee.setId(1L);
+	      assertEquals(1L, employee.getId());
 //	      assertThrows(IllegalArgumentException.class, () -> admin.setEmpId(null));
 		
 	}
@@ -31,38 +31,38 @@ class AdminTest {
 
     @Test
     void testGetName() {
-        admin.setName("Praveen");
-        assertEquals("Praveen", admin.getName());
+        employee.setName("Praveen");
+        assertEquals("Praveen", employee.getName());
     }
 
     @Test
     void testSetName() {
-        admin.setName("Praveen");
-        assertEquals("Praveen", admin.getName());
+        employee.setName("Praveen");
+        assertEquals("Praveen", employee.getName());
     }
 
     @Test
     void testGetEmail() {
-        admin.setEmail("Praveen@example.com");
-        assertEquals("Praveen@example.com", admin.getEmail());
+        employee.setEmail("Praveen@example.com");
+        assertEquals("Praveen@example.com", employee.getEmail());
     }
 
     @Test
     void testSetEmail() {
-        admin.setEmail("Praveen@example.com");
-        assertEquals("Praveen@example.com", admin.getEmail());
+        employee.setEmail("Praveen@example.com");
+        assertEquals("Praveen@example.com", employee.getEmail());
     }
 
     @Test
     void testGetEmpId() {
-        admin.setEmpId("N1123");
-        assertEquals("N1123", admin.getEmpId());
+        employee.setEmpId("N1123");
+        assertEquals("N1123", employee.getEmpId());
     }
 
     @Test
     void testSetEmpId() {
-        admin.setEmpId("N1123");
-        assertEquals("N1123", admin.getEmpId());
+        employee.setEmpId("N1123");
+        assertEquals("N1123", employee.getEmpId());
     }
 
 //    @Test
@@ -72,74 +72,74 @@ class AdminTest {
 
     @Test
     void testGetdob() {
-        admin.setDob("1990-01-01");
-        assertEquals("1990-01-01", admin.getDob());
+        employee.setDob("1990-01-01");
+        assertEquals("1990-01-01", employee.getDob());
     }
 
     @Test
     void testSetdob() {
-        admin.setDob("1990-01-01");
-        assertEquals("1990-01-01", admin.getDob());
+        employee.setDob("1990-01-01");
+        assertEquals("1990-01-01", employee.getDob());
     }
 
     @Test
     void testGetDoj() {
-        admin.setDoj("2021-01-01");
-        assertEquals("2021-01-01", admin.getDoj());
+        employee.setDoj("2021-01-01");
+        assertEquals("2021-01-01", employee.getDoj());
     }
 
     @Test
     void testSetDoj() {
-        admin.setDoj("2021-01-01");
-        assertEquals("2021-01-01", admin.getDoj());
+        employee.setDoj("2021-01-01");
+        assertEquals("2021-01-01", employee.getDoj());
     }
 
     @Test
     void testGetLocation() {
-        admin.setLocation(Location.Raipur);
-        assertEquals(Location.Raipur, admin.getLocation());
+        employee.setLocation(Location.Raipur);
+        assertEquals(Location.Raipur, employee.getLocation());
     }
 
     @Test
     void testSetLocation() {
-        admin.setLocation(Location.Raipur);
-        assertEquals(Location.Raipur, admin.getLocation());
+        employee.setLocation(Location.Raipur);
+        assertEquals(Location.Raipur, employee.getLocation());
     }
 
     @Test
     void testGetDesignation() {
-        admin.setDesignation(Designation.Engineer);
-        assertEquals(Designation.Engineer, admin.getDesignation());
+        employee.setDesignation(Designation.Engineer);
+        assertEquals(Designation.Engineer, employee.getDesignation());
     }
 
     @Test
     void testSetDesignation() {
-        admin.setDesignation(Designation.Engineer);
-        assertEquals(Designation.Engineer, admin.getDesignation());
+        employee.setDesignation(Designation.Engineer);
+        assertEquals(Designation.Engineer, employee.getDesignation());
     }
 
     @Test
     void testGetContactNo() {
-        admin.setContactNo(1234567890L);
-        assertEquals(1234567890L, admin.getContactNo());
+        employee.setContactNo(1234567890L);
+        assertEquals(1234567890L, employee.getContactNo());
     }
 
     @Test
     void testSetContactNo() {
-        admin.setContactNo(1234567890L);
-        assertEquals(1234567890L, admin.getContactNo());
+        employee.setContactNo(1234567890L);
+        assertEquals(1234567890L, employee.getContactNo());
     }
 
     @Test
     void testGetPassword() {
-        admin.setPassword("myPassword");
-        assertEquals("myPassword", admin.getPassword());
+        employee.setPassword("myPassword");
+        assertEquals("myPassword", employee.getPassword());
     }
 
     @Test
     void testSetPassword() {
-        admin.setPassword("myPassword");
-        assertEquals("myPassword", admin.getPassword());
+        employee.setPassword("myPassword");
+        assertEquals("myPassword", employee.getPassword());
     }
 
 //    @Test
@@ -167,7 +167,7 @@ class AdminTest {
 //        admin.setPassword("myPassword");
 //        admin.setConfirmPassword("myPassword");
 //
-//        String expectedString = "AdminDto [name=Praveen, email=Praveen@example.com, empId=N1123, dob=1990-01-01, " +
+//        String expectedString = "EmployeeDto [name=Praveen, email=Praveen@example.com, empId=N1123, dob=1990-01-01, " +
 //                "doj=2021-01-01, location=Raipur, designation=Manager, contactNo=1234567890, " +
 //                "password=myPassword, confirmPassword=myPassword]";
 //        assertEquals(expectedString, admin.toString());

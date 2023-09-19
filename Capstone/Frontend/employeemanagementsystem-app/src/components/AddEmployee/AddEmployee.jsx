@@ -10,6 +10,7 @@ import { Slide, toast } from "react-toastify"; // Import toast and ToastContaine
 import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 import SkillsDropDown from "../Dropdowns/Skills";
+import MultipleSelectDropdown from "../MultipleSelectDropdown/MultipleSelectDropdown";
 
 function AddEmployee() {
   const [name, setName] = useState("");
@@ -22,6 +23,7 @@ function AddEmployee() {
   const [role, setRole] = useState("");
   const [contactNo, setContactNo] = useState("");
   const [skills, setSkills] = useState([]);
+  const [selectedSkills] = useState([]);
   const [password, setPassword] = useState("");
 
   const [nameError, setNameError] = useState("");
@@ -235,7 +237,7 @@ function AddEmployee() {
           }
         );
         if (response.status === 200) {
-          toast.success("Admin Registered", {
+          toast.success("Employee Registered", {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 3000, //3 seconds
             hideProgressBar: false,
@@ -256,6 +258,7 @@ function AddEmployee() {
           setContactNo("");
           setRole("");
           setSkills([]);
+          // selectedSkills([]);
 
           //   setPassword("");
           // alert("Employee Registered successfully")
@@ -276,6 +279,7 @@ function AddEmployee() {
     }
   };
   return (
+   
     <div className="form">
       <div className="form-header">
         {/* <div className="RegistrationFormContainer" > */}
@@ -432,26 +436,19 @@ function AddEmployee() {
         )}
         <div className="form-group">
           <label className="form-label">Skills</label>
-          {/* <input
-            className="form-input"
-            type="text"
-            placeholder="Enter Skills(, separated values)"
-            value={skills}
-            onChange={(event) => setSkills(event.target.value)}
-            onBlur={validateSkills}
-          /> */}
-
-          <Select
-            className="zzz"
-            options={SkillsDropDown.map((s) => ({
-              value: s,
-              label: s,
+          <MultipleSelectDropdown
+            options={SkillsDropDown.map((skill) => ({
+              value: skill,
+              label: skill,
             }))}
-            isMulti={true}
-            placeholder="Select skills"
+            selectedOptions={selectedSkills.map((skill) => ({
+              value: skill,
+              label: skill,
+            }))}
             onChange={handleSkillChange}
-            value={skills.map((s)=>({value:s,label:s}))}
-            onBlur={validateSkills}
+            placeholder="Select Skills"
+            onBlur={validateSkills
+            }
           />
         </div>
         {skillsError && (
@@ -488,6 +485,7 @@ function AddEmployee() {
         </button>
       </div>
     </div>
+    
   );
 }
 

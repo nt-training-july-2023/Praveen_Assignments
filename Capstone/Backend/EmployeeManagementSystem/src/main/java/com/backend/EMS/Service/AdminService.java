@@ -6,11 +6,14 @@ import java.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import com.backend.EMS.DTO.AdminDto;
+import com.backend.EMS.DTO.EmployeeDto;
 import com.backend.EMS.DTO.LoginDto;
-import com.backend.EMS.Exception.userAlreadyFound;
-import com.backend.EMS.Model.Admin;
+import com.backend.EMS.DTO.LoginResponseDto;
+import com.backend.EMS.DTO.ResponseDto;
+import com.backend.EMS.Exception.UserAlreadyFound;
+import com.backend.EMS.Exception.UserNotFound;
+import com.backend.EMS.Model.Employee;
+import com.backend.EMS.Model.Role;
 import com.backend.EMS.Repository.AdminRepository;
 
 /**
@@ -18,7 +21,8 @@ import com.backend.EMS.Repository.AdminRepository;
  */
 /**
  * This class provides services for managing administrative user data and
- * authentication-related functionality. It uses an {@link AdminRepository} for
+ * authentication-related functionality. It uses an
+ * {@link AdminRepository} for
  * data storage and retrieval and a {@link BCryptPasswordEncoder} for secure
  * password encoding and verification.
  */
@@ -27,9 +31,11 @@ public class AdminService {
     /**
      * The repository for administrator data.
      */
+    
     private final AdminRepository adminRepository;
     /**
-     * @param passwordEncoder The encoder used to securely hash and verify passwords
+     * @param passwordEncoder The encoder used to.
+     * securely hash and verify passwords
      */
     private final BCryptPasswordEncoder passwordEncoder;
 
@@ -42,60 +48,69 @@ public class AdminService {
      *                         passwords.
      */
     @Autowired
-    public AdminService(final AdminRepository adminRepositorys, BCryptPasswordEncoder passwordEncoders) {
+    public AdminService(final AdminRepository adminRepositorys,
+            final BCryptPasswordEncoder passwordEncoders) {
         this.adminRepository = adminRepositorys;
         this.passwordEncoder = passwordEncoders;
     }
 
     /**
-     * Add a new admin to the database.
+     * Adds a new admin user to the system.
      *
-     * @param adminDto The adminDto
+     * @param employeeDto The EmployeeDto containing
+     * admin user details to be added.
+     * @return True if the admin user was added successfully;
+     * otherwise, false.
+     * @throws UserAlreadyFound if an admin user with the
+     * same email, employee ID,
+     *                          or contact number already exists.
      */
-    public final boolean addAdmin(final AdminDto adminDto) {
-        Admin admin = new Admin();
-        admin.setName(adminDto.getName());
-        admin.setEmail(adminDto.getEmail());
-        admin.setEmpId(adminDto.getEmpId());
-        admin.setDob(adminDto.getDob());
-        admin.setDoj(adminDto.getDoj());
-        admin.setLocation(adminDto.getLocation());
-        admin.setDesignation(adminDto.getDesignation());
-        admin.setContactNo(adminDto.getContactNo());
+    public final ResponseDto addAdmin(final EmployeeDto employeeDto) {
+        // Initialize a response DTO
+        ResponseDto responseDto = new ResponseDto();
+        Employee employee = new Employee();
+        employee.setName(employeeDto.getName());
+        employee.setEmail(employeeDto.getEmail());
+        employee.setEmpId(employeeDto.getEmpId());
+        employee.setDob(employeeDto.getDob());
+        employee.setDoj(employeeDto.getDoj());
+        employee.setLocation(employeeDto.getLocation());
+        employee.setDesignation(employeeDto.getDesignation());
+        employee.setContactNo(employeeDto.getContactNo());
+        employee.setRole(Role.Admin);
 
-        admin.setPassword(adminDto.getPassword());
+        employee.setPassword(employeeDto.getPassword());
 //        admin.setConfirmPassword(adminDto.getConfirmPassword());
-        if (adminRepository.findByEmail(adminDto.getEmail()) != null) {
+        if (adminRepository.findByEmail(employeeDto.getEmail()) != null) {
 //            System.out.println("inside findbyemail");
 
-            throw new userAlreadyFound("Email is already registered");
+            throw new UserAlreadyFound("Email is already registered");
         }
-        if (adminRepository.findByEmpId(adminDto.getEmpId()) != null) {
+        if (adminRepository.findByEmpId(employeeDto.getEmpId()) != null) {
 
-            throw new userAlreadyFound("EmpId is already registered");
+            throw new UserAlreadyFound("EmpId is already registered");
         }
-        if (adminRepository.findByContactNo(adminDto.getContactNo()) != null) {
-            throw new userAlreadyFound("ContactNo is already registered");
+        if (adminRepository.findByContactNo(employeeDto.
+                getContactNo()) != null) {
+            throw new UserAlreadyFound("ContactNo is already registered");
         }
 
-        adminRepository.save(admin);
-        return true;
-//        List<Admin> admins = adminRepository.findAll();
-//        System.out.println(admins);
-//        if (!admins.isEmpty()) {
-//            return true;
-//        }
-//        else {
-//           adminRepository.save(admin);
-//           return false;
-//        }
+        adminRepository.save(employee);
+
+        responseDto.setMessage("Admin Registered successfully");
+        return responseDto;
 
     }
 
-    public static String decodePassword(String pwd) {
+    /**
+     * Decodes a Base64-encoded password.
+     *
+     * @param pwd The Base64-encoded password to decode.
+     * @return The decoded password as a plain text String.
+     */
+    public static String decodePassword(final String pwd) {
         byte[] decodeBytes = Base64.getDecoder().decode(pwd);
         return new String(decodeBytes, StandardCharsets.UTF_8);
-
     }
 
     /**
@@ -115,11 +130,51 @@ public class AdminService {
      * @return True if the credentials are valid, false otherwise.
      */
     public final boolean userValidation(final LoginDto loginDto) {
-        Admin admin = adminRepository.findByEmail(loginDto.getEmail());
+        Employee employee = adminRepository.findByEmail(loginDto.getEmail());
 
-        if (admin != null) {
-            return passwordEncoder.matches(decodePassword(loginDto.getPassword()), admin.getPassword());
+        if (employee != null) {
+            return passwordEncoder.matches(decodePassword(
+                    loginDto.getPassword()), employee.getPassword());
         }
         return false;
+    }
+
+    /**
+     * Authenticate a user based on the provided login information.
+     *
+     * @param loginDto The LoginDto containing user login credentials.
+     * @return A LoginResponseDto containing the authentication result.
+     */
+    public final Role getRoleByEmial(final LoginDto loginDto) {
+        Employee user = adminRepository.findByEmail(loginDto.getEmail());
+        return user.getRole();
+    }
+
+    /**
+     * Authenticate a user based on the provided login information.
+     *
+     * @param loginDto The LoginDto containing user login credentials.
+     * @return A LoginResponseDto containing the authentication result.
+     */
+    public final LoginResponseDto login(final LoginDto loginDto) {
+        // Initialize a response DTO
+        LoginResponseDto loginResponseDto = new LoginResponseDto();
+//        Long id = adminRepository.findIdByEmail(loginDto.getEmail());
+
+        // Check if the email exists
+        if (isEmailExist(loginDto)) {
+            // Validate the user's credentials
+            if (userValidation(loginDto)) {
+                // Set response values for successful login
+                loginResponseDto.setRole(getRoleByEmial(loginDto));
+                loginResponseDto.setEmail(loginDto.getEmail());
+                loginResponseDto.setMessage("Login Successful");
+            } else {
+                throw new UserNotFound("Incorrect Password");
+            }
+        } else {
+            throw new UserNotFound("Email is not registered");
+        }
+        return loginResponseDto;
     }
 }
