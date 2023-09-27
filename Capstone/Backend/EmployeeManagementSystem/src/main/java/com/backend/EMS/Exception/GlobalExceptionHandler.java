@@ -40,15 +40,15 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Handle the AnnotationValidation exception by returning a
+     * Handle the CustomException exception by returning a
       NOT_ACCEPTABLE status and a ResponseDto with the error message.
      *
-     * @param ex The AnnotationValidation exception.
+     * @param ex The CustomException exception.
      * @return A ResponseDto with the error message.
      */
-    @ExceptionHandler(AnnotationValidation.class)
+    @ExceptionHandler(CustomException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-    public final ResponseDto validation(final AnnotationValidation ex) {
+    public final ResponseDto validation(final CustomException ex) {
         String message = ex.getMessage();
         return new ResponseDto(message);
     }

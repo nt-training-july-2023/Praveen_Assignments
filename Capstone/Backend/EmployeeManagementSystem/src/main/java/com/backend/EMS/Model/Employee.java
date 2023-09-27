@@ -365,10 +365,9 @@ public class Employee {
      * @return The skills of the employee.
      */
     public final List<String> getSkills() {
-        if (skills != null){
+        if (skills != null) {
         return new ArrayList<>(skills);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -384,7 +383,6 @@ public class Employee {
         } else {
             this.skills = null;
         }
-        ;
     }
 
     @Override

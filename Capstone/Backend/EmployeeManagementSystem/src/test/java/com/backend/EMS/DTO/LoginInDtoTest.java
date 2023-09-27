@@ -4,79 +4,79 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class LoginDtoTest {
+public class LoginInDtoTest {
 
-    private LoginDto loginDto;
+    private LoginInDto loginInDto;
 
     @BeforeEach
     public void setUp() {
-        loginDto = new LoginDto();
+        loginInDto = new LoginInDto();
     }
 
     @Test
     public void testGetSetEmail() {
         String email = "john.doe@example.com";
-        loginDto.setEmail(email);
-        Assertions.assertEquals(email, loginDto.getEmail());
+        loginInDto.setEmail(email);
+        Assertions.assertEquals(email, loginInDto.getEmail());
     }
 
     @Test
     public void testGetSetPassword() {
         String password = "secret";
-        loginDto.setPassword(password);
-        Assertions.assertEquals(password, loginDto.getPassword());
+        loginInDto.setPassword(password);
+        Assertions.assertEquals(password, loginInDto.getPassword());
     }
 
     @Test
     public void testToString() {
         String email = "john.doe@example.com";
         String password = "secret";
-        loginDto.setEmail(email);
-        loginDto.setPassword(password);
-        String expectedString = "LoginDto [email=" + email + ", password=" + password + "]";
-        Assertions.assertEquals(expectedString, loginDto.toString());
+        loginInDto.setEmail(email);
+        loginInDto.setPassword(password);
+        String expectedString = "LoginInDto [email=" + email + ", password=" + password + "]";
+        Assertions.assertEquals(expectedString, loginInDto.toString());
     }
 
     @Test
     public void testHashCode() {
         String email1 = "john.doe@example.com";
         String password1 = "secret";
-        loginDto.setEmail(email1);
-        loginDto.setPassword(password1);
+        loginInDto.setEmail(email1);
+        loginInDto.setPassword(password1);
 
-        LoginDto other = new LoginDto();
+        LoginInDto other = new LoginInDto();
         other.setEmail(email1);
         other.setPassword(password1);
 
-        Assertions.assertEquals(loginDto.hashCode(), other.hashCode());
+        Assertions.assertEquals(loginInDto.hashCode(), other.hashCode());
     }
 
     @Test
     public void testEquals() {
         String email1 = "john.doe@example.com";
         String password1 = "secret";
-        loginDto.setEmail(email1);
-        loginDto.setPassword(password1);
+        loginInDto.setEmail(email1);
+        loginInDto.setPassword(password1);
 
-        LoginDto other = new LoginDto();
+        LoginInDto other = new LoginInDto();
         other.setEmail(email1);
         other.setPassword(password1);
 
-        Assertions.assertTrue(loginDto.equals(other));
+        Assertions.assertTrue(loginInDto.equals(other));
     }
 
     @Test
     public void testNotEquals() {
         String email1 = "john.doe@example.com";
         String password1 = "secret";
-        loginDto.setEmail(email1);
-        loginDto.setPassword(password1);
+        loginInDto.setEmail(email1);
+        loginInDto.setPassword(password1);
 
-        LoginDto other = new LoginDto();
+        LoginInDto other = new LoginInDto();
         other.setEmail("jane.smith@example.com");
         other.setPassword(password1);
 
-        Assertions.assertFalse(loginDto.equals(other));
+        Assertions.assertFalse(loginInDto.equals(other));
     }
 }
 

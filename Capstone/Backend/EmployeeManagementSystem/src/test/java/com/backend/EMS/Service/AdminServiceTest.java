@@ -1,202 +1,466 @@
 package com.backend.EMS.Service;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import com.backend.EMS.DTO.EmployeeDto;
-import com.backend.EMS.DTO.LoginDto;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.modelmapper.ModelMapper;
+
+import com.backend.EMS.DTO.EmployeeInDto;
+import com.backend.EMS.DTO.EmployeeOutDto;
+import com.backend.EMS.DTO.LoginInDto;
+import com.backend.EMS.DTO.RequestResourceOutDto;
 import com.backend.EMS.DTO.ResponseDto;
-import com.backend.EMS.Exception.UserAlreadyFound;
-import com.backend.EMS.Exception.UserNotFound;
 import com.backend.EMS.Model.Designation;
 import com.backend.EMS.Model.Employee;
 import com.backend.EMS.Model.Location;
+import com.backend.EMS.Model.Project;
+import com.backend.EMS.Model.RequestResource;
 import com.backend.EMS.Model.Role;
-import com.backend.EMS.Repository.AdminRepository;
+import com.backend.EMS.Repository.EmployeeRepository;
+import com.backend.EMS.Repository.ProjectRepository;
+import com.backend.EMS.Repository.RequestResourceRepository;
 
 public class AdminServiceTest {
 
+    
+    @InjectMocks
     private AdminService adminService;
-    private AdminRepository adminRepository;
-    private BCryptPasswordEncoder passwordEncoder;
+    @Mock
+    private EmployeeRepository employeeRepository;
+    @Mock
+    private RequestResourceRepository requestResourceRepository;
+
+    @Mock
+    private ProjectRepository projectRepository;
+    @Mock
+    private ModelMapper modelMapper;
 
     @BeforeEach
     public void setUp() {
-        adminRepository = mock(AdminRepository.class);
-        passwordEncoder = mock(BCryptPasswordEncoder.class);
-        adminService = new AdminService(adminRepository, passwordEncoder);
+        MockitoAnnotations.openMocks(this);
+    }
+    
+    @Test
+    public void testAddAdmin_Success() {
+        EmployeeInDto employeeInDto = new EmployeeInDto();
+        employeeInDto.setName("Praveen");
+        employeeInDto.setEmail("praveen@nucleusteq.com");
+        employeeInDto.setEmpId("N0001");
+        employeeInDto.setDesignation(Designation.Engineer);
+        employeeInDto.setLocation(Location.Raipur);
+        employeeInDto.setContactNo(1234567890L);
+        employeeInDto.setDob("14-10-2001");
+        employeeInDto.setDoj("17-07-2023");
+        
+        Employee employee = new Employee();
+        // Set sample employee properties here
+        employee.setName(employeeInDto.getName());
+        employee.setEmail(employeeInDto.getEmail());
+        employee.setEmpId(employeeInDto.getEmpId());
+        employee.setDesignation(employeeInDto.getDesignation());
+        employee.setLocation(employeeInDto.getLocation());
+        employee.setContactNo(employeeInDto.getContactNo());
+        employee.setDob(employeeInDto.getDob());
+        employee.setDoj(employeeInDto.getDob());
+        
+
+        when(employeeRepository.save(employee)).thenReturn(employee);
+        ResponseDto response = adminService.addAdmin(employeeInDto);
+        assertEquals("Admin Registered successfully", response.getMessage());
+
+    }
+
+
+    @Test
+    public void testRequestedResource_Success() {
+        // Create test data
+        RequestResource requestResource1 = new RequestResource();
+
+        requestResource1.setEmployeeId(2L);
+        requestResource1.setManagerId(3L);
+        requestResource1.setProjectId(4L);
+        requestResource1.setComment("Request 1 Comment");
+
+        RequestResource requestResource2 = new RequestResource();
+
+        requestResource2.setEmployeeId(6L);
+        requestResource2.setManagerId(7L);
+        requestResource2.setProjectId(8L);
+        requestResource2.setComment("Request 2 Comment");
+
+        Employee employee1 = new Employee();
+        employee1.setId(2L);
+        employee1.setEmpId("E001");
+        employee1.setName("Employee 1");
+
+        Employee employee2 = new Employee();
+        employee2.setId(6L);
+        employee2.setEmpId("E002");
+        employee2.setName("Employee 2");
+
+        Employee manager1 = new Employee();
+        manager1.setId(3L);
+        manager1.setEmpId("M001");
+        manager1.setName("Manager 1");
+
+        Employee manager2 = new Employee();
+        manager2.setId(7L);
+        manager2.setEmpId("M002");
+        manager2.setName("Manager 2");
+
+        Project project1 = new Project();
+        project1.setId(4L);
+        project1.setProjectName("Project 1");
+
+        Project project2 = new Project();
+        project2.setId(8L);
+        project2.setProjectName("Project 2");
+
+        // Mock repository calls
+        when(requestResourceRepository.findAll()).thenReturn(List.of(requestResource1, requestResource2));
+        when(employeeRepository.findById(2L)).thenReturn(Optional.of(employee1));
+        when(employeeRepository.findById(6L)).thenReturn(Optional.of(employee2));
+        when(employeeRepository.findById(3L)).thenReturn(Optional.of(manager1));
+        when(employeeRepository.findById(7L)).thenReturn(Optional.of(manager2));
+        when(projectRepository.findById(4L)).thenReturn(Optional.of(project1));
+        when(projectRepository.findById(8L)).thenReturn(Optional.of(project2));
+
+        // Call the method
+        List<RequestResourceOutDto> requestResourceOutDtos = adminService.requestedResource();
+
+        // Assertions
+        assertNotNull(requestResourceOutDtos);
+        assertEquals(2, requestResourceOutDtos.size());
+
+        RequestResourceOutDto requestResourceOutDto1 = requestResourceOutDtos.get(0);
+        assertEquals(2L, requestResourceOutDto1.getEmployeeId());
+        assertEquals(3L, requestResourceOutDto1.getManagerId());
+        assertEquals(4L, requestResourceOutDto1.getProjectId());
+        assertEquals("Request 1 Comment", requestResourceOutDto1.getComment());
+        assertEquals("E001", requestResourceOutDto1.getEmployeeEmpId());
+        assertEquals("Employee 1", requestResourceOutDto1.getEmployeeName());
+        assertEquals("M001", requestResourceOutDto1.getManagerEmpId());
+        assertEquals("Manager 1", requestResourceOutDto1.getManagerName());
+        assertEquals("Project 1", requestResourceOutDto1.getProjectName());
+
+        RequestResourceOutDto requestResourceOutDto2 = requestResourceOutDtos.get(1);
+        assertEquals(6L, requestResourceOutDto2.getEmployeeId());
+        assertEquals(7L, requestResourceOutDto2.getManagerId());
+        assertEquals(8L, requestResourceOutDto2.getProjectId());
+        assertEquals("Request 2 Comment", requestResourceOutDto2.getComment());
+        assertEquals("E002", requestResourceOutDto2.getEmployeeEmpId());
+        assertEquals("Employee 2", requestResourceOutDto2.getEmployeeName());
+        assertEquals("M002", requestResourceOutDto2.getManagerEmpId());
+        assertEquals("Manager 2", requestResourceOutDto2.getManagerName());
+        assertEquals("Project 2", requestResourceOutDto2.getProjectName());
+    }
+    @Test
+    public void testDeleteRequestedResource_Success() {
+        Long id = 1L;
+
+        ResponseDto response = adminService.DeleteRequestedResource(id);
+
+        assertNotNull(response);
+        assertEquals("Deleted Successfuly", response.getMessage());
     }
 
     @Test
-    public void testAddAdmin_Successful() {
-        // Arrange
-        EmployeeDto employeeDto = createSampleEmployeeDto();
-        Employee employee = createSampleEmployee();
-        when(adminRepository.findByEmail(anyString())).thenReturn(null);
-        when(adminRepository.findByEmpId(anyString())).thenReturn(null);
-        when(adminRepository.findByContactNo(anyLong())).thenReturn(null);
+    public void testAcceptRequestedResource_Success() {
+        Long id = 1L;
 
-        // Act
-        ResponseDto responseDto = adminService.addAdmin(employeeDto);
+        RequestResource requestResource = new RequestResource();
+        requestResource.setEmployeeId(2L);
+        requestResource.setManagerId(3L);
+        requestResource.setProjectId(4L);
 
-        // Assert
-        assertNotNull(responseDto);
-        assertEquals("Admin Registered successfully", responseDto.getMessage());
+        Employee employee = new Employee();
+        employee.setProjectId(null);
+        employee.setManagerId(null);
+
+        Employee manager = new Employee();
+        manager.setName("Manager");
+
+        when(requestResourceRepository.findById(id)).thenReturn(Optional.of(requestResource));
+        when(employeeRepository.findById(2L)).thenReturn(Optional.of(employee));
+        when(employeeRepository.findById(3L)).thenReturn(Optional.of(manager));
+        when(requestResourceRepository.findByEmployeeId(2L)).thenReturn(Collections.singletonList(requestResource));
+
+        ResponseDto response = adminService.AcceptRequestedResource(id);
+
+        assertNotNull(response);
+        assertEquals("Requested Resource Accepted", response.getMessage());
+        assertEquals(4L, employee.getProjectId());
+        assertEquals(3L, employee.getManagerId());
+        assertEquals("Manager", employee.getManagerName());
     }
 
     @Test
-    public void testAddAdmin_DuplicateEmail() {
-        // Arrange
-        EmployeeDto employeeDto = createSampleEmployeeDto();
-        when(adminRepository.findByEmail(anyString())).thenReturn(createSampleEmployee());
+    public void testAcceptRequestedResource_RequestNotFound() {
+        Long id = 1L;
 
-        // Act and Assert
-        assertThrows(UserAlreadyFound.class, () -> adminService.addAdmin(employeeDto));
+        when(requestResourceRepository.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(NoSuchElementException.class, () -> {
+            adminService.AcceptRequestedResource(id);
+        });
     }
 
     @Test
-    public void testAddAdmin_DuplicateEmpId() {
-        // Arrange
-        EmployeeDto employeeDto = createSampleEmployeeDto();
-        when(adminRepository.findByEmpId(anyString())).thenReturn(createSampleEmployee());
+    public void testAcceptRequestedResource_EmployeeNotFound() {
+        Long id = 1L;
 
-        // Act and Assert
-        assertThrows(UserAlreadyFound.class, () -> adminService.addAdmin(employeeDto));
+        RequestResource requestResource = new RequestResource();
+        requestResource.setEmployeeId(2L);
+        requestResource.setManagerId(3L);
+        requestResource.setProjectId(4L);
+        requestResource.setComment("Request");
+
+        when(requestResourceRepository.findById(id)).thenReturn(Optional.of(requestResource));
+        when(employeeRepository.findById(2L)).thenReturn(Optional.empty());
+
+        assertThrows(NoSuchElementException.class, () -> {
+            adminService.AcceptRequestedResource(id);
+        });
     }
 
     @Test
-    public void testAddAdmin_DuplicateContactNo() {
-        // Arrange
-        EmployeeDto employeeDto = createSampleEmployeeDto();
-        when(adminRepository.findByContactNo(anyLong())).thenReturn(createSampleEmployee());
+    public void testGetFilteredEmployees_EmptyList() {
+        List<String> selectedSkills = Collections.singletonList("Java");
+        boolean showUnassigned = false;
 
-        // Act and Assert
-        assertThrows(UserAlreadyFound.class, () -> adminService.addAdmin(employeeDto));
+        when(employeeRepository.findByRole(Role.Employee)).thenReturn(Collections.emptyList());
+
+        List<EmployeeOutDto> filteredEmployees = adminService.getFilteredEmployees(selectedSkills, showUnassigned);
+
+        assertNotNull(filteredEmployees);
+        assertTrue(filteredEmployees.isEmpty());
     }
-    @Test
-    public void testIsEmailExist_Exists() {
-        // Arrange
-        LoginDto loginDto = new LoginDto();
-        loginDto.setEmail("test@example.com");
-        when(adminRepository.findByEmail(anyString())).thenReturn(createSampleEmployee());
-
-        // Act
-        boolean exists = adminService.isEmailExist(loginDto);
-
-        // Assert
-        assertTrue(exists);
-    }
-
-    @Test
-    public void testIsEmailExist_NotExists() {
-        // Arrange
-        LoginDto loginDto = new LoginDto();
-        loginDto.setEmail("test@example.com");
-        when(adminRepository.findByEmail(anyString())).thenReturn(null);
-
-        // Act
-        boolean exists = adminService.isEmailExist(loginDto);
-
-        // Assert
-        assertFalse(exists);
-    }
-
 //    @Test
-//    public void testUserValidation_ValidPassword() {
-//        // Arrange
-//        LoginDto loginDto = new LoginDto();
-//        loginDto.setEmail("test@example.com");
-//        loginDto.setPassword("password");
-//        Employee employee = createSampleEmployee();
-//        when(adminRepository.findByEmail(anyString())).thenReturn(employee);
-//        when(passwordEncoder.matches(anyString(), anyString())).thenReturn(true);
+//    public void testGetFilteredEmployees_ShowUnassignedAndSelectedSkills() {
+//        // Create test data
+//        Employee employee1 = new Employee();
+//        employee1.setId(1L);
+//        employee1.setEmpId("E001");
+//        employee1.setName("Employee 1");
+//        employee1.setProjectId(null);
 //
-//        // Act
-//        boolean isValid = adminService.userValidation(loginDto);
+//        Employee employee2 = new Employee();
+//        employee2.setId(2L);
+//        employee2.setEmpId("E002");
+//        employee2.setName("Employee 2");
+//        employee2.setProjectId(3L);
+//        employee2.setSkills(List.of("Skill1", "Skill2"));
 //
-//        // Assert
-//        assertTrue(isValid);
+//        List<String> selectedSkills = List.of("Skill1", "Skill2");
+//        
+//        // Mock repository calls
+//        when(employeeRepository.findByRole(Role.Employee)).thenReturn(List.of(employee1, employee2));
+//        when(projectRepository.findById(3L)).thenReturn(Optional.of(new Project()));
+//
+//        // Call the method
+//        List<EmployeeOutDto> filteredEmployees = adminService.getFilteredEmployees(selectedSkills, true);
+//
+//        // Assertions
+//        assertNotNull(filteredEmployees);
+//        assertEquals(1, filteredEmployees.size());
+//
+//        EmployeeOutDto employeeOutDto = filteredEmployees.get(0);
+//        assertEquals(1L, employeeOutDto.getId());
+//        assertEquals("E001", employeeOutDto.getEmpId());
+//        assertEquals("Employee 1", employeeOutDto.getName());
+//        assertEquals("N/A", employeeOutDto.getProjectName());
+//    }
+//
+//    @Test
+//    public void testGetFilteredEmployees_ShowUnassignedAndNoSelectedSkills() {
+//        // Create test data
+//        Employee employee1 = new Employee();
+//        employee1.setId(1L);
+//        employee1.setEmpId("E001");
+//        employee1.setName("Employee 1");
+//        employee1.setProjectId(null);
+//
+//        Employee employee2 = new Employee();
+//        employee2.setId(2L);
+//        employee2.setEmpId("E002");
+//        employee2.setName("Employee 2");
+//        employee2.setProjectId(3L);
+//
+//        // Mock repository calls
+//        when(employeeRepository.findByRole(Role.Employee)).thenReturn(List.of(employee1, employee2));
+//        when(projectRepository.findById(3L)).thenReturn(Optional.of(new Project()));
+//
+//        // Call the method
+//        List<EmployeeOutDto> filteredEmployees = adminService.getFilteredEmployees(null, true);
+//
+//        // Assertions
+//        assertNotNull(filteredEmployees);
+//        assertEquals(2, filteredEmployees.size());
+//    }
+//
+//    @Test
+//    public void testGetFilteredEmployees_NotShowUnassignedAndSelectedSkills() {
+//        // Create test data
+//        Employee employee1 = new Employee();
+//        employee1.setId(1L);
+//        employee1.setEmpId("E001");
+//        employee1.setName("Employee 1");
+//        employee1.setProjectId(null);
+//
+//        Employee employee2 = new Employee();
+//        employee2.setId(2L);
+//        employee2.setEmpId("E002");
+//        employee2.setName("Employee 2");
+//        employee2.setProjectId(3L);
+//        employee2.setSkills(List.of("Skill1", "Skill2"));
+//
+//        List<String> selectedSkills = List.of("Skill1", "Skill2");
+//
+//        // Mock repository calls
+//        when(employeeRepository.findByRole(Role.Employee)).thenReturn(List.of(employee1, employee2));
+//        when(projectRepository.findById(3L)).thenReturn(Optional.of(new Project()));
+//
+//        // Call the method
+//        List<EmployeeOutDto> filteredEmployees = adminService.getFilteredEmployees(selectedSkills, false);
+//
+//        // Assertions
+//        assertNotNull(filteredEmployees);
+//        assertEquals(1, filteredEmployees.size());
+//
+//        EmployeeOutDto employeeOutDto = filteredEmployees.get(0);
+//        assertEquals(2L, employeeOutDto.getId());
+//        assertEquals("E002", employeeOutDto.getEmpId());
+//        assertEquals("Employee 2", employeeOutDto.getName());
+//        assertEquals("N/A", employeeOutDto.getProjectName());
+//    }
+//
+//    @Test
+//    public void testGetFilteredEmployees_NotShowUnassignedAndNoSelectedSkills() {
+//        // Create test data
+//        Employee employee1 = new Employee();
+//        employee1.setId(1L);
+//        employee1.setEmpId("E001");
+//        employee1.setName("Employee 1");
+//        employee1.setProjectId(null);
+//
+//        Employee employee2 = new Employee();
+//        employee2.setId(2L);
+//        employee2.setEmpId("E002");
+//        employee2.setName("Employee 2");
+//        employee2.setProjectId(3L);
+//
+//        // Mock repository calls
+//        when(employeeRepository.findByRole(Role.Employee)).thenReturn(List.of(employee1, employee2));
+//        when(projectRepository.findById(3L)).thenReturn(Optional.of(new Project()));
+//
+//        // Call the method
+//        List<EmployeeOutDto> filteredEmployees = adminService.getFilteredEmployees(null, false);
+//
+//        // Assertions
+//        assertNotNull(filteredEmployees);
+//        assertEquals(0, filteredEmployees.size());
 //    }
 
-    @Test
-    public void testUserValidation_InvalidPassword() {
-        // Arrange
-        LoginDto loginDto = new LoginDto();
-        loginDto.setEmail("test@example.com");
-        loginDto.setPassword("password");
-        Employee employee = createSampleEmployee();
-        when(adminRepository.findByEmail(anyString())).thenReturn(employee);
-        when(passwordEncoder.matches(anyString(), anyString())).thenReturn(false);
-
-        // Act
-        boolean isValid = adminService.userValidation(loginDto);
-
-        // Assert
-        assertFalse(isValid);
-    }
-
-//    @Test
-//    public void testLogin_ValidCredentials() {
-//        // Arrange
-//        LoginDto loginDto = new LoginDto();
-//        loginDto.setEmail("test@nucleusteq.com");
-//        loginDto.setPassword("password");
-//        Employee employee = createSampleEmployee();
-//        when(adminRepository.findByEmail(anyString())).thenReturn(employee);
-//        when(anyString().equals(anyString())).thenReturn(true);
-//       
-//
-//        // Act
-//        ResponseDto responseDto = adminService.login(loginDto);
-//
-//        // Assert
-//        assertNotNull(responseDto);
-//        assertEquals("Login Successful", responseDto.getMessage());
-//    }
 
     @Test
-    public void testLogin_InvalidPassword() {
-        // Arrange
-        LoginDto loginDto = new LoginDto();
-        loginDto.setEmail("test@example.com");
-        loginDto.setPassword("password");
-        Employee employee = createSampleEmployee();
-        when(adminRepository.findByEmail(anyString())).thenReturn(employee);
-        when(passwordEncoder.matches(anyString(), anyString())).thenReturn(false);
+    public void testUnAssign_Success() {
+        Long id = 1L;
 
-        // Act and Assert
-        assertThrows(UserNotFound.class, () -> adminService.login(loginDto));
+        Employee employee = new Employee();
+        employee.setProjectId(2L);
+        employee.setManagerId(3L);
+
+        when(employeeRepository.findById(id)).thenReturn(Optional.of(employee));
+        when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
+
+        ResponseDto response = adminService.unAssign(id);
+
+        assertNotNull(response);
+        assertEquals("UnAssigned the project", response.getMessage());
+        assertNull(employee.getProjectId());
+        assertEquals(1L, employee.getManagerId());
+        assertEquals("Ankita", employee.getManagerName());
+
+        // Verify that save was called once with the updated employee
+        verify(employeeRepository, times(1)).save(employee);
     }
 
     @Test
-    public void testLogin_UserNotFound() {
-        // Arrange
-        LoginDto loginDto = new LoginDto();
-        loginDto.setEmail("test@example.com");
-        loginDto.setPassword("password");
-        when(adminRepository.findByEmail(anyString())).thenReturn(null);
+    public void testUnAssign_EmployeeNotFound() {
+        Long id = 1L;
 
-        // Act and Assert
-        assertThrows(UserNotFound.class, () -> adminService.login(loginDto));
+        when(employeeRepository.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(NoSuchElementException.class, () -> {
+            adminService.unAssign(id);
+        });
+    }
+    
+    @Test
+    public void testGetRoleByEmail_Success() {
+        // Create a LoginInDto with a known email
+        LoginInDto loginInDto = new LoginInDto();
+        loginInDto.setEmail("test@example.com");
+
+        // Create a mock Employee object with a known role
+        Employee mockEmployee = new Employee();
+        mockEmployee.setRole(Role.Admin);
+
+        // Mock the repository call
+        when(employeeRepository.findByEmail("test@example.com")).thenReturn(mockEmployee);
+
+        // Call the method
+        Role role = adminService.getRoleByEmial(loginInDto);
+
+        // Assertions
+        assertNotNull(role);
+        assertEquals(Role.Admin, role);
     }
 
-    private EmployeeDto createSampleEmployeeDto() {
-        EmployeeDto employeeDto = new EmployeeDto();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private EmployeeInDto createSampleEmployeeDto() {
+        EmployeeInDto employeeInDto = new EmployeeInDto();
         // Set sample employee DTO properties here
-        employeeDto.setName("Praveen");
-        employeeDto.setEmail("praveen@nucleusteq.com");
-        employeeDto.setEmpId("N0001");
-        employeeDto.setDesignation(Designation.Engineer);
-        employeeDto.setLocation(Location.Raipur);
-        employeeDto.setContactNo(1234567890L);
-        employeeDto.setDob("14-10-2001");
-        employeeDto.setDoj("17-07-2023");
-        return employeeDto;
+        employeeInDto.setName("Praveen");
+        employeeInDto.setEmail("praveen@nucleusteq.com");
+        employeeInDto.setEmpId("N0001");
+        employeeInDto.setDesignation(Designation.Engineer);
+        employeeInDto.setLocation(Location.Raipur);
+        employeeInDto.setContactNo(1234567890L);
+        employeeInDto.setDob("14-10-2001");
+        employeeInDto.setDoj("17-07-2023");
+        return employeeInDto;
     }
 
     private Employee createSampleEmployee() {

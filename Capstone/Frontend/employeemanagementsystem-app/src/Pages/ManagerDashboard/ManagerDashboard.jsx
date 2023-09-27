@@ -9,6 +9,7 @@ import EmployeeCarddd from './Cards/EmployeeCard';
 function ManagerDashboard() {
   const [activeTab, setActiveTab] = useState('Employee');
   const navigate = useNavigate();
+  const name=localStorage.getItem('name');
 
   const switchToEmployeeTab = () => {
     setActiveTab('Employee');
@@ -25,7 +26,8 @@ function ManagerDashboard() {
   const logout = () => {
     localStorage.removeItem('IsLoggedIn');
     localStorage.removeItem('userRole');
-    localStorage.removeItem('email');
+    localStorage.removeItem('id');
+    localStorage.removeItem('name');
     navigate('/');
   };
 
@@ -39,7 +41,7 @@ function ManagerDashboard() {
       <div className="MD-nav-bar">
         <div className="sticky-navbar">
             <div>
-          <h4>Manager Dashboard</h4>
+          <h4>Welcome {name}</h4>
           </div>
           <div className="MD-tabs">
             <div
@@ -70,7 +72,7 @@ function ManagerDashboard() {
       </div>
       <div className="MD-card-container">
         {activeTab === 'Employee' && (
-          <div>
+          <div className='p'>
             <EmployeeCarddd />
           </div>
         )}

@@ -8,12 +8,37 @@
     flex-wrap: wrap;
     padding: 15px;
     overflow-y: scroll;
+    width: 100%;
     /* height: 500px ; */
   }
+
+
+
+.MD-filter{
+  margin-right: 30px;
+text-align: right;
+}
+.MD-filter input[type="checkbox"]:checked + label .MD-button-label {
+  
+  font-weight: bold;
+  color: #007BFF;
+}
+.empty{
+  width: 100% !important;
+}
   
   .MD-card-container::-webkit-scrollbar {
     width: 0;
     height: 0;
+  }
+  .EC-Component{
+    display: flex;
+    justify-content: end;
+   
+  }
+  .MD-skill-filter{
+    width:30%;
+    margin-left: 10px;
   }
   
   .MD-card {
@@ -31,14 +56,26 @@
     flex-shrink: 0;
     transition: transform 0.2s ease;
   }
+  .Radiobutton{
+    /* padding:10px !important; */
+    /* width: 1%; */
+    margin-right: 2px;
+    text-align: right;
+  }
   
   .MD-card:hover {
     transform: scale(1.02);
   }
   
-  .MD-column {
-    flex: 1 1;
+  .MD-column1 {
+    
     padding: 10px;
+    width:55%
+  }
+  .MD-column2 {
+    
+    padding: 10px;
+    /* width:40%; */
   }
   
   .MD-card h2 {
@@ -46,12 +83,14 @@
     margin-bottom: 0.5rem;
     color: #000000;
   }
+
   
   p {
     margin: 0.5rem 0;
     font-size: 0.9rem !important;
     color: #000000;
   }
+
   
   .MD-assign-button {
     background-color: #007bff;
@@ -61,10 +100,32 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    margin-top: 30px;
+    /* height: 41px; */
+    /* width:30px; */
   }
   
   .MD-assign-button:hover {
     background-color: #0056b3;
+    
+  }
+  .MD-requested-button{
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px !important;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 30px;
+    height: 41px;
+
+  }
+    
+  .MD-requested-button:hover {
+    background-color: #007bff;
+ 
+    
   }
   
 

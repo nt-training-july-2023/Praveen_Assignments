@@ -28,10 +28,12 @@
 .column {
     flex: 1;
     padding: 10px;
+    
 }
 
 p {
     font-size: 12px;
+    margin-right: 2px!important ;
 }
 .column1{
     width:60%;

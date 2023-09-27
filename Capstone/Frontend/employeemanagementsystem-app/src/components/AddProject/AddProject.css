@@ -44,12 +44,22 @@ body{
   .form-label {
     padding-top: 1opx;
   }
-  .form-input {
+  .AP-input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
     margin-bottom: 3px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-bottom: 3px;
+    width: 70%;
+    /* margin-bottom: 15px; */
+    border-radius: 4px;
+    box-sizing: border-box;
+    border-radius: 5px;
   }
   .abc{
     width: 21.9rem !important;

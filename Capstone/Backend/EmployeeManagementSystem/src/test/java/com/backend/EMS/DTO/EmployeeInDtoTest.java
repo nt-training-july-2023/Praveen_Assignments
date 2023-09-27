@@ -13,13 +13,13 @@ import org.junit.jupiter.api.Assertions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeDtoTest {
+public class EmployeeInDtoTest {
 
-    private EmployeeDto employee;
+    private EmployeeInDto employee;
 
     @BeforeEach
     public void setUp() {
-        employee = new EmployeeDto();
+        employee = new EmployeeInDto();
     }
 
     @Test
@@ -99,13 +99,13 @@ public class EmployeeDtoTest {
 
     @Test
     public void testEquals() {
-        EmployeeDto employee1 = new EmployeeDto();
+        EmployeeInDto employee1 = new EmployeeInDto();
         employee1.setId(1L);
 
-        EmployeeDto employee2 = new EmployeeDto();
+        EmployeeInDto employee2 = new EmployeeInDto();
         employee2.setId(1L);
 
-        EmployeeDto employee3 = new EmployeeDto();
+        EmployeeInDto employee3 = new EmployeeInDto();
         employee3.setId(2L);
 
         Assertions.assertEquals(employee1, employee2);
@@ -114,13 +114,13 @@ public class EmployeeDtoTest {
 
     @Test
     public void testHashCode() {
-        EmployeeDto employee1 = new EmployeeDto();
+        EmployeeInDto employee1 = new EmployeeInDto();
         employee1.setId(1L);
 
-        EmployeeDto employee2 = new EmployeeDto();
+        EmployeeInDto employee2 = new EmployeeInDto();
         employee2.setId(1L);
 
-        EmployeeDto employee3 = new EmployeeDto();
+        EmployeeInDto employee3 = new EmployeeInDto();
         employee3.setId(2L);
 
         Assertions.assertEquals(employee1.hashCode(), employee2.hashCode());
@@ -140,7 +140,7 @@ public class EmployeeDtoTest {
         employee.setPassword("secret");
         employee.setRole(Role.Admin); // Use the enum constant
 
-        String expectedString = "EmployeeDto [id=1, name=John Doe, email=john.doe@example.com, empId=N1234, dob=1990-01-01, doj=2022-05-15, location=Bangalore, designation=Architect, contactNo=1234567890, password=secret, role=Admin, skills=null]";
+        String expectedString = "EmployeeInDto [id=1, name=John Doe, email=john.doe@example.com, empId=N1234, dob=1990-01-01, doj=2022-05-15, location=Bangalore, designation=Architect, contactNo=1234567890, password=secret, role=Admin, skills=null]";
         Assertions.assertEquals(expectedString, employee.toString());
     }
 

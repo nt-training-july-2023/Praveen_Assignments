@@ -15,6 +15,8 @@ import ManagerDashboard from './Pages/ManagerDashboard/ManagerDashboard';
 import AssignProject from './components/AssignProject/AssignProject';
 import organization from './Pages/EmployeeDashboard/Cards/Organization';
 import UpdateSkills from './Pages/EmployeeDashboard/UpdateSkills';
+import RequestResource from './Pages/ManagerDashboard/RequestResource';
+import RequestedResourcesList from './components/AdminDashboard/RequestedResourcesList';
 
 
 
@@ -33,6 +35,8 @@ function App() {
       <Route path='/managerDashboard' element={<ManagerDashboard/>}/>
       <Route path='/assignProject/:employeeId' element={<AssignProject/>}/>
       <Route path='/updateSkill/:employeeId' element={<UpdateSkills/>}/>
+      <Route path='/requestResource/:employeeId' element={<RequestResource/>}/>
+      <Route path='/resourceRequestedList' element={<RequestedResourcesList/>}/>
 
       </Routes>
     </Router>

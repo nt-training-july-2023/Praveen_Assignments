@@ -145,7 +145,7 @@ function AddProject() {
         if (response.status === 200) {
           toast.success("Project Added", {
             position: toast.POSITION.TOP_CENTER,
-            autoClose: 3000, //3 seconds
+            autoClose: 1000, //3 seconds
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -153,6 +153,7 @@ function AddProject() {
             toastId,
             transition: Slide,
           });
+          navigate("/adminDashboard")
           // Reset form fields after successful registration
           setProjectName("");
           setManagerId("");
@@ -170,6 +171,10 @@ function AddProject() {
       }
     }
   };
+  const userRole = localStorage.getItem('userRole');
+  if (userRole !== 'Admin') {
+    return <h1>Unauthorized access</h1>;
+  }
   return (
 
     <div className="form">
@@ -181,7 +186,7 @@ function AddProject() {
         <div className="form-group">
           <label className="form-label">ProjectName</label>
           <input
-            className="form-input"
+            className="AP-input"
             type="text"
             placeholder="Enter ProjectName"
             value={projectName}
@@ -198,7 +203,7 @@ function AddProject() {
         {/* <div className="form-group">
           <label className="form-label">ManagerId</label>
           <input
-            className="form-input"
+            className="AP-input"
             type="text"
             placeholder="Select Manager"
             value={managerId}
@@ -237,7 +242,7 @@ function AddProject() {
         <div className="form-group">
           <label className="form-label">Start Date</label>
           <input
-            className="form-input"
+            className="AP-input"
             type="date"
             placeholder="Enter Start Date"
             value={startDate}

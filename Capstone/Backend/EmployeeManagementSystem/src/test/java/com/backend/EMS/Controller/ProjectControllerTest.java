@@ -1,9 +1,12 @@
 package com.backend.EMS.Controller;
 
 import com.backend.EMS.Controller.ProjectController;
-import com.backend.EMS.DTO.ProjectDto;
+import com.backend.EMS.DTO.ProjectInDto;
+import com.backend.EMS.DTO.ProjectOutDto;
 import com.backend.EMS.DTO.ResponseDto;
-import com.backend.EMS.Service.AddProjectService;
+import com.backend.EMS.Service.ProjectService;
+import com.backend.EMS.Service.CardsService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -14,13 +17,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class ProjectControllerTest {
 
     @InjectMocks
     private ProjectController projectController;
 
     @Mock
-    private AddProjectService addProjectService;
+    private ProjectService projectService;
+    @Mock
+    private CardsService cardsService;
 
     @BeforeEach
     public void init() {
@@ -29,15 +37,27 @@ public class ProjectControllerTest {
 
     @Test
     public void testAddProject_Success() {
-        ProjectDto projectDto = new ProjectDto();
+        ProjectInDto projectInDto = new ProjectInDto();
         ResponseDto responseDto = new ResponseDto("Project added successfully");
 
-        when(addProjectService.addProject(any(ProjectDto.class))).thenReturn(responseDto);
+        when(projectService.addProject(any(ProjectInDto.class))).thenReturn(responseDto);
 
-        ResponseDto response = projectController.addProject(projectDto);
+        ResponseDto response = projectController.addProject(projectInDto);
 
-        verify(addProjectService, times(1)).addProject(any(ProjectDto.class));
+        verify(projectService, times(1)).addProject(any(ProjectInDto.class));
 
         assertEquals("Project added successfully", response.getMessage());
+    }
+    @Test
+    public void testGetAllProjects_Success() {
+        List<ProjectOutDto> projectList = Arrays.asList(new ProjectOutDto(), new ProjectOutDto());
+
+        when(cardsService.getAllProject()).thenReturn(projectList);
+
+        List<ProjectOutDto> response = projectController.getAllProjects();
+
+        verify(cardsService, times(1)).getAllProject();
+
+        assertEquals(2, response.size());
     }
 }

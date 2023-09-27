@@ -167,7 +167,7 @@ class EmployeeTest {
 //        admin.setPassword("myPassword");
 //        admin.setConfirmPassword("myPassword");
 //
-//        String expectedString = "EmployeeDto [name=Praveen, email=Praveen@example.com, empId=N1123, dob=1990-01-01, " +
+//        String expectedString = "EmployeeInDto [name=Praveen, email=Praveen@example.com, empId=N1123, dob=1990-01-01, " +
 //                "doj=2021-01-01, location=Raipur, designation=Manager, contactNo=1234567890, " +
 //                "password=myPassword, confirmPassword=myPassword]";
 //        assertEquals(expectedString, admin.toString());

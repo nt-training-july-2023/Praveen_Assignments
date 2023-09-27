@@ -9,35 +9,42 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 
-import com.backend.EMS.DTO.EmployeeDto;
+import com.backend.EMS.DTO.EmployeeInDto;
 import com.backend.EMS.DTO.EmployeeNameDto;
 import com.backend.EMS.DTO.EmployeeOutDto;
-import com.backend.EMS.DTO.ProjectDto;
+import com.backend.EMS.DTO.ProjectInDto;
 import com.backend.EMS.DTO.ProjectOutDto;
 import com.backend.EMS.Model.Designation;
 import com.backend.EMS.Model.Employee;
 import com.backend.EMS.Model.Location;
 import com.backend.EMS.Model.Project;
 import com.backend.EMS.Model.Role;
-import com.backend.EMS.Repository.AdminRepository;
+import com.backend.EMS.Repository.EmployeeRepository;
 import com.backend.EMS.Repository.ProjectRepository;
 import com.backend.EMS.Service.CardsService;
 
 public class CardsServiceTest {
-
+@InjectMocks
     private CardsService cardsService;
-    private AdminRepository adminRepository;
+   @Mock
+    private EmployeeRepository employeeRepository;
+   @Mock
     private ProjectRepository projectRepository;
+   @Mock
     private ModelMapper modelMapper;
 
     @BeforeEach
     public void setUp() {
-        adminRepository = mock(AdminRepository.class);
-        projectRepository = mock(ProjectRepository.class);
-        modelMapper = new ModelMapper();
-        cardsService = new CardsService(modelMapper, adminRepository, projectRepository);
+//        employeeRepository = mock(EmployeeRepository.class);
+//        projectRepository = mock(ProjectRepository.class);
+//        modelMapper = new ModelMapper();
+//        cardsService = new CardsService(modelMapper, employeeRepository, projectRepository);
+        MockitoAnnotations.openMocks(this);
     }
 
     // Helper method to create a sample employee
@@ -82,7 +89,7 @@ public class CardsServiceTest {
         List<Employee> employees = new ArrayList<>();
         employees.add(createSampleEmployee());
 
-        when(adminRepository.findByRole(role)).thenReturn(employees);
+        when(employeeRepository.findByRole(role)).thenReturn(employees);
 
         List<EmployeeOutDto> result = cardsService.getEmployeesByRole(role.toString());
 
@@ -99,7 +106,7 @@ public class CardsServiceTest {
         Long id = 1L;
         Employee employee = createSampleEmployee();
 
-        when(adminRepository.findById(id)).thenReturn(Optional.of(employee));
+        when(employeeRepository.findById(id)).thenReturn(Optional.of(employee));
 
         EmployeeNameDto result = cardsService.getEmployeeById(id);
 
@@ -111,7 +118,7 @@ public class CardsServiceTest {
         List<Project> projects = createSampleProjectList();
 
         when(projectRepository.findAll()).thenReturn(projects);
-        when(adminRepository.findById(1L)).thenReturn(Optional.of(createSampleEmployee()));
+        when(employeeRepository.findById(1L)).thenReturn(Optional.of(createSampleEmployee()));
 
         List<ProjectOutDto> result = cardsService.getAllProject();
 

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "./AssignProject.css";
 import { toast } from "react-toastify"; // Import toast and ToastContainer from react-toastify
 import "react-toastify/dist/ReactToastify.css";
+import { useLocation } from "react-router-dom";
 
 function AssignProject() {
   const [projects, setProjects] = useState([]);
@@ -17,9 +18,11 @@ function AssignProject() {
   const navigate = useNavigate();
   console.log({ employeeId });
 
+  const location = useLocation();
+  const stateData = location.state;
+
   useEffect(() => {
     getAllProjects();
-    getEmployeeName();
   }, []);
 
   const validateAssign = () => {
@@ -38,16 +41,6 @@ function AssignProject() {
         "http://localhost:8080/api/projectCards"
       );
       setProjects(response.data);
-    } catch (error) {
-      console.error("Error fetching projects data:", error);
-    }
-  };
-  const getEmployeeName = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/api/employee/${employeeId}`
-      );
-      setEmployeeDetails(response.data);
     } catch (error) {
       console.error("Error fetching projects data:", error);
     }
@@ -91,6 +84,13 @@ function AssignProject() {
     setManagerId(selectedManagerId);
   };
 
+  const userRole = localStorage.getItem('userRole');
+  if (userRole !== 'Admin') {
+    return <h1>Unauthorized access</h1>;
+  }
+
+  
+
   return (
     <div>
       <div>
@@ -98,7 +98,7 @@ function AssignProject() {
       </div>
       <br />
       <div className="AP-container">
-        <h2 style={{ fontWeight: "bold" }}>{employeeDetails.name}</h2>
+        <h2 style={{ fontWeight: "bold" }}>{stateData.empName}</h2>
         <select
           type="text"
           name="managerId"

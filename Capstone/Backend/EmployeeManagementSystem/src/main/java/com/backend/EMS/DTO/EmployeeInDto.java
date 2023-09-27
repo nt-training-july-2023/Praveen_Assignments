@@ -8,12 +8,14 @@ import com.backend.EMS.Model.Location;
 import com.backend.EMS.Model.Role;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 /**
  * Data Transfer Object (DTO) for handling employee information.
  */
-public class EmployeeDto {
+public class EmployeeInDto {
     /**
      * The id of the employee.
      */
@@ -28,6 +30,7 @@ public class EmployeeDto {
     /**
      * The email of the employee.
      */
+    @NotBlank(message="Name cannot be empty")
     @Pattern(regexp = ".+@nucleusteq\\.com$", message = "Email"
             + " must end with @nucleusteq.com")
     private String email;
@@ -35,6 +38,7 @@ public class EmployeeDto {
     /**
      * The employee ID of the employee.
      */
+    @NotBlank(message="Name cannot be empty")
     @Pattern(regexp = "^N\\d{4}$", message = "Employee ID should be"
             + " in the pattern NXXXX (X should be numbers)")
     private String empId;
@@ -62,6 +66,7 @@ public class EmployeeDto {
     /**
      * The contact number of the employee.
      */
+    @NotNull
     private Long contactNo;
     /**
      * The password of the employee.
@@ -77,18 +82,19 @@ public class EmployeeDto {
     /**
      * The skills of employee.
      */
-    private List<String> skills;
+    @NotEmpty
+    private List<@NotBlank(message="skills should not be empty string") String> skills;
 
     /**
-     * Default constructor for EmployeeDto.
+     * Default constructor for EmployeeInDto.
      */
-    public EmployeeDto() {
+    public EmployeeInDto() {
         super();
     }
 
     @Override
     public final String toString() {
-        return "EmployeeDto [id=" + id + ", name=" + name + ", email="
+        return "EmployeeInDto [id=" + id + ", name=" + name + ", email="
                              + email + ", empId=" + empId + ", dob=" + dob
                 + ", doj=" + doj + ", location=" + location
                 + ", designation=" + designation + ", contactNo="
@@ -254,10 +260,9 @@ public class EmployeeDto {
      * @return the skills
      */
     public final List<String> getSkills() {
-        if (skills != null){
+        if (skills != null) {
         return new ArrayList<>(skills);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -290,7 +295,7 @@ public class EmployeeDto {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        EmployeeDto other = (EmployeeDto) obj;
+        EmployeeInDto other = (EmployeeInDto) obj;
         return Objects.equals(contactNo, other.contactNo)
                 && designation == other.designation
                 && Objects.equals(dob, other.dob)

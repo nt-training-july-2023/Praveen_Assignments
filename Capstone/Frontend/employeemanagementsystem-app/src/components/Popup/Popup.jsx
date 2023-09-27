@@ -7,7 +7,7 @@ const Popup = ({ description, onClose }) => {
       <div className="project-popup-content">
         <p className='popup-description'>{description}</p>
          <button className="closeee-button" onClick={onClose}>
-          X
+          Close
           </button>
       </div>
     </div>

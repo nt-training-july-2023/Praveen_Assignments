@@ -8,7 +8,7 @@ import com.backend.EMS.Model.Role;
 /**
  * Repository interface for managing admin data in the database.
  */
-public interface AdminRepository extends JpaRepository<Employee, Long> {
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     /**
      * Find an admin by their email.

@@ -47,13 +47,13 @@
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
 		<item key="renameSubpackages" value="false"/>
 		<item key="updateTextualMatches" value="true"/>
-		<item key="updateQualifiedNames" value="false"/>
+		<item key="updateQualifiedNames" value="true"/>
 		<item key="patterns" value="*"/>
 		<item key="updateSimilarElements" value="true"/>
 		<item key="updateSimilarElementsMatchStrategy" value="1"/>
 	</section>
 	<section name="NewPackageWizardPage">
-		<item key="create_package_info_java" value="false"/>
+		<item key="create_package_info_java" value="true"/>
 	</section>
 	<section name="JavaSearchPage">
 		<item key="CASE_SENSITIVE" value="false"/>
@@ -113,7 +113,7 @@
 		<item key="SkipNull" value="false"/>
 		<item key="ToStringTemplateSelected" value="0"/>
 		<item key="InstanceOf" value="false"/>
-		<item key="Blocks" value="false"/>
+		<item key="Blocks" value="true"/>
 		<item key="Objects.equals &amp; Objects.hash" value="true"/>
 	</section>
 	<section name="AddGetterSetterDialog">

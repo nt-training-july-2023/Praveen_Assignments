@@ -11,8 +11,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 /**
- * Data Transfer Object (DTO) for handling employee
- *  information to be sent as output.
+ * Data Transfer Object (DTO) for handling employee information to be sent as
+ * output.
  */
 public class EmployeeOutDto {
     /**
@@ -37,7 +37,7 @@ public class EmployeeOutDto {
      * The employee ID of the employee.
      */
     @Pattern(regexp = "^N\\d{4}$", message = "Employee ID should be"
-            + " in the pattern NXXXX (X should be numbers)")
+     + " in the pattern NXXXX (X should be numbers)")
     private String empId;
 
     /**
@@ -74,6 +74,7 @@ public class EmployeeOutDto {
      * The project ID of the employee.
      */
     private Long projectId;
+
     /**
      * @return the projectId
      */
@@ -107,14 +108,14 @@ public class EmployeeOutDto {
      * @return The skills of the employee.
      */
     private List<String> team;
+
     /**
      * @return the team
      */
     public final List<String> getTeam() {
-        if (team != null){
-        return new ArrayList<>(team);
-        }
-        else {
+        if (team != null) {
+            return new ArrayList<>(team);
+        } else {
             return null;
         }
     }
@@ -123,22 +124,21 @@ public class EmployeeOutDto {
      * @param teamList the team to set
      */
     public final void setTeam(final List<String> teamList) {
-        if (teamList.size()!=0){
-        this.team = new ArrayList<>(teamList);
-        }
-        else {
-            this.skills=null;
+        if (teamList.size() != 0) {
+            this.team = new ArrayList<>(teamList);
+        } else {
+            this.skills = null;
         }
     }
+
     /**
      *
      * @return the skills
      */
     public final List<String> getSkills() {
-        if (skills != null){
-        return new ArrayList<>(skills);
-        }
-        else {
+        if (skills != null) {
+            return new ArrayList<>(skills);
+        } else {
             return null;
         }
     }
@@ -371,22 +371,23 @@ public class EmployeeOutDto {
     public final void setManagerName(final String managerNameValue) {
         this.managerName = managerNameValue;
     }
+
     @Override
     public final String toString() {
-        return "EmployeeOutDto [id=" + id + ", name=" + name + ", email="
-                            + email + ", empId=" + empId + ", dob=" + dob
-                + ", doj=" + doj + ", location=" + location + ", designation="
-                            + designation + ", contactNo="
-                + contactNo + ", managerId=" + managerId + ", projectId="
-                            + projectId + ", managerName=" + managerName
+        return "EmployeeOutDto [id=" + id + ", name=" + name
+                + ", email=" + email + ", empId=" + empId + ", dob=" + dob
+                + ", doj=" + doj + ", location=" + location
+                + ", designation=" + designation + ", contactNo="
+                + contactNo + ", managerId=" + managerId
+                + ", projectId=" + projectId + ", managerName=" + managerName
                 + ", projectName=" + projectName + ", skills="
-                            + skills + ", team=" + team + "]";
+                + skills + ", team=" + team + "]";
     }
 
     @Override
     public final int hashCode() {
-        return Objects.hash(contactNo, designation, dob, doj, email, empId,
-                id, location, managerId, managerName, name,
+        return Objects.hash(contactNo, designation, dob,
+                doj, email, empId, id, location, managerId, managerName, name,
                 projectId, projectName, skills, team);
     }
 
@@ -408,8 +409,7 @@ public class EmployeeOutDto {
                 && Objects.equals(doj, other.doj)
                 && Objects.equals(email, other.email)
                 && Objects.equals(empId, other.empId)
-                && Objects.equals(id, other.id)
-                && location == other.location
+                && Objects.equals(id, other.id) && location == other.location
                 && Objects.equals(managerId, other.managerId)
                 && Objects.equals(managerName, other.managerName)
                 && Objects.equals(name, other.name)
@@ -427,4 +427,3 @@ public class EmployeeOutDto {
         // TODO Auto-generated constructor stub
     }
 }
-

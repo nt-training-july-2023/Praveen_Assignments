@@ -41,7 +41,7 @@ font-size: 25px;
     /* margin-right: 57rem; */
   }
   
-  input {
+  .login-input {
     width: 70%;
     padding: 10px;
     margin-bottom: 15px;
@@ -106,7 +106,7 @@ font-size: 25px;
       padding: 20px; /* Further reduce padding */
     }
   
-    input,
+    .login-input,
     button {
       width: 90%; /* Make input and button elements wider for small screens */
     }

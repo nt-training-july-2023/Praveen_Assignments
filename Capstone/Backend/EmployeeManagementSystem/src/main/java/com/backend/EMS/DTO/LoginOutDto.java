@@ -7,7 +7,7 @@ import com.backend.EMS.Model.Role;
 /**
  * Data Transfer Object (DTO) for handling login response information.
  */
-public class LoginResponseDto {
+public class LoginOutDto {
     /**
      * The role associated with the login response.
      */
@@ -19,17 +19,22 @@ public class LoginResponseDto {
     private String message;
 
     /**
-     * The email associated with the login response.
+     * The name associated with the login response.
      */
-    private String email;
+    private String name;
 
     /**
-     * Get the email associated with the login response.
-     *
-     * @return The email associated with the login response.
+     * The id associated with the login response.
      */
-    public final String getEmail() {
-        return email;
+    private Long id;
+
+    /**
+     * Get the id associated with the login response.
+     *
+     * @return The id associated with the login response.
+     */
+    public final Long getId() {
+        return id;
     }
 
     /**
@@ -37,8 +42,8 @@ public class LoginResponseDto {
      *
      * @param emails The email to set for the login response.
      */
-    public final void setEmail(final String emails) {
-        this.email = emails;
+    public final void setId(final Long ids) {
+        this.id = ids;
     }
 
     /**
@@ -67,7 +72,6 @@ public class LoginResponseDto {
     public final String getMessage() {
         return message;
     }
-
     /**
      * Set the message associated with the login response.
      *
@@ -76,45 +80,49 @@ public class LoginResponseDto {
     public final void setMessage(final String messages) {
         this.message = messages;
     }
-
     /**
-     * Default constructor for LoginResponseDto.
+     * @return the name
      */
-    public LoginResponseDto() {
-        super();
+    public final String getName() {
+        return name;
     }
 
     /**
-     * Constructor for initializing LoginResponseDto. with role, message, and email.
-     *
-     * @param roles    The role associated with the login response.
-     * @param messages The message associated with the login response.
-     * @param emails   The email associated with the login response.
+     * @param nameValue the name to set
      */
-    public LoginResponseDto(final Role roles, final String messages, final String emails) {
+    public final void setName(final String nameValue) {
+        this.name = nameValue;
+    }
+
+    /**
+     * Default constructor for LoginOutDto.
+     */
+    public LoginOutDto() {
+        super();
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(id, message, name, role);
+    }
+
+    /**
+     * Constructs a new LoginOutDto object with the specified parameters.
+     *
+     * @param roles The role associated with the login response.
+     * @param messages The message associated with the login response.
+     * @param names The name associated with the login response.
+     * @param emails The email associated with the login response.
+     */
+    public LoginOutDto(final Role roles, final String messages,
+            final String names, final Long ids) {
         super();
         this.role = roles;
         this.message = messages;
-        this.email = emails;
+        this.name = names;
+        this.id = ids;
     }
 
-    /**
-     * Generate a hash code for this object based on email, message, and role.
-     *
-     * @return The generated hash code.
-     */
-    @Override
-    public final int hashCode() {
-        return Objects.hash(email, message, role);
-    }
-
-    /**
-     * Compare this object with another object for equality based on email, message,
-     * and role.
-     *
-     * @param obj The object to compare with.
-     * @return True if the objects are equal, false otherwise.
-     */
     @Override
     public final boolean equals(final Object obj) {
         if (this == obj) {
@@ -126,18 +134,15 @@ public class LoginResponseDto {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        LoginResponseDto other = (LoginResponseDto) obj;
-        return Objects.equals(email, other.email) && Objects.equals(message, other.message) && role == other.role;
+        LoginOutDto other = (LoginOutDto) obj;
+        return Objects.equals(id, other.id)
+                && Objects.equals(message, other.message)
+                && Objects.equals(name, other.name) && role == other.role;
     }
 
-    /**
-     * Generate a string representation of this object.
-     *
-     * @return A string representation of the LoginResponseDto object, including
-     *         role, message, and email.
-     */
     @Override
     public final String toString() {
-        return "LoginResponseDto [role=" + role + ", message=" + message + ", email=" + email + "]";
+        return "LoginOutDto [role=" + role + ", message="
+    + message + ", name=" + name + ", email=" + id + "]";
     }
 }

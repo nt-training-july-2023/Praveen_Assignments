@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Data Transfer Object (DTO) for handling login information.
  */
-public class LoginDto {
+public class LoginInDto {
     /**
      * The email associated with the login.
      */
@@ -55,18 +55,18 @@ public class LoginDto {
     /**
      * Generate a string representation of this object.
      *
-     * @return A string representation of the LoginDto object,
+     * @return A string representation of the LoginInDto object,
      *  including email and password.
      */
     @Override
     public final String toString() {
-        return "LoginDto [email=" + email + ", password=" + password + "]";
+        return "LoginInDto [email=" + email + ", password=" + password + "]";
     }
 
     /**
-     * Default constructor for LoginDto.
+     * Default constructor for LoginInDto.
      */
-    public LoginDto() {
+    public LoginInDto() {
         super();
     }
 
@@ -98,7 +98,7 @@ public class LoginDto {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        LoginDto other = (LoginDto) obj;
+        LoginInDto other = (LoginInDto) obj;
         return Objects.equals(email, other.email)
                 && Objects.equals(password, other.password);
     }

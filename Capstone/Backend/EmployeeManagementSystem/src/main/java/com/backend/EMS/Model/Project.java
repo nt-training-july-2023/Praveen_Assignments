@@ -101,10 +101,9 @@ public class Project {
      * @return the requiredSkills
      */
     public final List<String> getRequiredSkills() {
-        if (requiredSkills != null){
+        if (requiredSkills != null) {
         return new ArrayList<>(requiredSkills);
-        }
-        else {
+        } else {
             return null;
         }
     }

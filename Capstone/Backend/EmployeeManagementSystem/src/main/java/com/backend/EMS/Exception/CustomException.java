@@ -3,7 +3,7 @@ package com.backend.EMS.Exception;
 /**
  * Custom exception class to represent validations for dto.
  */
-public class AnnotationValidation extends RuntimeException {
+public class CustomException extends RuntimeException {
     /**
      *
      */
@@ -14,8 +14,7 @@ public class AnnotationValidation extends RuntimeException {
      *
      * @param message The error message.
      */
-
-    public AnnotationValidation(final String message) {
+    public CustomException(final String message) {
         super(message);
     }
 

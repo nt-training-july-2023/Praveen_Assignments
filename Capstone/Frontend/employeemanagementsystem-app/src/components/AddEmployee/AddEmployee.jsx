@@ -78,7 +78,7 @@ function AddEmployee() {
 
   const validateEmployeeId = () => {
     const Employee_ID = /^N\d{4}$/;
-    if (empId === "" || !Employee_ID.test(empId)) {
+    if (empId === "" || !Employee_ID.test(empId)||empId=="N0000") {
       setEmployeeIdError(
         "Employee ID should be in the pattern NXXXX (X should be numbers)"
       );
@@ -128,7 +128,7 @@ function AddEmployee() {
   };
 
   const validateContactNo = () => {
-    const pattern = /^[0-9]+$/;
+    const pattern = /^\d{10}$/;
     if (contactNo.length !== 10 || !pattern.test(contactNo)) {
       setContactError("Contact No should have 10 digits.");
     } else {
@@ -176,28 +176,39 @@ function AddEmployee() {
     }
 
     const reversedDate = reverseDateFormat(dob);
-    console.log(reversedDate);
+    // console.log(reversedDate);
 
     const dobInput = dob;
     const resultDob = reversedDate.replaceAll("-", "");
-    console.log(resultDob);
+    // console.log(resultDob);
 
     const DefaultPassword = empId + "@" + resultDob;
     console.log(DefaultPassword);
     const hashedpassword = bcrypt.hashSync(DefaultPassword, 10);
+    console.log(contactError)
 
     // setIsSubmitted(true);
     if (
-      (nameError ||
-        emailError ||
+      // !nameError &&
+      //  !emailError &&
+      //   !employeeIdError &&
+      //   !dobError &&
+      //   !dojError &&
+      //   !locationError &&
+      //   !designationError &&
+      //   !roleError &&
+      //   !contactError &&
+      //   !skillsError,
+        nameError ||
+       emailError ||
         employeeIdError ||
         dobError ||
         dojError ||
         locationError ||
         designationError ||
         roleError ||
-        contactError||
-        skillsError,
+        contactError ||
+        skillsError||
       name === "" ||
         email === "" ||
         empId === "" ||
@@ -207,7 +218,7 @@ function AddEmployee() {
         designation === "" ||
         role === "" ||
         contactNo === ""||
-        skills==="" )
+        skills==="" 
     ) {
       toast.error("Please fill every field.", {
         position: "top-right",
@@ -247,6 +258,7 @@ function AddEmployee() {
             toastId,
             transition: Slide,
           });
+          navigate("/adminDashboard");
           // Reset form fields after successful registration
           setName("");
           setEmail("");
@@ -278,6 +290,10 @@ function AddEmployee() {
       }
     }
   };
+  const userRole = localStorage.getItem('userRole');
+  if (userRole !== 'Admin') {
+    return <h1>Unauthorized access</h1>;
+  }
   return (
    
     <div className="form">
@@ -290,7 +306,7 @@ function AddEmployee() {
         <div className="form-group">
           <label className="form-label">Name</label>
           <input
-            className="form-input"
+            className="AE-input"
             type="text"
             placeholder="Enter Name"
             value={name}
@@ -305,7 +321,7 @@ function AddEmployee() {
         <div className="form-group">
           <label className="form-label">Email</label>
           <input
-            className="form-input"
+            className="AE-input"
             type="email"
             placeholder="example abc@Nucleusteq.com"
             value={email}
@@ -322,7 +338,7 @@ function AddEmployee() {
         <div className="form-group">
           <label className="form-label">EmployeeId</label>
           <input
-            className="form-input"
+            className="AE-input"
             type="text"
             placeholder="Enter Employee ID"
             value={empId}
@@ -340,7 +356,7 @@ function AddEmployee() {
         <div className="form-group">
           <label className="form-label">DOB</label>
           <input
-            className="form-input"
+            className="AE-input"
             type="date"
             placeholder="Enter DOB"
             value={dob}
@@ -357,7 +373,7 @@ function AddEmployee() {
         <div className="form-group">
           <label className="form-label">DOJ</label>
           <input
-            className="form-input"
+            className="AE-input"
             type="date"
             placeholder="Enter DOJ"
             value={doj}
@@ -458,7 +474,7 @@ function AddEmployee() {
         <div className="form-group">
           <label className="form-label">contactNo</label>
           <input
-            className="form-input"
+            className="AE-input"
             type="text"
             placeholder="Enter Contact_Number"
             value={contactNo}

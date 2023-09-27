@@ -9,6 +9,7 @@ import MyProfile from './Cards/MyProfile.jsx';
 function EmployeeDashboard() {
   const [activeTab, setActiveTab] = useState("MyProfile");
   const navigate = useNavigate();
+  const name=localStorage.getItem('name');
 
   const switchToMyProfile = () => {
     setActiveTab("MyProfile");
@@ -22,7 +23,8 @@ function EmployeeDashboard() {
   const logout = () => {
     localStorage.removeItem('IsLoggedIn');
     localStorage.removeItem('userRole');
-    localStorage.removeItem('email');
+    localStorage.removeItem('id');
+    localStorage.removeItem('name');
     navigate("/")
   };
 
@@ -37,7 +39,7 @@ function EmployeeDashboard() {
     <div className="ED-body-container">
       <div className="ED-nav-bar">
         <div>
-          <h4>Employee Dashboard</h4>
+          <h4>Welcome {name}</h4>
         </div>
         <div className="ED-tabs">
           <div
@@ -47,7 +49,7 @@ function EmployeeDashboard() {
             onClick={switchToMyProfile}
           >
             {" "}
-            MYPROFILE
+            MY PROFILE
           </div>
           <div
             className={`organization-tab ${activeTab === "Organization" ? "active" : ""}`}

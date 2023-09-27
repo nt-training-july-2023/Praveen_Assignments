@@ -11,6 +11,7 @@ import ProjectCard from "../Cards/Project";
 function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("Employee");
   const navigate = useNavigate();
+  const name = localStorage.getItem("name");
   const toAddEmployee = () => {
     navigate("/AddEmployee");
   };
@@ -33,28 +34,36 @@ function AdminDashboard() {
   };
 
   const logout = () => {
-    localStorage.removeItem('IsLoggedIn');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('email');
-    navigate("/")
+    localStorage.removeItem("IsLoggedIn");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("id");
+    localStorage.removeItem("name");
+    navigate("/");
   };
 
-  const userRole = localStorage.getItem('userRole');
-  if(userRole!='Admin'){
-    return(
+  const RR = () => {
+    navigate("/resourceRequestedList");
+  };
+
+  const userRole = localStorage.getItem("userRole");
+  if (userRole != "Admin") {
+    return (
       // <div>UnauthrizedAccess</div>
       <h1>unauthorized access</h1>
-    )
+    );
   }
 
   return (
     <div className="body-container">
       <div className="nav-bar">
         <div>
-          <h4>Admin Dashboard</h4>
+          <h4>Welcome {name}</h4>
+          <button className="RR-btn" onClick={RR}>
+            Request List
+          </button>
         </div>
         <div className="tabs">
-          <div
+          <div 
             className={`employee-tab ${
               activeTab === "Employee" ? "active" : ""
             }`}
@@ -78,38 +87,41 @@ function AdminDashboard() {
             PROJECT
           </div>
         </div>
-        <div>
+        <div className="empty-div">
           <div className="tab-buttons">
-          <button className="logout-btn" onClick={logout}>
-            Logout
-          </button>
-            <button
-              className={`add-employee-btn ${
-                activeTab === "Employee" ? "active" : ""
-              }`}
-              onClick={toAddEmployee}
-            >
-              Add Employee
-            </button>
-            <button
-              className={`add-manager-btn ${
-                activeTab === "Manager" ? "active" : ""
-              }`}
-              // onClick={toAddManager}
-            >
-              Add Manager
-            </button>
-            <button
-              className={`add-project-btn ${
-                activeTab === "Project" ? "active" : ""
-              }`}
-              onClick={toAddProject}
-            >
-              Add Project
-            </button> 
-         </div>
-         
+            <div className="logout-container">
+              <button className="logout-btn" onClick={logout}>
+                Logout
+              </button>
+            </div>
+            <div className="emp-container">
+              <button
+                className={`add-employee-btn ${
+                  activeTab === "Employee" ? "active" : ""
+                }`}
+                onClick={toAddEmployee}
+              >
+                Add Employee
+              </button>
+              <button
+                className={`add-manager-btn ${
+                  activeTab === "Manager" ? "active" : ""
+                }`}
+                // onClick={toAddManager}
+              >
+                Add Manager
+              </button>
+              <button
+                className={`add-project-btn ${
+                  activeTab === "Project" ? "active" : ""
+                }`}
+                onClick={toAddProject}
+              >
+                Add Project
+              </button>
+            </div>
           </div>
+        </div>
       </div>
       <div className="card-container">
         {activeTab === "Employee" && (

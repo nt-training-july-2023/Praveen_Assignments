@@ -133,6 +133,9 @@ function ProjectCard() {
             {/* </div>
             <div className="column2"> */}
               <p>
+                <br />
+                <br />
+                <br />
                 <span
                   style={{
                     fontWeight: "bold",
@@ -154,7 +157,7 @@ function ProjectCard() {
                 >
                   Team :{" "}
                 </span>
-                {(project.team.join(", "))}
+                {(project.team?project.team.join(", "):"Not Assigned")}
               </p>
               {showPopup && (
         <Popup description={selectedDescription} onClose={handlePopupClose} />

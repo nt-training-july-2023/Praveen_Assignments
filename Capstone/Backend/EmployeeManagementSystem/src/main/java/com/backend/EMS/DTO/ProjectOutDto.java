@@ -100,10 +100,9 @@ public class ProjectOutDto {
      * @return the requiredSkills
      */
     public final List<String> getRequiredSkills() {
-        if (requiredSkills != null){
+        if (requiredSkills != null) {
         return new ArrayList<>(requiredSkills);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -151,10 +150,9 @@ public class ProjectOutDto {
      * @return the team
      */
     public final List<String> getTeam() {
-        if (team != null){
+        if (team != null) {
         return new ArrayList<>(team);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -163,11 +161,10 @@ public class ProjectOutDto {
      * @param teams the team to set
      */
     public final void setTeam(final List<String> teams) {
-        if (teams.size()!=0){
+        if (teams.size() != 0) {
             this.team = new ArrayList<>(teams);
-            }
-            else {
-                this.team=null;
+            } else {
+                this.team = null;
             }
     }
 

@@ -109,7 +109,7 @@ function AdminRegistration() {
   };
 
   const validateContactNo = () => {
-    const pattern = /^[0-9]+$/;
+    const pattern = /^\d{10}$/;
     if (contactNo.length !== 10 || !pattern.test(contactNo)) {
       setContactError("Contact No should have 10 digits.");
     } else {
@@ -163,7 +163,7 @@ function AdminRegistration() {
         designationError ||
         contactError ||
         passwordError ||
-        confirmPasswordError,
+        confirmPasswordError||
       name === "" ||
         email === "" ||
         empId === "" ||
@@ -265,7 +265,7 @@ function AdminRegistration() {
         <div className="form-group">
           <label className="form-label">Name</label>
           <input
-            className="form-input"
+            className="AR-form-input"
             type="text"
             placeholder="Enter Name"
             value={name}
@@ -280,7 +280,7 @@ function AdminRegistration() {
         <div className="form-group">
           <label className="form-label">Email</label>
           <input
-            className="form-input"
+            className="AR-form-input"
             type="email"
             placeholder="example abc@Nucleusteq.com"
             value={email}
@@ -297,7 +297,7 @@ function AdminRegistration() {
         <div className="form-group">
           <label className="form-label">EmployeeId</label>
           <input
-            className="form-input"
+            className="AR-form-input"
             type="text"
             placeholder="Enter Employee ID"
             value={empId}
@@ -315,7 +315,7 @@ function AdminRegistration() {
         <div className="form-group">
           <label className="form-label">DOB</label>
           <input
-            className="form-input"
+            className="AR-form-input"
             type="date"
             placeholder="Enter DOB"
             value={dob}
@@ -332,7 +332,7 @@ function AdminRegistration() {
         <div className="form-group">
           <label className="form-label">DOJ</label>
           <input
-            className="form-input"
+            className="AR-form-input"
             type="date"
             placeholder="Enter DOJ"
             value={doj}
@@ -393,7 +393,7 @@ function AdminRegistration() {
         <div className="form-group">
           <label className="form-label">contactNo</label>
           <input
-            className="form-input"
+            className="AR-form-input"
             type="text"
             placeholder="Enter Contact_Number"
             value={contactNo}
@@ -410,7 +410,7 @@ function AdminRegistration() {
         <div className="form-group">
           <label className="form-label">password</label>
           <input
-            className="form-input"
+            className="AR-form-input"
             type="password"
             placeholder="Enter Password"
             value={password}
@@ -428,7 +428,7 @@ function AdminRegistration() {
         <div className="form-group">
           <label className="form-label">Confirm Password</label>
           <input
-            className="form-input"
+            className="AR-form-input"
             type="password"
             placeholder="Enter Confirm Password"
             value={confirmPassword}

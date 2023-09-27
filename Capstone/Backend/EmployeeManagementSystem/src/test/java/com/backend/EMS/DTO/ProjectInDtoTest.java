@@ -7,41 +7,41 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectDtoTest {
+public class ProjectInDtoTest {
 
-    private ProjectDto projectDto;
+    private ProjectInDto projectInDto;
 
     @BeforeEach
     public void setUp() {
-        projectDto = new ProjectDto();
+        projectInDto = new ProjectInDto();
     }
 
     @Test
     public void testGetSetId() {
         long id = 1L;
-        projectDto.setId(id);
-        Assertions.assertEquals(id, projectDto.getId());
+        projectInDto.setId(id);
+        Assertions.assertEquals(id, projectInDto.getId());
     }
 
     @Test
     public void testGetSetProjectName() {
         String projectName = "Project A";
-        projectDto.setProjectName(projectName);
-        Assertions.assertEquals(projectName, projectDto.getProjectName());
+        projectInDto.setProjectName(projectName);
+        Assertions.assertEquals(projectName, projectInDto.getProjectName());
     }
 
     @Test
     public void testGetSetManagerId() {
         long managerId = 2L;
-        projectDto.setManagerId(managerId);
-        Assertions.assertEquals(managerId, projectDto.getManagerId());
+        projectInDto.setManagerId(managerId);
+        Assertions.assertEquals(managerId, projectInDto.getManagerId());
     }
 
     @Test
     public void testGetSetStartDate() {
         String startDate = "2023-09-20";
-        projectDto.setStartDate(startDate);
-        Assertions.assertEquals(startDate, projectDto.getStartDate());
+        projectInDto.setStartDate(startDate);
+        Assertions.assertEquals(startDate, projectInDto.getStartDate());
     }
 
     @Test
@@ -49,22 +49,22 @@ public class ProjectDtoTest {
         List<String> requiredSkills = new ArrayList<>();
         requiredSkills.add("Java");
         requiredSkills.add("SQL");
-        projectDto.setRequiredSkills(requiredSkills);
-        Assertions.assertEquals(requiredSkills, projectDto.getRequiredSkills());
+        projectInDto.setRequiredSkills(requiredSkills);
+        Assertions.assertEquals(requiredSkills, projectInDto.getRequiredSkills());
     }
 
     @Test
     public void testGetSetDescription() {
         String description = "This is a sample project.";
-        projectDto.setDescription(description);
-        Assertions.assertEquals(description, projectDto.getDescription());
+        projectInDto.setDescription(description);
+        Assertions.assertEquals(description, projectInDto.getDescription());
     }
 
     @Test
     public void testGetSetHead() {
         String head = "John Doe";
-        projectDto.setHead(head);
-        Assertions.assertEquals(head, projectDto.getHead());
+        projectInDto.setHead(head);
+        Assertions.assertEquals(head, projectInDto.getHead());
     }
 
     @Test
@@ -79,19 +79,19 @@ public class ProjectDtoTest {
         String description = "This is a sample project.";
         String head = "John Doe";
 
-        projectDto.setId(id);
-        projectDto.setProjectName(projectName);
-        projectDto.setManagerId(managerId);
-        projectDto.setStartDate(startDate);
-        projectDto.setRequiredSkills(requiredSkills);
-        projectDto.setDescription(description);
-        projectDto.setHead(head);
+        projectInDto.setId(id);
+        projectInDto.setProjectName(projectName);
+        projectInDto.setManagerId(managerId);
+        projectInDto.setStartDate(startDate);
+        projectInDto.setRequiredSkills(requiredSkills);
+        projectInDto.setDescription(description);
+        projectInDto.setHead(head);
 
-        String expectedString = "ProjectDto [id=" + id + ", projectName=" + projectName + ", managerId=" + managerId
+        String expectedString = "ProjectInDto [id=" + id + ", projectName=" + projectName + ", managerId=" + managerId
                 + ", startDate=" + startDate + ", requiredSkills=" + requiredSkills + ", description=" + description
                 + ", head=" + head + "]";
 
-        Assertions.assertEquals(expectedString, projectDto.toString());
+        Assertions.assertEquals(expectedString, projectInDto.toString());
     }
 
     @Test
@@ -106,15 +106,15 @@ public class ProjectDtoTest {
         String description = "This is a sample project.";
         String head = "John Doe";
 
-        projectDto.setId(id);
-        projectDto.setProjectName(projectName);
-        projectDto.setManagerId(managerId);
-        projectDto.setStartDate(startDate);
-        projectDto.setRequiredSkills(requiredSkills);
-        projectDto.setDescription(description);
-        projectDto.setHead(head);
+        projectInDto.setId(id);
+        projectInDto.setProjectName(projectName);
+        projectInDto.setManagerId(managerId);
+        projectInDto.setStartDate(startDate);
+        projectInDto.setRequiredSkills(requiredSkills);
+        projectInDto.setDescription(description);
+        projectInDto.setHead(head);
 
-        ProjectDto other = new ProjectDto();
+        ProjectInDto other = new ProjectInDto();
         other.setId(id);
         other.setProjectName(projectName);
         other.setManagerId(managerId);
@@ -123,7 +123,7 @@ public class ProjectDtoTest {
         other.setDescription(description);
         other.setHead(head);
 
-        Assertions.assertEquals(projectDto.hashCode(), other.hashCode());
+        Assertions.assertEquals(projectInDto.hashCode(), other.hashCode());
     }
 
     @Test
@@ -138,15 +138,15 @@ public class ProjectDtoTest {
         String description = "This is a sample project.";
         String head = "John Doe";
 
-        projectDto.setId(id);
-        projectDto.setProjectName(projectName);
-        projectDto.setManagerId(managerId);
-        projectDto.setStartDate(startDate);
-        projectDto.setRequiredSkills(requiredSkills);
-        projectDto.setDescription(description);
-        projectDto.setHead(head);
+        projectInDto.setId(id);
+        projectInDto.setProjectName(projectName);
+        projectInDto.setManagerId(managerId);
+        projectInDto.setStartDate(startDate);
+        projectInDto.setRequiredSkills(requiredSkills);
+        projectInDto.setDescription(description);
+        projectInDto.setHead(head);
 
-        ProjectDto other = new ProjectDto();
+        ProjectInDto other = new ProjectInDto();
         other.setId(id);
         other.setProjectName(projectName);
         other.setManagerId(managerId);
@@ -155,7 +155,7 @@ public class ProjectDtoTest {
         other.setDescription(description);
         other.setHead(head);
 
-        Assertions.assertTrue(projectDto.equals(other));
+        Assertions.assertTrue(projectInDto.equals(other));
     }
 
     @Test
@@ -170,13 +170,13 @@ public class ProjectDtoTest {
         String description1 = "This is a sample project.";
         String head1 = "John Doe";
 
-        projectDto.setId(id1);
-        projectDto.setProjectName(projectName1);
-        projectDto.setManagerId(managerId1);
-        projectDto.setStartDate(startDate1);
-        projectDto.setRequiredSkills(requiredSkills1);
-        projectDto.setDescription(description1);
-        projectDto.setHead(head1);
+        projectInDto.setId(id1);
+        projectInDto.setProjectName(projectName1);
+        projectInDto.setManagerId(managerId1);
+        projectInDto.setStartDate(startDate1);
+        projectInDto.setRequiredSkills(requiredSkills1);
+        projectInDto.setDescription(description1);
+        projectInDto.setHead(head1);
 
         long id2 = 2L;
         String projectName2 = "Project B";
@@ -188,7 +188,7 @@ public class ProjectDtoTest {
         String description2 = "This is another project.";
         String head2 = "Jane Smith";
 
-        ProjectDto other = new ProjectDto();
+        ProjectInDto other = new ProjectInDto();
         other.setId(id2);
         other.setProjectName(projectName2);
         other.setManagerId(managerId2);
@@ -197,6 +197,6 @@ public class ProjectDtoTest {
         other.setDescription(description2);
         other.setHead(head2);
 
-        Assertions.assertFalse(projectDto.equals(other));
+        Assertions.assertFalse(projectInDto.equals(other));
     }
 }

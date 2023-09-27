@@ -58,7 +58,8 @@ function Login() {
 
         localStorage.setItem('IsLoggedIn',true);
         localStorage.setItem('userRole',response.data.role);
-        localStorage.setItem('email',response.data.email);
+        localStorage.setItem('id',response.data.id);
+        localStorage.setItem('name',response.data.name);
 
         if(response.data.role==="Admin"){
           navigate("/adminDashboard");
@@ -102,6 +103,7 @@ function Login() {
         <form onSubmit={handleLogin}>
           <div className="fields">
             <input
+            className="login-input"
               type="email"
               placeholder="Email"
               value={email}
@@ -125,6 +127,7 @@ function Login() {
           
           <div className="fields">
             <input
+            className="login-input"
               type="password"
               placeholder="Password"
               value={password}

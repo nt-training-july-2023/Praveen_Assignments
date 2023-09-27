@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 /**
  * Data Transfer Object (DTO) for handling project information.
  */
-public class ProjectDto {
+public class ProjectInDto {
     /**
      * The id of the project.
      */
@@ -15,26 +19,31 @@ public class ProjectDto {
     /**
      * The name of the project.
      */
+    @NotBlank
     private String projectName;
 
     /**
      * The manager's id of the project.
      */
+    @NotNull
     private long managerId;
 
     /**
      * The start date of the project.
      */
+    @NotBlank
     private String startDate;
 
     /**
      * The required skills for the project.
      */
-    private List<String> requiredSkills;
+    @NotEmpty
+    private List<@NotBlank(message="skills should not be empty string")String> requiredSkills;
 
     /**
      * The description of the project.
      */
+    @NotBlank
     private String description;
 
     /**
@@ -44,7 +53,7 @@ public class ProjectDto {
     /**
      *
      */
-    public ProjectDto() {
+    public ProjectInDto() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -134,11 +143,10 @@ public class ProjectDto {
      */
     public final void setRequiredSkills(final
             List<String> requiredSkillsValue) {
-        if (requiredSkillsValue.size()!=0){
+        if (requiredSkillsValue.size() != 0) {
         this.requiredSkills = new ArrayList<>(requiredSkillsValue);
-        }
-        else {
-            this.requiredSkills=null;
+        } else {
+            this.requiredSkills = null;
         }
     }
 
@@ -185,7 +193,7 @@ public class ProjectDto {
      */
     @Override
     public final String toString() {
-        return "ProjectDto [id=" + id + ", projectName="
+        return "ProjectInDto [id=" + id + ", projectName="
                 + projectName + ", managerId=" + managerId
                 + ", startDate=" + startDate + ", requiredSkills="
                 + requiredSkills + ", description=" + description
@@ -221,7 +229,7 @@ public class ProjectDto {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        ProjectDto other = (ProjectDto) obj;
+        ProjectInDto other = (ProjectInDto) obj;
         return Objects.equals(description, other.description)
                 && Objects.equals(head, other.head) && id == other.id
                 && managerId == other.managerId

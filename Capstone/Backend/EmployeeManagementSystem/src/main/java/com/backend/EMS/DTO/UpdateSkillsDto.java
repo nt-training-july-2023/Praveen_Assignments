@@ -41,10 +41,9 @@ public class UpdateSkillsDto {
      * @return the skills
      */
     public final List<String> getSkills() {
-        if (skills != null){
+        if (skills != null) {
         return new ArrayList<>(skills);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -58,7 +57,6 @@ public class UpdateSkillsDto {
         } else {
             this.skills = null;
         }
-        ;
     }
 
 }
