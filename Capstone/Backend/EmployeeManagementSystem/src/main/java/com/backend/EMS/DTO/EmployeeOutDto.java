@@ -23,33 +23,26 @@ public class EmployeeOutDto {
     /**
      * The name of the employee.
      */
-    @NotBlank(message = "Name cannot be empty")
     private String name;
 
     /**
      * The email of the employee.
      */
-    @Pattern(regexp = ".+@nucleusteq\\.com$",
-            message = "Email must end with @nucleusteq.com")
     private String email;
 
     /**
      * The employee ID of the employee.
      */
-    @Pattern(regexp = "^N\\d{4}$", message = "Employee ID should be"
-     + " in the pattern NXXXX (X should be numbers)")
     private String empId;
 
     /**
      * The date of birth of the employee.
      */
-    @NotBlank(message = "Date of birth cannot be empty")
     private String dob;
 
     /**
      * The date of joining of the employee.
      */
-    @NotBlank(message = "Date of joining cannot be empty")
     private String doj;
 
     /**

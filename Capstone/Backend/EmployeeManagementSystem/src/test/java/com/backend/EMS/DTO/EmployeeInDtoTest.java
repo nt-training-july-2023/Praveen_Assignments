@@ -24,13 +24,15 @@ public class EmployeeInDtoTest {
 
     @Test
     public void testGetAndSetId() {
+        
+        
         employee.setId(1L);
         Assertions.assertEquals(1L, employee.getId());
     }
 
     @Test
     public void testGetAndSetName() {
-        employee.setName("John Doe");
+       employee.setName("John Doe");
         Assertions.assertEquals("John Doe", employee.getName());
     }
 

@@ -77,8 +77,8 @@ public class EmployeeService {
      *                          contact number already exists.
      */
     public final ResponseDto addEmployee(final EmployeeInDto employeeInDto) {
-        modelMapper.getConfiguration().setMatchingStrategy(
-                MatchingStrategies.STRICT);
+//        modelMapper.getConfiguration().setMatchingStrategy(
+//                MatchingStrategies.STRICT);
         Employee employee = this.modelMapper.map(employeeInDto, Employee.class);
         employee.setManagerName("Ankita");
         employee.setManagerId(1L);

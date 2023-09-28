@@ -46,10 +46,10 @@ public class ProjectService {
     public final ResponseDto addProject(final ProjectInDto projectInDto) {
         Project project = this.modelMapper.map(projectInDto, Project.class);
         ResponseDto responseDto = new ResponseDto();
-        if (projectRepository.findByProjectName(
-                projectInDto.getProjectName()) != null) {
-            throw new UserAlreadyFound("Project is already added");
-        }
+//        if (projectRepository.findByProjectName(
+//                projectInDto.getProjectName()) != null) {
+//            throw new UserAlreadyFound("Project is already added");
+//        }
         projectRepository.save(project);
         responseDto.setMessage("Project Added Successfully");
         return responseDto;

@@ -240,7 +240,7 @@ function SingleManagerCard({ employee }) {
         <div className="column">
           <h2>{employee.name}</h2>
           <p>
-            <span style={{ fontSize: "0.7rem", marginTop: "-0.2rem" }}>
+            <span style={{ fontSize: "0.8rem", marginTop: "-0.rem" }}>
               {employee.designation}
             </span>
           </p>

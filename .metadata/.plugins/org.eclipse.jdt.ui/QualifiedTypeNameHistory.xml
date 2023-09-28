@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="org.springframework.context.annotation.Bean"/>
     <fullyQualifiedTypeName name="jakarta.validation.Valid"/>
     <fullyQualifiedTypeName name="java.util.Optional"/>
     <fullyQualifiedTypeName name="java.lang.reflect.Array"/>
@@ -39,7 +38,6 @@
     <fullyQualifiedTypeName name="org.springframework.validation.FieldError"/>
     <fullyQualifiedTypeName name="com.backend.EMS.Service.EmployeeService"/>
     <fullyQualifiedTypeName name="com.backend.EMS.Service.CardsService"/>
-    <fullyQualifiedTypeName name="com.backend.EMS.Validation.Validation"/>
     <fullyQualifiedTypeName name="org.mockito.Mock"/>
     <fullyQualifiedTypeName name="org.springframework.test.web.servlet.MockMvc"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
@@ -49,7 +47,6 @@
     <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="java.util.Collections"/>
     <fullyQualifiedTypeName name="com.backend.EMS.Repository.RequestResourceRepository"/>
-    <fullyQualifiedTypeName name="com.backend.EMS.Repository.ProjectRepository"/>
     <fullyQualifiedTypeName name="com.backend.EMS.Model.Project"/>
     <fullyQualifiedTypeName name="org.modelmapper.ModelMapper"/>
     <fullyQualifiedTypeName name="com.backend.EMS.Model.Role"/>
@@ -58,6 +55,9 @@
     <fullyQualifiedTypeName name="jakarta.validation.constraints.NotNull"/>
     <fullyQualifiedTypeName name="jakarta.validation.constraints.NotEmpty"/>
     <fullyQualifiedTypeName name="com.backend.EMS.DTO.IsRequestedOutDto"/>
-    <fullyQualifiedTypeName name="ch.qos.logback.classic.Logger"/>
     <fullyQualifiedTypeName name="org.slf4j.LoggerFactory"/>
+    <fullyQualifiedTypeName name="ch.qos.logback.classic.Logger"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.Validation.Validation"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.Repository.ProjectRepository"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.DTO.RequestResourceInDto"/>
 </qualifiedTypeNameHistroy>

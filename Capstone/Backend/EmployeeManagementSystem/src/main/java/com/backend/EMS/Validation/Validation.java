@@ -1,12 +1,13 @@
 package com.backend.EMS.Validation;
 
 
-
-import java.util.List;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -17,6 +18,7 @@ import com.backend.EMS.DTO.ProjectInDto;
 import com.backend.EMS.Exception.CustomException;
 import com.backend.EMS.Exception.UserAlreadyFound;
 import com.backend.EMS.Exception.UserNotFound;
+import com.backend.EMS.Model.Employee;
 import com.backend.EMS.Repository.EmployeeRepository;
 import com.backend.EMS.Repository.ProjectRepository;
 
@@ -38,6 +40,11 @@ public class Validation {
      */
     @Autowired
     private ProjectRepository projectRepository;
+    /**
+     * Instance passwrodEncoder for encoding passwords.
+     */
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     /**
      * the logger for this class.
      */
@@ -105,12 +112,29 @@ public class Validation {
         }
     }
     /**
+     * decoding password using Base 64.
+     * @param password password to be decoded.
+     * @return Decoded password.
+     */
+    public static String decodePassword(final String password) {
+        byte[] decodeBytes = Base64.getDecoder().decode(password);
+        return new String(decodeBytes, StandardCharsets.UTF_8);
+    }
+    /**
      * check to perform login operation
      * @param loginInDto login dto containing login informations
      */
         public void checkLogin(@Valid LoginInDto loginInDto) {
             // TODO Auto-generated method stub
             checkEmailNotExists(loginInDto);
+            Employee employee = employeeRepository
+                    .findByEmail(loginInDto.getEmail());
+            if (!passwordEncoder.matches(
+                    decodePassword(loginInDto.getPassword()),
+                    employee.getPassword())) {
+               LOGGER.error("Invalid Password"); 
+               throw new UserNotFound("Wrong Password");
+            };
         }
 
         /**
@@ -151,6 +175,7 @@ public class Validation {
                 String validationErrors = getValidationErrorsAsString(bindingResult);
 
                 // Throw a custom exception with the validation errors
+                LOGGER.error("Validation errors");
                 throw new CustomException(validationErrors);
             }
         }

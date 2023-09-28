@@ -81,7 +81,13 @@ function Login() {
   const redirectToRegister = () => {
     navigate("/register");
   };
-
+  // const userRole = localStorage.getItem("userRole");
+  // if (userRole != "Admin") {
+  //   return (
+  //     // <div>UnauthrizedAccess</div>
+  //     <h1>unauthorized access</h1>
+  //   );
+  // }
 
 
 
