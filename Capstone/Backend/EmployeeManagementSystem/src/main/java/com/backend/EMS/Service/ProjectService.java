@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.backend.EMS.DTO.ProjectInDto;
 import com.backend.EMS.DTO.ProjectOutDto;
 import com.backend.EMS.DTO.ResponseDto;
-import com.backend.EMS.Exception.UserAlreadyFound;
 import com.backend.EMS.Model.Employee;
 import com.backend.EMS.Model.Project;
 import com.backend.EMS.Repository.EmployeeRepository;
@@ -39,7 +38,8 @@ public class ProjectService {
     /**
      * Add a new project to the system.
      *
-     * @param projectInDto The ProjectInDto containing project details to be added.
+     * @param projectInDto The ProjectInDto containing project
+     * details to be added.
      * @return True if the project was added successfully; otherwise, false.
      * @throws UserAlreadyFound if a project with the same name already exists.
      */

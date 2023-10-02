@@ -8,7 +8,6 @@ import com.backend.EMS.Model.Location;
 import com.backend.EMS.Model.Role;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
@@ -30,7 +29,7 @@ public class EmployeeInDto {
     /**
      * The email of the employee.
      */
-    @NotBlank(message="Name cannot be empty")
+    @NotBlank(message = "Name cannot be empty")
     @Pattern(regexp = ".+@nucleusteq\\.com$", message = "Email"
             + " must end with @nucleusteq.com")
     private String email;
@@ -38,7 +37,7 @@ public class EmployeeInDto {
     /**
      * The employee ID of the employee.
      */
-    @NotBlank(message="Name cannot be empty")
+    @NotBlank(message = "Name cannot be empty")
     @Pattern(regexp = "^N\\d{4}$", message = "Employee ID should be"
             + " in the pattern NXXXX (X should be numbers)")
     private String empId;
@@ -82,8 +81,7 @@ public class EmployeeInDto {
     /**
      * The skills of employee.
      */
-    @NotEmpty
-    private List<@NotBlank(message="skills should not be empty string") String> skills;
+    private List<String> skills;
 
     /**
      * Default constructor for EmployeeInDto.

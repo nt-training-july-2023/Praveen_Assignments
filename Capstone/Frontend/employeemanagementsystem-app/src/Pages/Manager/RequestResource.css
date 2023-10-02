@@ -1,0 +1,86 @@
+/* CSS for AssignProject Component */
+
+/* Main container */
+.RR{
+    text-align: center;
+  }
+  .RR-container {
+
+      width: 400px;
+      height: 110px;
+      margin: 0 auto;
+      padding: 20vmin;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: whitesmoke;
+      box-shadow: 0 2px 4px rgb(125 12 12 / 10%);
+    }
+    
+    /* Heading style */
+    .RR-container h3 {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    
+    /* Select input style */
+    .RR-project-input-box {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    
+  /* CSS for AssignProject Component Buttons */
+  
+  /* Button container */
+  .RR-button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    
+    /* Button style */
+    .RR-container button {
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .RR-container button:hover {
+      background-color: #0056b3;
+    }
+    
+    /* Secondary button style (Cancel) */
+    .RR-container button.secondary {
+      background-color: #c50404;
+      color: #333;
+      margin-left: 10px;
+    }
+    
+    .RR-container button.secondary:hover {
+      background-color: #e85959;
+      color: #fff;
+    }
+    .RR-description-box {
+        width: 20.5rem;
+        height: auto;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+        resize: vertical; /* Allow vertical resizing */
+        /* margin-left: 9.5rem; */
+        margin-top:-1rem;
+      }
+    
+    

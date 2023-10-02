@@ -1,0 +1,67 @@
+/* Define CSS for the table and its container */
+.table-container {
+    margin: 20px;
+    /* background-color: #dc6868; */
+  }
+  .RR-head{
+    margin-top: 2%;
+    text-align: center;
+    margin-bottom: 2%;
+    font-weight: 100;
+  }
+  .RR-h1{
+    text-align: center;
+  }
+  
+  .custom-table {
+    width: 70%;
+    border-collapse: collapse;
+    margin-left: 10%;
+
+  }
+  
+  .custom-table th,
+  .custom-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .custom-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  /* Add hover effect for rows */
+  .custom-table tbody tr:hover {
+    background-color: #f5f5f5;
+  }
+.accept{
+    border-radius: 1rem;
+    margin-bottom: 2%;
+}  
+.reject{
+    background-color: red;
+    border-radius: 1rem;
+}
+.reject:hover{
+  background-color: maroon;
+}
+.RR-closeee{
+  background-color: #c50404;
+  color: #f6f1f1;
+  margin-left: 11%;
+    width: 12%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    
+   
+  
+}
+
+.RR-closeee :hover {
+  background-color: #e85959 !important;
+  color: #fff;
+}

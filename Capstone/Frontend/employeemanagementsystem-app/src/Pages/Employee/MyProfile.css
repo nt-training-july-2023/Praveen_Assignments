@@ -1,0 +1,78 @@
+
+
+.details-container {
+   /* margin-left: -15%; */
+   background-color: #fffcfc;
+   border: 1px solid #555353;
+   border-radius: 5px;
+   box-shadow: 0 4px 6px rgb(52, 91, 57);
+   padding-left:20px;
+   padding-right: 20px;
+   padding-top: 3px;
+   width: 600px;
+   flex-shrink: 0;
+   transition: transform 0.2s ease;
+   margin-top: 20px;
+ }
+  .ID{
+    margin-top: 15px;
+    /* margin-left: -116px; */
+    margin-bottom: -16px;
+
+
+  }
+ .column01 {
+   flex: 1;
+    margin-top: 10px;
+   background-color: #fff;
+ }
+ 
+ .grid-container {
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   gap: 10px;
+   
+ }
+ 
+ .field_input {
+   border-radius: 12px;
+   border: 0;
+   box-sizing: border-box;
+   color: black;
+   font-size: 15px;
+  margin-top: 10px;
+   outline: 0;
+   padding: 4px 20px 0;
+   border : groove;
+   border-radius: 12px;
+   padding: 10px;
+ }
+
+ .skills_input {
+   border-radius: 12px;
+   border: 0;
+   box-sizing: border-box;
+   color: black;
+   font-size: 15px;
+  margin-top: 10px;
+   outline: 0;
+   padding: 4px 20px 0;
+ 
+   border :groove;
+ 
+   border-radius: 12px;
+  
+   padding: 10px;
+   height: 122px;
+
+ }
+ 
+ @media (max-width: 768px) {
+   .form-container {
+     flex-direction: column;
+   }
+   .column {
+     width: 200%;
+   }
+ } 
+

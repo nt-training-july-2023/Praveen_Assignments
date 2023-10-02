@@ -22,83 +22,70 @@ public class EmployeeInDtoTest {
         employee = new EmployeeInDto();
     }
 
+
     @Test
-    public void testGetAndSetId() {
-        
-        
+    public void testGetterAndSetterMethods() {
+        // Test Setter methods with non-null values
         employee.setId(1L);
-        Assertions.assertEquals(1L, employee.getId());
-    }
-
-    @Test
-    public void testGetAndSetName() {
-       employee.setName("John Doe");
-        Assertions.assertEquals("John Doe", employee.getName());
-    }
-
-    @Test
-    public void testGetAndSetEmail() {
-        employee.setEmail("john.doe@example.com");
-        Assertions.assertEquals("john.doe@example.com", employee.getEmail());
-    }
-
-    @Test
-    public void testGetAndSetEmpId() {
+        employee.setName("John Doe");
+        employee.setEmail("john.doe@nucleusteq.com");
         employee.setEmpId("N1234");
-        Assertions.assertEquals("N1234", employee.getEmpId());
-    }
-
-    @Test
-    public void testGetAndSetDob() {
         employee.setDob("1990-01-01");
-        Assertions.assertEquals("1990-01-01", employee.getDob());
-    }
-
-    @Test
-    public void testGetAndSetDoj() {
-        employee.setDoj("2022-05-15");
-        Assertions.assertEquals("2022-05-15", employee.getDoj());
-    }
-
-    @Test
-    public void testGetAndSetLocation() {
-        employee.setLocation(Location.Canada);
-        Assertions.assertEquals(Location.Canada, employee.getLocation());
-    }
-
-    @Test
-    public void testGetAndSetDesignation() {
-        employee.setDesignation(Designation.Architect);
-        Assertions.assertEquals(Designation.Architect, employee.getDesignation());
-    }
-
-    @Test
-    public void testGetAndSetContactNo() {
+        employee.setDoj("2020-01-01");
+        employee.setLocation(Location.Raipur);
+        employee.setDesignation(Designation.Engineer);
         employee.setContactNo(1234567890L);
-        Assertions.assertEquals(1234567890L, employee.getContactNo());
-    }
-
-    @Test
-    public void testGetAndSetPassword() {
-        employee.setPassword("secret");
-        Assertions.assertEquals("secret", employee.getPassword());
-    }
-
-    @Test
-    public void testGetAndSetRole() {
+        employee.setPassword("securePassword");
         employee.setRole(Role.Admin);
-        Assertions.assertEquals(Role.Admin, employee.getRole());
-    }
-
-    @Test
-    public void testGetAndSetSkills() {
         List<String> skills = new ArrayList<>();
         skills.add("Java");
-        skills.add("SQL");
+        skills.add("Spring Boot");
         employee.setSkills(skills);
-        Assertions.assertEquals(skills, employee.getSkills());
-    }
 
+        // Test Getter methods
+        assertEquals(1L, employee.getId());
+        assertEquals("John Doe", employee.getName());
+        assertEquals("john.doe@nucleusteq.com", employee.getEmail());
+        assertEquals("N1234", employee.getEmpId());
+        assertEquals("1990-01-01", employee.getDob());
+        assertEquals("2020-01-01", employee.getDoj());
+        assertEquals(Location.Raipur, employee.getLocation());
+        assertEquals(Designation.Engineer, employee.getDesignation());
+        assertEquals(1234567890L, employee.getContactNo());
+        assertEquals("securePassword", employee.getPassword());
+        assertEquals(Role.Admin, employee.getRole());
+        assertEquals(2, employee.getSkills().size());
+        assertEquals("Java", employee.getSkills().get(0));
+        assertEquals("Spring Boot", employee.getSkills().get(1));
+
+        // Test Setter methods with null values
+        employee.setId(null);
+        employee.setName(null);
+        employee.setEmail(null);
+        employee.setEmpId(null);
+        employee.setDob(null);
+        employee.setDoj(null);
+        employee.setLocation(null);
+        employee.setDesignation(null);
+        employee.setContactNo(null);
+        employee.setPassword(null);
+        employee.setRole(null);
+        employee.setSkills(new ArrayList());
+
+        // Test Getter methods for null values
+        assertNull(employee.getId());
+        assertNull(employee.getName());
+        assertNull(employee.getEmail());
+        assertNull(employee.getEmpId());
+        assertNull(employee.getDob());
+        assertNull(employee.getDoj());
+        assertNull(employee.getLocation());
+        assertNull(employee.getDesignation());
+        assertNull(employee.getContactNo());
+        assertNull(employee.getPassword());
+        assertNull(employee.getRole());
+        assertNull(employee.getSkills());
+    }
     @Test
     public void testEquals() {
         EmployeeInDto employee1 = new EmployeeInDto();

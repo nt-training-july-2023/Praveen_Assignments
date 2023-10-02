@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="jakarta.validation.Valid"/>
-    <fullyQualifiedTypeName name="java.util.Optional"/>
-    <fullyQualifiedTypeName name="java.lang.reflect.Array"/>
-    <fullyQualifiedTypeName name="com.backend.EMS.DTO.EmployeeNameDto"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PutMapping"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
     <fullyQualifiedTypeName name="com.backend.EMS.Exception.UserAlreadyFound"/>
-    <fullyQualifiedTypeName name="com.backend.EMS.Exception.UserNotFound"/>
     <fullyQualifiedTypeName name="java.util.Map"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
     <fullyQualifiedTypeName name="jakarta.annotation.Generated"/>
@@ -15,9 +10,7 @@
     <fullyQualifiedTypeName name="com.backend.EMS.DTO.EmployeeOutDto"/>
     <fullyQualifiedTypeName name="com.backend.EMS.DTO.LoginResponseDto"/>
     <fullyQualifiedTypeName name="com.backend.EMS.Model.Designation"/>
-    <fullyQualifiedTypeName name="com.backend.EMS.Model.Location"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="com.backend.EMS.DTO.ProjectOutDto"/>
     <fullyQualifiedTypeName name="jakarta.persistence.Entity"/>
     <fullyQualifiedTypeName name="jakarta.persistence.Table"/>
     <fullyQualifiedTypeName name="jakarta.persistence.GeneratedValue"/>
@@ -28,7 +21,6 @@
     <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
     <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.config.EnableJpaRepositories"/>
     <fullyQualifiedTypeName name="com.backend.EMS.Model.RequestResource"/>
-    <fullyQualifiedTypeName name="com.backend.EMS.DTO.RequestResourceOutDto"/>
     <fullyQualifiedTypeName name="com.backend.EMS.DTO.ResponseDto"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.DeleteMapping"/>
     <fullyQualifiedTypeName name="com.backend.EMS.DTO.RequestResourceDto"/>
@@ -49,15 +41,23 @@
     <fullyQualifiedTypeName name="com.backend.EMS.Repository.RequestResourceRepository"/>
     <fullyQualifiedTypeName name="com.backend.EMS.Model.Project"/>
     <fullyQualifiedTypeName name="org.modelmapper.ModelMapper"/>
-    <fullyQualifiedTypeName name="com.backend.EMS.Model.Role"/>
     <fullyQualifiedTypeName name="jakarta.validation.ConstraintViolationException"/>
     <fullyQualifiedTypeName name="jakarta.validation.constraints.NotBlank"/>
     <fullyQualifiedTypeName name="jakarta.validation.constraints.NotNull"/>
-    <fullyQualifiedTypeName name="jakarta.validation.constraints.NotEmpty"/>
     <fullyQualifiedTypeName name="com.backend.EMS.DTO.IsRequestedOutDto"/>
     <fullyQualifiedTypeName name="org.slf4j.LoggerFactory"/>
     <fullyQualifiedTypeName name="ch.qos.logback.classic.Logger"/>
-    <fullyQualifiedTypeName name="com.backend.EMS.Validation.Validation"/>
     <fullyQualifiedTypeName name="com.backend.EMS.Repository.ProjectRepository"/>
+    <fullyQualifiedTypeName name="org.springframework.context.support.BeanDefinitionDsl.Role"/>
+    <fullyQualifiedTypeName name="jakarta.validation.Valid"/>
+    <fullyQualifiedTypeName name="jakarta.validation.constraints.NotEmpty"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.Model.Location"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.Model.Role"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.Exception.UserNotFound"/>
     <fullyQualifiedTypeName name="com.backend.EMS.DTO.RequestResourceInDto"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.DTO.RequestResourceOutDto"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.DTO.ProjectOutDto"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.Service.ProjectService"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.Validation.Validation"/>
+    <fullyQualifiedTypeName name="java.util.HashMap"/>
 </qualifiedTypeNameHistroy>

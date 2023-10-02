@@ -23,7 +23,7 @@ public class RequestResource {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
-     * The employeeId of the RequestResource
+     * The employeeId of the RequestResource.
      */
     private Long employeeId;
     /**
@@ -41,7 +41,6 @@ public class RequestResource {
      */
     @Column
     private String comment;
-    
     /**
      * @return the id
      */
@@ -56,7 +55,7 @@ public class RequestResource {
     }
 
     /**
-     * @param employeeId the employeeId to set
+     * @param employeeIdValue the employeeId to set
      */
     public final void setEmployeeId(final Long employeeIdValue) {
         this.employeeId = employeeIdValue;
@@ -70,7 +69,7 @@ public class RequestResource {
     }
 
     /**
-     * @param projectId the projectId to set
+     * @param projectIdValue the projectId to set
      */
     public final void setProjectId(final Long projectIdValue) {
         this.projectId = projectIdValue;
@@ -84,7 +83,7 @@ public class RequestResource {
     }
 
     /**
-     * @param managerId the managerId to set
+     * @param managerIdValue the managerId to set
      */
     public final void setManagerId(final Long managerIdValue) {
         this.managerId = managerIdValue;
@@ -98,7 +97,7 @@ public class RequestResource {
     }
 
     /**
-     * @param comment the comment to set
+     * @param comments the comment to set
      */
     public final void setComment(final String comments) {
         this.comment = comments;
@@ -118,12 +117,15 @@ public class RequestResource {
 
     @Override
     public final boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         RequestResource other = (RequestResource) obj;
         return Objects.equals(comment, other.comment)
                 && Objects.equals(employeeId, other.employeeId)

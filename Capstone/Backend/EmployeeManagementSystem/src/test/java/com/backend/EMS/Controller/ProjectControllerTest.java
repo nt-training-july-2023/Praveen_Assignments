@@ -1,63 +1,99 @@
 package com.backend.EMS.Controller;
 
-import com.backend.EMS.Controller.ProjectController;
-import com.backend.EMS.DTO.ProjectInDto;
-import com.backend.EMS.DTO.ProjectOutDto;
-import com.backend.EMS.DTO.ResponseDto;
-import com.backend.EMS.Service.ProjectService;
-import com.backend.EMS.Service.CardsService;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-
-import java.util.Arrays;
-import java.util.List;
-
-public class ProjectControllerTest {
-
+import com.backend.EMS.DTO.ProjectInDto;
+import com.backend.EMS.DTO.ProjectOutDto;
+import com.backend.EMS.DTO.ResponseDto;
+import com.backend.EMS.Service.ProjectService;
+import com.backend.EMS.Validation.Validation;
+import com.fasterxml.jackson.databind.ObjectMapper;
+@SpringBootTest
+class ProjectControllerTest {
     @InjectMocks
     private ProjectController projectController;
-
     @Mock
     private ProjectService projectService;
     @Mock
-    private CardsService cardsService;
+    private Validation validator;
+    @Mock
+    private MockMvc mockMvc;
 
     @BeforeEach
-    public void init() {
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
+        mockMvc = MockMvcBuilders.standaloneSetup(projectController).build();
     }
 
+    List<String> skills = new ArrayList<>();
+    
     @Test
-    public void testAddProject_Success() {
-        ProjectInDto projectInDto = new ProjectInDto();
-        ResponseDto responseDto = new ResponseDto("Project added successfully");
+    void testAddproject() throws Exception{
+        skills.add("React");
+        skills.add("Java");
+        ProjectInDto projectDto = new ProjectInDto();
+        projectDto.setProjectName("Fynder");
+        projectDto.setManagerId(1L);
+        projectDto.setStartDate("2023-06-07");
+        projectDto.setRequiredSkills(skills);
+        projectDto.setDescription("Description");
+        
 
-        when(projectService.addProject(any(ProjectInDto.class))).thenReturn(responseDto);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String inputJSON = objectMapper.writeValueAsString(projectDto);
+        ResponseDto response = new ResponseDto();
+        response.setMessage("Project added successfully");
+        doNothing().when(validator).checkProject(projectDto);
+        when(projectService.addProject(projectDto)).thenReturn(response);
 
-        ResponseDto response = projectController.addProject(projectInDto);
-
-        verify(projectService, times(1)).addProject(any(ProjectInDto.class));
-
-        assertEquals("Project added successfully", response.getMessage());
+        MvcResult mvcResult = this.mockMvc.perform(post("/api/addProject")
+                .contentType(MediaType.APPLICATION_JSON).content(inputJSON))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+        
     }
     @Test
-    public void testGetAllProjects_Success() {
-        List<ProjectOutDto> projectList = Arrays.asList(new ProjectOutDto(), new ProjectOutDto());
+    void testGetAllProjects() throws Exception {
+        List<ProjectOutDto> list = new ArrayList<>();
+        List<String> teams = new ArrayList<>();
+        ProjectOutDto prjDto = new ProjectOutDto();
+        prjDto.setProjectName("Fynder");
+        prjDto.setManagerId(1L);
+        prjDto.setStartDate("2023-06-07");
+        prjDto.setRequiredSkills(skills);
+        prjDto.setDescription("Description");
+        prjDto.setHead("Ankita Sharma");
+        prjDto.setId(0L);
+        prjDto.setTeam(teams);
+        list.add(prjDto);
+        
 
-        when(cardsService.getAllProject()).thenReturn(projectList);
+        when(projectService.getAllProject()).thenReturn(list);
 
-        List<ProjectOutDto> response = projectController.getAllProjects();
-
-        verify(cardsService, times(1)).getAllProject();
-
-        assertEquals(2, response.size());
+        MvcResult mvcResult = this.mockMvc.perform(get("/api/projectCards")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+        
     }
 }

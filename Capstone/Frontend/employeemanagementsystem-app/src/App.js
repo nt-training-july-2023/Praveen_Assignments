@@ -1,22 +1,24 @@
 import './App.css';
 import React from 'react';
-import AdminRegistration from './components/AdminRegistration/AdminRegistration';
-import Login from './components/Login/Login';
+
+import Login from './Pages/Login/Login';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AddEmployee from './components/AddEmployee/AddEmployee';
-import AdminDashboard from './components/AdminDashboard/AdminDashboard';
-import AddProject from './components/AddProject/AddProject';
-import EmployeeDashboard from './Pages/EmployeeDashboard/EmployeeDashboard';
-import Main_Header from './components/Header/Main_Header';
+
+
 import { Navigate } from 'react-router-dom';
-import ManagerDashboard from './Pages/ManagerDashboard/ManagerDashboard';
-import AssignProject from './components/AssignProject/AssignProject';
-import organization from './Pages/EmployeeDashboard/Cards/Organization';
-import UpdateSkills from './Pages/EmployeeDashboard/UpdateSkills';
-import RequestResource from './Pages/ManagerDashboard/RequestResource';
-import RequestedResourcesList from './components/AdminDashboard/RequestedResourcesList';
+import AdminRegistration from './Pages/Admin/AdminRegistration/AdminRegistration';
+import RequestedResourcesList from './Pages/Admin/RequestedResourcesList';
+import AddProject from './Pages/Admin/AddProject/AddProject';
+import AddEmployee from './Pages/Admin/AddEmployee/AddEmployee';
+import AssignProject from './Pages/Admin/AssignProject/AssignProject';
+import UpdateSkills from './Pages/Employee/UpdateSkills';
+import AdminDashboard from './Pages/Admin/AdminDashboard';
+import EmployeeDashboard from './Pages/Employee/EmployeeDashboard';
+import ManagerDashboard from './Pages/Manager/ManagerDashboard';
+import RequestResource from './Pages/Manager/RequestResource';
+
 
 
 
@@ -27,6 +29,7 @@ function App() {
       <Routes>
      
       <Route path="/" element={<Login/>} />
+      {/* <Route path="/" element={<LoginPrivateRoute Component={Login} isLoggegIn={localStorage.getItem('IsLoggedIn')}/>} /> */}
       <Route path="/register" element={<AdminRegistration/>} />
       <Route path="/addEmployee" element={ <AddEmployee/>}/>
       <Route path="/addProject" element={<AddProject/>}/>
@@ -51,5 +54,12 @@ const PrivateRoute =({Component})=> {
   const isLoggegIn = localStorage.getItem('IsLoggedIn')
   return isLoggegIn? <Component /> : <Navigate to = "/" replace />;
 }
-
+// const LoginPrivateRoute =({Component})=> {
+//   const isLoggegIn = localStorage.getItem('IsLoggedIn')
+//   return isLoggegIn?  <Navigate to = "/" replace /> : <Component />;
+// }
+// const LoginPrivateRoute =({Component})=> {
+//   const isLoggegIn = localStorage.getItem('IsLoggedIn')
+//   return isLoggegIn? <Component /> : <Navigate to = "/" replace />;
+// }
 export default App;

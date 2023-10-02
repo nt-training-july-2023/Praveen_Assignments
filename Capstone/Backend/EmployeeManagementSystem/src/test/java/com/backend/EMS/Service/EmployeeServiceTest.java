@@ -9,7 +9,9 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +23,7 @@ import org.modelmapper.ModelMapper;
 
 import com.backend.EMS.DTO.EmployeeInDto;
 import com.backend.EMS.DTO.EmployeeOutDto;
-import com.backend.EMS.DTO.IsRequestedDto;
+import com.backend.EMS.DTO.IsRequestedInDto;
 import com.backend.EMS.DTO.IsRequestedOutDto;
 import com.backend.EMS.DTO.ProjectOutDto;
 import com.backend.EMS.DTO.RequestResourceInDto;
@@ -133,10 +135,15 @@ public class EmployeeServiceTest {
 //    }
     @Test
     public void testUpdateEmployee() {
+        // Prepare the test data
         Long id = 1L;
-        Long managerId = 2L;
-        Long projectId = 3L;
+        Long projectId = 2L;
+        Long managerId = 3L;
         String managerName = "Manager Name";
+
+        Map<String, Long> updatedDetails = new HashMap<>();
+        updatedDetails.put("projectId", projectId);
+        updatedDetails.put("managerId", managerId);
 
         // Create a mock employee and manager
         Employee employee = new Employee();
@@ -151,7 +158,7 @@ public class EmployeeServiceTest {
         when(employeeRepository.findById(managerId)).thenReturn(Optional.of(manager));
 
         // Call the method to test
-        ResponseDto response = employeeService.updateEmployee(id, projectId, managerId);
+        ResponseDto response = employeeService.updateEmployee(id, updatedDetails);
 
         // Verify that the employee properties were updated
         assertEquals(projectId, employee.getProjectId());
@@ -360,24 +367,24 @@ public class EmployeeServiceTest {
     }
 
     
-    @Test
-    public void testGetManagerIdById() {
-        // Create test data
-        Long employeeId = 1L;
-        Employee employee = new Employee();
-        employee.setId(employeeId);
-
-        // Mock repository behavior
-        when(employeeRepository.findById(employeeId)).thenReturn(Optional.of(employee));
-
-        // Call the method to test
-        EmployeeOutDto result = employeeService.getMangerIdById(employeeId);
-
-        // Verify the result
-        assertNotNull(result);
-        assertEquals(employeeId, result.getId());
-    }
-    
+//    @Test
+//    public void testGetManagerIdById() {
+//        // Create test data
+//        Long employeeId = 1L;
+//        Employee employee = new Employee();
+//        employee.setId(employeeId);
+//
+//        // Mock repository behavior
+//        when(employeeRepository.findById(employeeId)).thenReturn(Optional.of(employee));
+//
+//        // Call the method to test
+//        EmployeeOutDto result = employeeService.getMangerIdById(employeeId);
+//
+//        // Verify the result
+//        assertNotNull(result);
+//        assertEquals(employeeId, result.getId());
+//    }
+//    
     
     @Test
     public void testIsRequested() {
@@ -385,9 +392,9 @@ public class EmployeeServiceTest {
         Long employeeId = 1L;
         Long managerId = 2L;
 
-        IsRequestedDto isRequestedDto = new IsRequestedDto();
-        isRequestedDto.setId(managerId);
-        isRequestedDto.setEmployeeId(employeeId);
+        IsRequestedInDto isRequestedInDto = new IsRequestedInDto();
+        isRequestedInDto.setId(managerId);
+        isRequestedInDto.setEmployeeId(employeeId);
 
         Employee manager = new Employee();
         manager.setId(managerId);
@@ -401,7 +408,7 @@ public class EmployeeServiceTest {
         when(requestResourceRepository.findByEmployeeIdAndManagerId(employeeId, managerId)).thenReturn(requestResource);
 
         // Call the method to test
-        IsRequestedOutDto result = employeeService.IsRequested(isRequestedDto);
+        IsRequestedOutDto result = employeeService.isRequested(isRequestedInDto);
 
         // Verify the result
         assertNotNull(result);

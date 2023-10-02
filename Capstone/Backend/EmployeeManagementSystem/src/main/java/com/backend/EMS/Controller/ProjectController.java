@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,8 @@ import com.backend.EMS.DTO.ProjectOutDto;
 import com.backend.EMS.DTO.ResponseDto;
 import com.backend.EMS.Service.ProjectService;
 import com.backend.EMS.Validation.Validation;
+
+import jakarta.validation.Valid;
 
 
 /**
@@ -45,14 +48,18 @@ public class ProjectController {
     /**
      * Add a new project.
      *
-     * @param projectInDto The ProjectInDto containing project details to be added.
+     * @param projectInDto The ProjectInDto containing
+     * project details to be added.
+     * @param bindingResult The BindingResult containing errors.
      * @return A ResponseDto indicating the
         success or failure of the project addition.
      */
     @PostMapping("/addProject")
-    public final ResponseDto addProject(@RequestBody
-            final ProjectInDto projectInDto) {
-        validation.checkProjecExists(projectInDto);
+    public final ResponseDto addProject(@RequestBody @Valid
+            final ProjectInDto projectInDto,
+            final BindingResult bindingResult) {
+        validation.checkProject(projectInDto);
+        validation.patterValidations(bindingResult);
         LOGGER.info("Add project method invoked");
         ResponseDto responseDto = projectService.addProject(projectInDto);
         LOGGER.info("Added project successfully");
@@ -67,9 +74,10 @@ public class ProjectController {
     @GetMapping("/projectCards")
     public final List<ProjectOutDto> getAllProjects() {
         LOGGER.info("get all projects method invoked");
-        List<ProjectOutDto> ProjectOutDtoList = projectService.getAllProject();
+        List<ProjectOutDto> projectOutDtoList = projectService.
+                getAllProject();
         LOGGER.info("retrieved all projects successfully");
-        return ProjectOutDtoList;
+        return projectOutDtoList;
     }
 }
 

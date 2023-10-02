@@ -3,6 +3,9 @@ package com.backend.EMS.DTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 /**
  * Data Transfer Object (DTO) for handling skills information.
  */
@@ -10,7 +13,9 @@ public class UpdateSkillsDto {
     /**
      * The updated skills for project.
      */
-    private List<String> skills;
+    @NotEmpty
+    private List<@NotBlank(message = "skills should not be empty string")
+    String> skills;
 
     @Override
     public final int hashCode() {

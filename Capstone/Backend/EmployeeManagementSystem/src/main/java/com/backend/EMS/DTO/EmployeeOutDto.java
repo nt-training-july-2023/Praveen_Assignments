@@ -7,8 +7,6 @@ import java.util.Objects;
 import com.backend.EMS.Model.Designation;
 import com.backend.EMS.Model.Location;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 
 /**
  * Data Transfer Object (DTO) for handling employee information to be sent as

@@ -2,19 +2,18 @@ package com.backend.EMS.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.backend.EMS.DTO.EmployeeInDto;
 import com.backend.EMS.DTO.EmployeeOutDto;
-import com.backend.EMS.DTO.IsRequestedDto;
+import com.backend.EMS.DTO.IsRequestedInDto;
 import com.backend.EMS.DTO.IsRequestedOutDto;
 import com.backend.EMS.DTO.RequestResourceInDto;
 import com.backend.EMS.DTO.ResponseDto;
 import com.backend.EMS.DTO.UpdateSkillsDto;
-import com.backend.EMS.Exception.UserAlreadyFound;
 import com.backend.EMS.Model.Employee;
 import com.backend.EMS.Model.Project;
 import com.backend.EMS.Model.RequestResource;
@@ -33,7 +32,6 @@ public class EmployeeService {
      */
     @Autowired
     private EmployeeRepository employeeRepository;
-    
     /**
      * Repository for managing RequestResource entities.
      */
@@ -95,12 +93,14 @@ public class EmployeeService {
      * Update employee information including project and manager.
      *
      * @param id        The ID of the employee to update.
-     * @param projectId The ID of the project to assign to the employee.
-     * @param managerId The ID of the manager for the employee.
+     * @param updatedDetails The UpdatedDetails contains of the
+     * managerId and projectId for the employee.
      * @return A ResponseDto indicating the status of the update.
      */
     public final ResponseDto updateEmployee(final Long id,
-            final Long projectId, final Long managerId) {
+            final Map<String, Long> updatedDetails) {
+        Long projectId = updatedDetails.get("projectId");
+        Long managerId = updatedDetails.get("managerId");
         Employee employee = employeeRepository.findById(id).orElse(null);
         Employee manager = employeeRepository.findById(managerId).get();
         if (employee == null) {
@@ -136,23 +136,21 @@ public class EmployeeService {
         return employeeOutDtoList;
     }
     /**
-     * Get an employee by their email address and include project information.
+     * Get an employee by their id and include project information.
      *
-     * @param email The email address of the employee to retrieve.
+     * @param id The id of the employee to retrieve.
      * @return An EmployeeOutDto object containing employee and project
      *         information.
      */
     public final EmployeeOutDto getEmployeeById(final Long id) {
         Employee employee = employeeRepository.findById(id).get();
-        System.out.println(employee);
         EmployeeOutDto employeeOutDto = modelMapper.
                 map(employee, EmployeeOutDto.class);
-        if(employee.getProjectId()!=null) {
+        if (employee.getProjectId() != null) {
         Project project = projectRepository.
                 findById(employee.getProjectId()).get();
         employeeOutDto.setProjectName(project.getProjectName());
-        }
-        else {
+        } else {
             employeeOutDto.setProjectName("N/A");
         }
 
@@ -180,7 +178,7 @@ public class EmployeeService {
      * @param requestResourceInDto The data for the resource request.
      * @return A ResponseDto indicating the status of the request.
      */
-    public final ResponseDto requestResource(final 
+    public final ResponseDto requestResource(final
             RequestResourceInDto requestResourceInDto) {
         // Map the request data to a RequestResource object
         RequestResource requestResource = this.modelMapper.map(
@@ -191,32 +189,26 @@ public class EmployeeService {
         return new ResponseDto("Requested resource");
     }
     /**
-     * Get an employee by their email address and include project information.
+     * Check if a resource is requested based on the provided input data.
      *
-     * @param email The email address of the employee to retrieve.
-     * @return An EmployeeOutDto object containing employee and project
-     *         information.
+     * @param isRequestedInDto The input data used to determine
+     * if a resource is requested.
+     * @return An IsRequestedOutDto indicating whether the
+     * resource is requested or not.
      */
-    public final EmployeeOutDto getMangerIdById(final Long id) {
-        Employee employee = employeeRepository.findById(id).get();
-        EmployeeOutDto employeeOutDto = new EmployeeOutDto();
-        employeeOutDto.setId(employee.getId());
-
-        return employeeOutDto;
-    }
-
-    public final IsRequestedOutDto IsRequested(final IsRequestedDto isRequestedDto) {
-        Employee manager = this.employeeRepository.findById(isRequestedDto.getId()).get();
+    public final IsRequestedOutDto isRequested(final
+            IsRequestedInDto isRequestedInDto) {
+        Employee manager = this.employeeRepository.
+                findById(isRequestedInDto.getId()).get();
         Long managerId = manager.getId();
-        Long employeeId = isRequestedDto.getEmployeeId();
-        RequestResource requestResource = this.requestResourceRepository.findByEmployeeIdAndManagerId(employeeId, managerId);
+        Long employeeId = isRequestedInDto.getEmployeeId();
+        RequestResource requestResource = this.requestResourceRepository.
+                findByEmployeeIdAndManagerId(employeeId, managerId);
         IsRequestedOutDto isRequestedOutDto = new IsRequestedOutDto();
-        if(requestResource!=null) {
+        if (requestResource != null) {
             isRequestedOutDto.setRequested(true);
             return isRequestedOutDto;
-            
-        }
-        else {
+            } else {
             isRequestedOutDto.setRequested(false);
             return isRequestedOutDto;
         }
@@ -251,20 +243,6 @@ public class EmployeeService {
         }
         return employeeOutDtoList;
     }
-//    /**
-//     * Get an employee's name by their ID.
-//     *
-//     * @param id The ID of the employee.
-//     * @return An EmployeeNameDto object representing the employee's name.
-//     */
-//    public final EmployeeNameDto getEmployeeById(final Long id) {
-//        Employee employee = employeeRepository.findById(id).orElse(null);
-//        EmployeeNameDto employeeNameDto = modelMapper.
-//                map(employee, EmployeeNameDto.class);
-//        return employeeNameDto;
-//    }
-    
-
 }
 
 

@@ -132,7 +132,7 @@ public class EmployeeOutDtoTest {
 
         EmployeeOutDto employee3 = new EmployeeOutDto();
         employee3.setId(2L);
-
+        
         Assertions.assertEquals(employee1.hashCode(), employee2.hashCode());
         Assertions.assertNotEquals(employee1.hashCode(), employee3.hashCode());
     }

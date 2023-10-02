@@ -38,9 +38,9 @@ public class LoginOutDto {
     }
 
     /**
-     * Set the email associated with the login response.
+     * Set the id associated with the login response.
      *
-     * @param emails The email to set for the login response.
+     * @param ids The id to set for the login response.
      */
     public final void setId(final Long ids) {
         this.id = ids;
@@ -112,7 +112,7 @@ public class LoginOutDto {
      * @param roles The role associated with the login response.
      * @param messages The message associated with the login response.
      * @param names The name associated with the login response.
-     * @param emails The email associated with the login response.
+     * @param ids The id associated with the login response.
      */
     public LoginOutDto(final Role roles, final String messages,
             final String names, final Long ids) {

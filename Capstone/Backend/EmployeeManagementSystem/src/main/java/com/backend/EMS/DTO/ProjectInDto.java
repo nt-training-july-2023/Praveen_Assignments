@@ -38,7 +38,8 @@ public class ProjectInDto {
      * The required skills for the project.
      */
     @NotEmpty
-    private List<@NotBlank(message="skills should not be empty string")String> requiredSkills;
+    private List<@NotBlank(message = "skills should not be empty string")
+    String> requiredSkills;
 
     /**
      * The description of the project.

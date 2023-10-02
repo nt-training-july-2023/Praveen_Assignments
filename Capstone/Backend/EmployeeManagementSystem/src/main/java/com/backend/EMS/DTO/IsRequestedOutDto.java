@@ -1,7 +1,9 @@
 package com.backend.EMS.DTO;
 
 import java.util.Objects;
-
+/**
+ * Data Transfer Object (DTO) for handling IsRequested information.
+ */
 public class IsRequestedOutDto {
     /**
      * The isRequested of the employee.
@@ -18,7 +20,7 @@ public class IsRequestedOutDto {
     /**
      * @param isRequestedValue the isRequested to set
      */
-    public final void setRequested(boolean isRequestedValue) {
+    public final void setRequested(final boolean isRequestedValue) {
         this.isRequested = isRequestedValue;
     }
 
@@ -28,7 +30,7 @@ public class IsRequestedOutDto {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hash(isRequested);
     }
 
@@ -46,6 +48,5 @@ public class IsRequestedOutDto {
         IsRequestedOutDto other = (IsRequestedOutDto) obj;
         return isRequested == other.isRequested;
     }
-    
 
 }

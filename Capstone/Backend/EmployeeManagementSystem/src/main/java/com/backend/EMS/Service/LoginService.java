@@ -1,17 +1,11 @@
 package com.backend.EMS.Service;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.backend.EMS.Controller.EmployeeController;
 import com.backend.EMS.DTO.LoginInDto;
 import com.backend.EMS.DTO.LoginOutDto;
-import com.backend.EMS.Exception.UserNotFound;
 import com.backend.EMS.Model.Employee;
 import com.backend.EMS.Repository.EmployeeRepository;
 

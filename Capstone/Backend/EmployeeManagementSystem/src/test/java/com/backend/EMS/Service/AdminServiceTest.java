@@ -197,7 +197,7 @@ public class AdminServiceTest {
     public void testDeleteRequestedResource_Success() {
         Long id = 1L;
         doNothing().when(requestResourceRepository).deleteById(anyLong());
-        ResponseDto response = adminService.DeleteRequestedResource(id);
+        ResponseDto response = adminService.deleteRequestedResource(id);
 
         assertNotNull(response);
         assertEquals("Deleted Successfuly", response.getMessage());
@@ -224,7 +224,7 @@ public class AdminServiceTest {
         when(employeeRepository.findById(3L)).thenReturn(Optional.of(manager));
         when(requestResourceRepository.findByEmployeeId(2L)).thenReturn(Collections.singletonList(requestResource));
 
-        ResponseDto response = adminService.AcceptRequestedResource(id);
+        ResponseDto response = adminService.acceptRequestedResource(id);
 
         assertNotNull(response);
         assertEquals("Requested Resource Accepted", response.getMessage());
@@ -240,7 +240,7 @@ public class AdminServiceTest {
         when(requestResourceRepository.findById(id)).thenReturn(Optional.empty());
 
         assertThrows(NoSuchElementException.class, () -> {
-            adminService.AcceptRequestedResource(id);
+            adminService.acceptRequestedResource(id);
         });
     }
 
@@ -258,7 +258,7 @@ public class AdminServiceTest {
         when(employeeRepository.findById(2L)).thenReturn(Optional.empty());
 
         assertThrows(NoSuchElementException.class, () -> {
-            adminService.AcceptRequestedResource(id);
+            adminService.acceptRequestedResource(id);
         });
     }
 
@@ -497,7 +497,7 @@ public class AdminServiceTest {
         ResponseDto response = adminService.unAssign(id);
 
         assertNotNull(response);
-        assertEquals("UnAssigned the project", response.getMessage());
+        assertEquals("Unassigned the project", response.getMessage());
         assertNull(employee.getProjectId());
         assertEquals(1L, employee.getManagerId());
         assertEquals("Ankita", employee.getManagerName());
