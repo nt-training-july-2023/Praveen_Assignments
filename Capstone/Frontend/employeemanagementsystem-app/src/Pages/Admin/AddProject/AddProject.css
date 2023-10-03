@@ -5,7 +5,7 @@ body{
     /* background:linear-gradient(#33ccff , #660066); */
   }
   
-  .form {
+  .AddProject-form {
     background: linear-gradient(#dde3e6, #8991ce);
     max-width: 500px;
     min-height: 500px;
@@ -19,32 +19,32 @@ body{
     overflow: scroll;
     margin-bottom: 3rem;
   }
-  .form::-webkit-scrollbar{
+  .AddProject-form::-webkit-scrollbar{
     width: 0.5rem;
     display: none;
   }
-  .form::-webkit-scrollbar-track{
+  .AddProject-form::-webkit-scrollbar-track{
     background-color: transparent;
   }
-  .form::-webkit-scrollbar-thumb{
+  .AddProject-form::-webkit-scrollbar-thumb{
     background-color: #888;
   }
-  .form:hover::-webkit-scrollbar-thumb{
+  .AddProject-form:hover::-webkit-scrollbar-thumb{
     background-color: #555;
   }
-  .form-header{
+  .AddProject-form-header{
     text-align: center;
     /* font-family: 'Forum', cursive; */
   }
-  .form-group{
+  .AddProject-form-group{
     display: flex;
     justify-content: space-between;
     height:30%;
   }
-  .form-label {
+  .AddProject-form-label {
     padding-top: 1opx;
   }
-  .AP-input {
+  .AddProject-input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -61,7 +61,7 @@ body{
     box-sizing: border-box;
     border-radius: 5px;
   }
-  .abc{
+  .AddProject-abc{
     width: 21.9rem !important;
     margin-bottom: 0.2rem;
     border-radius: 5px;
@@ -70,12 +70,12 @@ body{
     color: rgb(16, 2, 2);
 
   }
-  .zzz{
+  .AddProject-zzz{
     width: 21.9rem !important;
     margin-bottom: 0.2rem;
     color: black;
   }
-  .description-box {
+  .AddProject-description-box {
     width: 20.5rem;
     height: 150px;
     border: 1px solid #ccc;
@@ -90,7 +90,7 @@ body{
   }
 
   /* CSS for a label (optional) */
-  .label {
+  .AddProject-label {
     font-weight: bold;
   }
   
@@ -98,7 +98,7 @@ body{
   
   
   
-  .form-dropdown {
+  .AddProject-form-dropdown {
     width: 72%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -106,12 +106,12 @@ body{
     font-size: 14px;
     margin-bottom: 3px;
   }
-  .buttons{
+  .AddProject-buttons{
     display: flex ;
     justify-content: space-between ;
     margin-top: 20px;
   }
-  .button-submit {
+  .AddProject-button-submit {
     margin-left: 10px;
     padding: 10px 20px;
     background-color: #007BFF;
@@ -122,10 +122,10 @@ body{
     font-size: 16px;
     transition: background-color 0.3s ease;
   }
-  .button-submit:hover {
+  .AddProject-button-submit:hover {
     background-color: #0056B3;
   }
-  .button-cancel {
+  .AddProject-button-cancel {
     padding: 10px 20px;
     background-color:  #007BFF;
     color: #fff;
@@ -135,7 +135,7 @@ body{
     font-size: 16px;
     transition: background-color 0.3s ease;
   }
-  .button-cancel:hover {
+  .AddProject-button-cancel:hover {
     background-color: #8B0000;
   }
   

@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import SkillsDropDown from "../../../components/Dropdowns/Skills";
 import MultipleSelectDropdown from "../../../components/MultipleSelectDropdown/MultipleSelectDropdown";
 import adminService from "../../../Service/AdminService";
+import Button from "../../../components/Button";
 
 function AddEmployee() {
   const [name, setName] = useState("");
@@ -265,317 +266,222 @@ function AddEmployee() {
       }
     }
   };
-
-  //   // setIsSubmitted(true);
-  //   if (
-  //     // !nameError &&
-  //     //  !emailError &&
-  //     //   !employeeIdError &&
-  //     //   !dobError &&
-  //     //   !dojError &&
-  //     //   !locationError &&
-  //     //   !designationError &&
-  //     //   !roleError &&
-  //     //   !contactError &&
-  //     //   !skillsError,
-  //     nameError ||
-  //     emailError ||
-  //     employeeIdError ||
-  //     dobError ||
-  //     dojError ||
-  //     locationError ||
-  //     designationError ||
-  //     roleError ||
-  //     contactError ||
-  //     skillsError ||
-  //     name === "" ||
-  //     email === "" ||
-  //     empId === "" ||
-  //     dob === "" ||
-  //     doj === "" ||
-  //     location === "" ||
-  //     designation === "" ||
-  //     role === "" ||
-  //     contactNo === "" ||
-  //     skills === ""
-  //   ) {
-  //     toast.error("Please fill every field.", {
-  //       position: "top-right",
-  //       autoClose: 3000,
-  //       toastId,
-  //     });
-  //     return; // Exit the function if there are errors
-  //   } else {
-  //     // // When sending data to the server, split the skills string into an array if needed.
-  //     // const skillsArray = skills.split(",");
-  //     const employeeData = {
-  //       name: name,
-  //       email: email,
-  //       empId: empId,
-  //       dob: dob,
-  //       doj: doj,
-  //       location: location,
-  //       designation: designation,
-  //       role: role,
-  //       contactNo: contactNo,
-  //       skills: skills,
-  //       password: hashedpassword,
-  //     };
-
-  //     try {
-  //       adminService.addEmployee(employeeData).then((response) => {
-  //         if (response.status === 200) {
-  //           toast.success("Employee Registered", {
-  //             position: toast.POSITION.TOP_CENTER,
-  //             autoClose: 3000, //3 seconds
-  //             hideProgressBar: false,
-  //             closeOnClick: true,
-  //             pauseOnHover: true,
-  //             draggable: true,
-  //             toastId,
-  //             transition: Slide,
-  //           });
-  //           navigate("/adminDashboard");
-  //           // Reset form fields after successful registration
-  //           setName("");
-  //           setEmail("");
-  //           setEmpId("");
-  //           setDOB("");
-  //           setDOJ("");
-  //           setLocation("");
-  //           setDesignation("");
-  //           setContactNo("");
-  //           setRole("");
-  //           setSkills([]);
-  //           // selectedSkills([]);
-
-  //           //   setPassword("");
-  //           // alert("Employee Registered successfully")
-  //         } else if (response.data.statusCode === 400) {
-  //           console.log(response.data.statusCode);
-  //           alert("backend validations failed");
-  //         } else if (response.data.statusCode === 500) {
-  //           //  console.log("Admin is already registered")
-  //           alert(response.data.message);
-  //         }
-  //       });
-
-  //     } catch (err) {
-  //       toast.error(err.response.data.message, {
-  //         position: "top-right",
-  //         autoClose: 3000,
-  //         toastId,
-  //       });
-  //     }
-  //   }
-  // };
   const userRole = localStorage.getItem("userRole");
   if (userRole !== "Admin") {
     return <h1>Unauthorized access</h1>;
   }
   return (
-    <div className="form">
-      <div className="form-header">
-        {/* <div className="RegistrationFormContainer" > */}
-        <h2>ADD EMPLOYEE</h2>
-      </div>
+    <div className="AddEmployee-container">
+      <div className="AddEmployee-form">
+        <div className="AddEmployee-form-header">
+          {/* <div className="RegistrationFormContainer" > */}
+          <h2>ADD EMPLOYEE</h2>
+        </div>
 
-      <div className="form-body">
-        <div className="form-group">
-          <label className="form-label">Name</label>
-          <input
-            className="AE-input"
-            type="text"
-            placeholder="Enter Name"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            onBlur={validateName}
+        <div className="AddEmployee-form-body">
+          <div className="AddEmployee-form-group">
+            <label className="AddEmployee-form-label">Name</label>
+            <input
+              className="AddEmployee-input"
+              type="text"
+              placeholder="Enter Name"
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              onBlur={validateName}
+            />
+          </div>
+          {nameError && (
+            <span style={{ fontSize: "12px", color: "red" }}>{nameError}</span>
+          )}
+
+          <div className="AddEmployee-form-group">
+            <label className="AddEmployee-form-label">Email</label>
+            <input
+              className="AddEmployee-input"
+              type="email"
+              placeholder="example abc@Nucleusteq.com"
+              value={email}
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
+              onBlur={validateEmail}
+            />
+          </div>
+          {emailError && (
+            <span style={{ fontSize: "12px", color: "red" }}>{emailError}</span>
+          )}
+
+          <div className="AddEmployee-form-group">
+            <label className="AddEmployee-form-label">EmployeeId</label>
+            <input
+              className="AddEmployee-input"
+              type="text"
+              placeholder="Enter Employee ID"
+              value={empId}
+              onChange={(event) => {
+                setEmpId(event.target.value);
+              }}
+              onBlur={validateEmployeeId}
+            />
+          </div>
+          {employeeIdError && (
+            <span style={{ fontSize: "12px", color: "red" }}>
+              {employeeIdError}
+            </span>
+          )}
+          <div className="AddEmployee-form-group">
+            <label className="AddEmployee-form-label">DOB</label>
+            <input
+              className="AddEmployee-input"
+              type="date"
+              placeholder="Enter DOB"
+              value={dob}
+              onChange={(event) => {
+                setDOB(event.target.value);
+              }}
+              onBlur={validateDOB}
+            />
+          </div>
+          {dobError && (
+            <span style={{ fontSize: "12px", color: "red" }}>{dobError}</span>
+          )}
+
+          <div className="AddEmployee-form-group">
+            <label className="form-label">DOJ</label>
+            <input
+              className="AddEmployee-input"
+              type="date"
+              placeholder="Enter DOJ"
+              value={doj}
+              onChange={(event) => {
+                setDOJ(event.target.value);
+              }}
+              onBlur={validateDOJ}
+            />
+          </div>
+          {dojError && (
+            <span style={{ fontSize: "12px", color: "red" }}>{dojError}</span>
+          )}
+
+          <div className="AddEmployee-form-group">
+            <label className="AddEmployee-form-label">location</label>
+            <select
+              className="AddEmployee-form-dropdown"
+              value={location}
+              onChange={(event) => setLocation(event.target.value)}
+              onBlur={validateLocation}
+            >
+              <option value="">Select Location</option>
+              {locations.map((option, index) => (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+          {locationError && (
+            <span style={{ fontSize: "12px", color: "red" }}>
+              {locationError}
+            </span>
+          )}
+
+          <div class="AddEmployee-form-group">
+            <label className="AddEmployee-form-label">designation</label>
+            <select
+              className="AddEmployee-form-dropdown"
+              value={designation}
+              onChange={(event) => setDesignation(event.target.value)}
+              onBlur={validateDesignation}
+            >
+              <option value="">Select Designation</option>
+              {designations.map((option, index) => (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+          {designationError && (
+            <span style={{ fontSize: "12px", color: "red" }}>
+              {designationError}
+            </span>
+          )}
+
+          <div class="AddEmployee-form-group">
+            <label className="AddEmployee-form-label">role</label>
+            <select
+              className="AddEmployee-form-dropdown"
+              value={role}
+              onChange={(event) => setRole(event.target.value)}
+              onBlur={validateRole}
+            >
+              <option value="">Select Role</option>
+              {Roles.map((option, index) => (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+          {roleError && (
+            <span style={{ fontSize: "12px", color: "red" }}>{roleError}</span>
+          )}
+          <div className="AddEmployee-form-group">
+            <label className="AddEmployee-form-label">Skills</label>
+            <MultipleSelectDropdown
+              options={SkillsDropDown.map((skill) => ({
+                value: skill,
+                label: skill,
+              }))}
+              selectedOptions={selectedSkills.map((skill) => ({
+                value: skill,
+                label: skill,
+              }))}
+              
+              onChange={handleSkillChange}
+              placeholder="Select Skills"
+              onBlur={validateSkills}
+            />
+          </div>
+          {skillsError && (
+            <span style={{ fontSize: "12px", color: "red" }}>
+              {skillsError}
+            </span>
+          )}
+
+          <div className="AddEmployee-form-group">
+            <label className="AddEmployee-form-label">contactNo</label>
+            <input
+              className="AddEmployee-input"
+              type="text"
+              placeholder="Enter Contact_Number"
+              value={contactNo}
+              onChange={(event) => {
+                setContactNo(event.target.value);
+              }}
+              onBlur={validateContactNo}
+            />
+          </div>
+          {contactError && (
+            <span style={{ fontSize: "12px", color: "red" }}>
+              {contactError}
+            </span>
+          )}
+        </div>
+        <div className="AddEmployee-buttons">
+          <Button
+            type="submit"
+            className={"AddEmployee-button-cancel"}
+            onClick={redirectToAdminDashboard}
+            text={"Back to home"}
+          />
+          <Button
+            type="submit"
+            className={"AddEmployee-button-submit"}
+            onClick={save}
+            text={"ADD"}
           />
         </div>
-        {nameError && (
-          <span style={{ fontSize: "12px", color: "red" }}>{nameError}</span>
-        )}
-
-        <div className="form-group">
-          <label className="form-label">Email</label>
-          <input
-            className="AE-input"
-            type="email"
-            placeholder="example abc@Nucleusteq.com"
-            value={email}
-            onChange={(event) => {
-              setEmail(event.target.value);
-            }}
-            onBlur={validateEmail}
-          />
-        </div>
-        {emailError && (
-          <span style={{ fontSize: "12px", color: "red" }}>{emailError}</span>
-        )}
-
-        <div className="form-group">
-          <label className="form-label">EmployeeId</label>
-          <input
-            className="AE-input"
-            type="text"
-            placeholder="Enter Employee ID"
-            value={empId}
-            onChange={(event) => {
-              setEmpId(event.target.value);
-            }}
-            onBlur={validateEmployeeId}
-          />
-        </div>
-        {employeeIdError && (
-          <span style={{ fontSize: "12px", color: "red" }}>
-            {employeeIdError}
-          </span>
-        )}
-        <div className="form-group">
-          <label className="form-label">DOB</label>
-          <input
-            className="AE-input"
-            type="date"
-            placeholder="Enter DOB"
-            value={dob}
-            onChange={(event) => {
-              setDOB(event.target.value);
-            }}
-            onBlur={validateDOB}
-          />
-        </div>
-        {dobError && (
-          <span style={{ fontSize: "12px", color: "red" }}>{dobError}</span>
-        )}
-
-        <div className="form-group">
-          <label className="form-label">DOJ</label>
-          <input
-            className="AE-input"
-            type="date"
-            placeholder="Enter DOJ"
-            value={doj}
-            onChange={(event) => {
-              setDOJ(event.target.value);
-            }}
-            onBlur={validateDOJ}
-          />
-        </div>
-        {dojError && (
-          <span style={{ fontSize: "12px", color: "red" }}>{dojError}</span>
-        )}
-
-        <div className="form-group">
-          <label className="form-label">location</label>
-          <select
-            className="form-dropdown"
-            value={location}
-            onChange={(event) => setLocation(event.target.value)}
-            onBlur={validateLocation}
-          >
-            <option value="">Select Location</option>
-            {locations.map((option, index) => (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div>
-        {locationError && (
-          <span style={{ fontSize: "12px", color: "red" }}>
-            {locationError}
-          </span>
-        )}
-
-        <div class="form-group">
-          <label className="form-label">designation</label>
-          <select
-            className="form-dropdown"
-            value={designation}
-            onChange={(event) => setDesignation(event.target.value)}
-            onBlur={validateDesignation}
-          >
-            <option value="">Select Designation</option>
-            {designations.map((option, index) => (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div>
-        {designationError && (
-          <span style={{ fontSize: "12px", color: "red" }}>
-            {designationError}
-          </span>
-        )}
-
-        <div class="form-group">
-          <label className="form-label">role</label>
-          <select
-            className="form-dropdown"
-            value={role}
-            onChange={(event) => setRole(event.target.value)}
-            onBlur={validateRole}
-          >
-            <option value="">Select Role</option>
-            {Roles.map((option, index) => (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div>
-        {roleError && (
-          <span style={{ fontSize: "12px", color: "red" }}>{roleError}</span>
-        )}
-        <div className="form-group">
-          <label className="form-label">Skills</label>
-          <MultipleSelectDropdown
-            options={SkillsDropDown.map((skill) => ({
-              value: skill,
-              label: skill,
-            }))}
-            selectedOptions={selectedSkills.map((skill) => ({
-              value: skill,
-              label: skill,
-            }))}
-            onChange={handleSkillChange}
-            placeholder="Select Skills"
-            onBlur={validateSkills}
-          />
-        </div>
-        {skillsError && (
-          <span style={{ fontSize: "12px", color: "red" }}>{skillsError}</span>
-        )}
-
-        <div className="form-group">
-          <label className="form-label">contactNo</label>
-          <input
-            className="AE-input"
-            type="text"
-            placeholder="Enter Contact_Number"
-            value={contactNo}
-            onChange={(event) => {
-              setContactNo(event.target.value);
-            }}
-            onBlur={validateContactNo}
-          />
-        </div>
-        {contactError && (
-          <span style={{ fontSize: "12px", color: "red" }}>{contactError}</span>
-        )}
-      </div>
-      <div className="buttons">
-        <button
-          type="submit"
-          className="button-cancel"
-          onClick={redirectToAdminDashboard}
-        >
-          Back to Home
-        </button>
-        <button type="submit" className="button-submit" onClick={save}>
-          ADD Employee
-        </button>
       </div>
     </div>
   );

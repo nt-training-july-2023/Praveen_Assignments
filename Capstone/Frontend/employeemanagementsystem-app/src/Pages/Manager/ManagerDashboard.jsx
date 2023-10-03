@@ -5,6 +5,7 @@ import './ManagerDashboard.css';
 import EmployeeCarddd from './EmployeeCard';
 import ManagerList from '../Admin/AdminCards/AllMangerCards';
 import ProjectCard from '../Admin/AdminCards/Project';
+import Button from '../../components/Button';
 
 
 function ManagerDashboard() {
@@ -65,9 +66,12 @@ function ManagerDashboard() {
             </div>
           </div>
           <div className="MD-logout-button">
-            <button className="MD-logout-btn" onClick={logout}>
-              Logout
-            </button>
+            <Button
+             className={"MD-logout-btn"}
+             onClick={logout}
+             text = {" Logout"}
+             />
+   
           </div>
         </div>
       </div>

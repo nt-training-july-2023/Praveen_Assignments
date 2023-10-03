@@ -8,6 +8,7 @@ import MultipleSelectDropdown from "../../components/MultipleSelectDropdown/Mult
 import axios from "axios";
 import "./UpdateSkills.css";
 import employeeService from "../../Service/EmployeeService";
+import Button from "../../components/Button";
 
 function UpdateSkills() {
   const [skills, setSkills] = useState([]);
@@ -32,10 +33,9 @@ function UpdateSkills() {
     }
   }, []);
 
-
   const handleUpdate = async () => {
     const toastId = "handleUpdate";
-    if (skills.length=== 0) {
+    if (skills.length === 0) {
       toast.error("Please Update Skills", {
         position: "top-right",
         autoClose: 1000,
@@ -52,7 +52,6 @@ function UpdateSkills() {
       }
     }
   };
-  
 
   const handleCancel = (e) => {
     navigate("/EmployeeDashboard");
@@ -91,12 +90,14 @@ function UpdateSkills() {
         </div>
 
         <div className="US-button-container">
-          <button type="button" onClick={handleUpdate}>
-            Update
-          </button>
-          <button type="button" className="secondary" onClick={handleCancel}>
-            Cancel
-          </button>
+          <Button type="button" onClick={handleUpdate} text={"Update"} />
+
+          <Button
+            type="button"
+            className={"secondary"}
+            onClick={handleCancel}
+            text={" Cancel"}
+          />
         </div>
       </div>
     </div>

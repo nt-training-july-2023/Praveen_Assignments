@@ -1,16 +1,14 @@
 import React from "react";
 
-
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./AdminDashboard.css";
 import { useNavigate } from "react-router-dom";
+
 import ManagerList from "./AdminCards/AllMangerCards";
 import ProjectCard from "./AdminCards/Project";
 import EmployeeCard from "./AdminCards/Employee";
-
-
+import Button from "../../components/Button";
 
 function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("Employee");
@@ -62,12 +60,15 @@ function AdminDashboard() {
       <div className="nav-bar">
         <div>
           <h4>Welcome {name}</h4>
-          <button className="RR-btn" onClick={RR}>
-            Request List
-          </button>
+          <Button 
+          className={"RR-btn"}
+           onClick={RR}
+           text ={"Request List"}
+           />
+            
         </div>
         <div className="tabs">
-          <div 
+          <div
             className={`employee-tab ${
               activeTab === "Employee" ? "active" : ""
             }`}
@@ -94,35 +95,38 @@ function AdminDashboard() {
         <div className="empty-div">
           <div className="tab-buttons">
             <div className="logout-container">
-              <button className="logout-btn" onClick={logout}>
-                Logout
-              </button>
+              <Button 
+              className={"logout-btn"}
+               onClick={logout}
+                text ={"Logout"}
+              />
             </div>
             <div className="emp-container">
-              <button
+              <Button
                 className={`add-employee-btn ${
                   activeTab === "Employee" ? "active" : ""
                 }`}
                 onClick={toAddEmployee}
-              >
-                Add Employee
-              </button>
-              <button
+                text ={"Add Employee"}
+              />
+                
+             
+              <Button
                 className={`add-manager-btn ${
                   activeTab === "Manager" ? "active" : ""
                 }`}
                 // onClick={toAddManager}
-              >
-                Add Manager
-              </button>
-              <button
+                text ={"Add Manager"}
+              />
+               
+             
+              <Button
                 className={`add-project-btn ${
                   activeTab === "Project" ? "active" : ""
                 }`}
                 onClick={toAddProject}
-              >
-                Add Project
-              </button>
+                text=" Add Project"
+              />
             </div>
           </div>
         </div>
@@ -140,7 +144,7 @@ function AdminDashboard() {
         )}
         {activeTab === "Project" && (
           <div>
-            <ProjectCard/>
+            <ProjectCard />
           </div>
         )}
       </div>

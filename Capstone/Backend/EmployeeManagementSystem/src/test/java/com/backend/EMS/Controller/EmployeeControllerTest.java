@@ -31,6 +31,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.backend.EMS.DTO.EmployeeInDto;
 import com.backend.EMS.DTO.EmployeeOutDto;
+import com.backend.EMS.DTO.IsRequestedInDto;
+import com.backend.EMS.DTO.IsRequestedOutDto;
 import com.backend.EMS.DTO.LoginInDto;
 import com.backend.EMS.DTO.LoginOutDto;
 import com.backend.EMS.DTO.ProjectOutDto;
@@ -102,7 +104,7 @@ public class EmployeeControllerTest {
         ResponseDto response = new ResponseDto();
         response.setMessage("Employee Added Succesfully");
         doNothing().when(validator).checkEmployee(empDto);
-        when(employeeService.addEmployee(Mockito.any())).thenReturn(response);
+//        when(employeeService.addEmployee(Mockito.any())).thenReturn(response);
 
         MvcResult mvcResult = this.mockMvc.perform(post("/api/addEmployee")
                 .contentType(MediaType.APPLICATION_JSON).content(inputJSON))
@@ -400,11 +402,17 @@ public class EmployeeControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBody = objectMapper.writeValueAsString(updatedSkills);
 
-        mockMvc.perform(put("/api/updateSkill/{id}", employeeId)
+//        mockMvc.perform(put("/api/updateSkill/{id}", employeeId)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(requestBody))
+//                .andExpect(status().isOk());
+        MvcResult mvcResult = this .mockMvc.perform(put("/api/updateSkill/{id}", employeeId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
-                .andExpect(status().isOk());
-    }
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200,status);
+        }
     @Test
     void testGetFilteredEmployees() throws Exception {
         // Define query parameters
@@ -505,25 +513,49 @@ public class EmployeeControllerTest {
     }
     @Test
     void testGetAllByManagerId() throws Exception{
-        List<ProjectOutDto> list = new ArrayList<>();
-        List<String> teams = new ArrayList<>();
-        ProjectOutDto prjDto = new ProjectOutDto();
-        prjDto.setProjectName("Fynder");
-        prjDto.setManagerId(1L);
-        prjDto.setStartDate("2023-06-07");
-        prjDto.setRequiredSkills(skills);
-        prjDto.setDescription("Description");
-        prjDto.setHead("Ankita Sharma");
-        prjDto.setId(0L);
-        prjDto.setTeam(teams);
-        list.add(prjDto);
-
-       
-        when(projectService.getAllByManagerId(prjDto.getManagerId())).thenReturn(list);
+//        List<ProjectOutDto> list = new ArrayList<>();
+//        List<String> teams = new ArrayList<>();
+//        ProjectOutDto prjDto = new ProjectOutDto();
+//        prjDto.setProjectName("Fynder");
+//        prjDto.setManagerId(1L);
+//        prjDto.setStartDate("2023-06-07");
+//        prjDto.setRequiredSkills(skills);
+//        prjDto.setDescription("Description");
+//        prjDto.setHead("Ankita Sharma");
+//        prjDto.setId(0L);
+//        prjDto.setTeam(teams);
+//        list.add(prjDto);
+//
+//       
+//        when(projectService.getAllByManagerId(prjDto.getManagerId())).thenReturn(list);
         MvcResult mvcResult = this.mockMvc.perform(get("/api/projectCards/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
+    }
+    
+    @Test
+    void testIsResquested() throws Exception{
+        IsRequestedInDto isRequestedInDto = new IsRequestedInDto();
+        isRequestedInDto.setEmployeeId(2L);
+        isRequestedInDto.setId(8L);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String inputJSON  = objectMapper.writeValueAsString(isRequestedInDto);
+        IsRequestedOutDto isRequestedOutDto = new IsRequestedOutDto();
+        isRequestedOutDto.setRequested(false);
+        
+        doNothing().when(validator).checkManagerExists(isRequestedInDto.getId());
+        doNothing().when(validator).checkOnlyEmployeeExists(isRequestedInDto.getEmployeeId());
+        
+        when(employeeService.isRequested(isRequestedInDto)).thenReturn(isRequestedOutDto);
+        MvcResult mvcResult = this.mockMvc.perform(post("/api/isRequested")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(inputJSON))
+                .andReturn();
+        
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200,status);
+        
     }
 }

@@ -9,13 +9,20 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class EmployeeManagementSystemApplication {
     /**
-     * The main method that launches the Employee Managment System Application.
-     * @param args Command-line arguments passed to the application.
+     *
+     * @param args args.
      */
-    public static void main(final String[] args) {
+    public final void run(final String[] args) {
         SpringApplication.run(EmployeeManagementSystemApplication.class, args);
     }
 
+    /**
+     * The main method that launches the Employee Managment System Application.
+     *
+     * @param args Command-line arguments passed to the application.
+     */
+    public static void main(final String[] args) {
+        new EmployeeManagementSystemApplication().run(args);
+    }
+
 }
-
-

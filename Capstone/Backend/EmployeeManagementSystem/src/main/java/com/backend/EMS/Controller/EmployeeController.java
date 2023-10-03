@@ -350,7 +350,7 @@ public class EmployeeController {
     public final IsRequestedOutDto isRequested(@RequestBody final
             IsRequestedInDto isRequestedInDto) {
         validation.checkManagerExists(isRequestedInDto.getId());
-        validation.checkEmployeeExists(isRequestedInDto.getEmployeeId());
+        validation.checkOnlyEmployeeExists(isRequestedInDto.getEmployeeId());
         LOGGER.info("isRequested method invoked");
         IsRequestedOutDto isRequestedOutDto = employeeService.
                 isRequested(isRequestedInDto);

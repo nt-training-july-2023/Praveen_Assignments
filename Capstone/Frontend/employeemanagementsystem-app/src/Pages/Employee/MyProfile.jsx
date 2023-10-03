@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./MyProfile.css";
 import { useNavigate } from "react-router-dom";
 import employeeService from "../../Service/EmployeeService";
+import Button from "../../components/Button";
 
 const MyProfile = () => {
   const [employeeData, setEmployeeData] = useState({});
@@ -58,8 +59,8 @@ const MyProfile = () => {
                   : "NA"}
               </p>
               <p>
-                <button
-                  className="btn"
+                <Button
+                  className={"btn"}
                   
                   onClick={() =>{
                     navigate(`/updateSkill/${employeeData.id}`, {
@@ -68,10 +69,11 @@ const MyProfile = () => {
                                empSkills:employeeData.skills },
                     })
                   }}
+                  text = {"Update Skills"}
                 
-                >
-                  Update Skills
-                </button>
+                />
+                  
+                
               </p>
             </div>
 

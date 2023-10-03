@@ -6,6 +6,7 @@ import { toast } from "react-toastify"; // Import toast and ToastContainer from 
 import "react-toastify/dist/ReactToastify.css";
 import "./RequestResource.css";
 import managerService from "../../Service/ManagerService";
+import Button from "../../components/Button";
 
 function RequestResource() {
   const [projects, setProjects] = useState([]);
@@ -23,7 +24,7 @@ function RequestResource() {
   const stateData = location.state;
 
   const navigate = useNavigate();
-  console.log({ employeeId });
+
 
   const validateDescription = () => {
     if (description === "") {
@@ -35,7 +36,7 @@ function RequestResource() {
 
   const validateAssign = () => {
     if (projectId === "" || managerId == "") {
-      console.log("praveen");
+  
       setAssignError("select designation");
     } else {
       setAssignError("");
@@ -147,12 +148,18 @@ function RequestResource() {
         )}
 
         <div className="RR-button-container">
-          <button type="button" onClick={handleUpdate}>
-            Request
-          </button>
-          <button type="button" className="secondary" onClick={handleCancel}>
-            Cancel
-          </button>
+          <Button
+           type="button" 
+           onClick={handleUpdate}
+           text ={"Request"}
+           />
+          <Button
+           type="button" 
+           className={"secondary"} 
+           onClick={handleCancel}
+           text = {" Cancel"}
+           />
+         
         </div>
       </div>
     </div>

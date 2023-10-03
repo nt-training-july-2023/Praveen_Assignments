@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import SkillsDropDown from "../../../components/Dropdowns/Skills";
 import MultipleSelectDropdown from "../../../components/MultipleSelectDropdown/MultipleSelectDropdown";
 import adminService from "../../../Service/AdminService";
+import Button from "../../../components/Button";
 
 function AddProject() {
   const [projectName, setProjectName] = useState("");
@@ -162,16 +163,16 @@ function AddProject() {
     return <h1>Unauthorized access</h1>;
   }
   return (
-    <div className="form">
-      <div className="form-header">
+    <div className="AddProject-form">
+      <div className="AddProject-form-header">
         <h2>ADD PROJECT</h2>
       </div>
 
-      <div className="form-body">
-        <div className="form-group">
-          <label className="form-label">ProjectName</label>
+      <div className="AddProject-form-body">
+        <div className="AddProject-form-group">
+          <label className="AddProject-form-label">ProjectName</label>
           <input
-            className="AP-input"
+            className="AddProject-input"
             type="text"
             placeholder="Enter ProjectName"
             value={projectName}
@@ -185,12 +186,12 @@ function AddProject() {
           </span>
         )}
 
-        <div className="form-group">
-          <label className="form-label">ManagerId</label>
+        <div className="AddProject-form-group">
+          <label className="AddProject-form-label">ManagerId</label>
           <select
             type="text"
             name="managerId"
-            className="abc"
+            className="AddProject-abc"
             onChange={(e) => {
               setManagerId(e.target.value);
             }}
@@ -211,10 +212,10 @@ function AddProject() {
           </span>
         )}
 
-        <div className="form-group">
-          <label className="form-label">Start Date</label>
+        <div className="AddProject-form-group">
+          <label className="AddProject-form-label">Start Date</label>
           <input
-            className="AP-input"
+            className="AddProject-input"
             type="date"
             placeholder="Enter Start Date"
             value={startDate}
@@ -230,8 +231,8 @@ function AddProject() {
           </span>
         )}
 
-        <div className="form-group">
-          <label className="form-label">SkillsRequired</label>
+        <div className="AddProject-form-group">
+          <label className="AddProject-form-label">SkillsRequired</label>
           <MultipleSelectDropdown
             options={SkillsDropDown.map((skill) => ({
               value: skill,
@@ -253,12 +254,12 @@ function AddProject() {
         )}
         <div>
           {" "}
-          <label className="form-label">Description</label>
+          <label className="AddProject-form-label">Description</label>
         </div>
         <div>
           <textarea
             id="description"
-            className="description-box"
+            className="AddProject-description-box"
             placeholder="Enter your description here..."
             value={description}
             onChange={(event) => setDescription(event.target.value)}
@@ -272,17 +273,19 @@ function AddProject() {
         )}
       </div>
 
-      <div className="buttons">
-        <button
+      <div className="AddProject-buttons">
+        <Button
           type="submit"
-          className="button-cancel"
+          className={"AddProject-button-cancel"}
           onClick={redirectToAdminDashboard}
-        >
-          Back to Home
-        </button>
-        <button type="submit" className="button-submit" onClick={save}>
-          ADD Project
-        </button>
+          text={"Back to Home"}
+        />
+        <Button
+          type="submit"
+          className={"AddProject-button-submit"}
+          onClick={save}
+          text={"ADD Project"}
+        />
       </div>
     </div>
   );

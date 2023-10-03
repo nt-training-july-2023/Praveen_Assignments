@@ -47,7 +47,7 @@ public class Project {
      * The description of the project.
      *
      */
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String description;
     /**
      * @return the id

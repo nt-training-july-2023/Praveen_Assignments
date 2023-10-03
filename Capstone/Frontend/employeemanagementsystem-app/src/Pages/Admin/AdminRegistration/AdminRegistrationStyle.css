@@ -1,12 +1,38 @@
 body{
   margin: 0;
   padding: 0;
+ 
+  /* backgro5und:linear-gradient(#33ccff , #660066); */
+}
+.AdminRegistration-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+  /* height: 100vh; */
+  width: 100%;
+  background-image:
+   linear-gradient(to right , rgb(0, 0, 0 , 0.7) , rgba(48, 48, 48, 0.555) ), 
+  url(../../../assets/admin/bg.jpg)
+  ;
+background-size: cover;
+
+background-attachment: fixed;
+ /* background: linear-gradient(#dde3e6, #8991ce); */
+  /* background: linear-gradient(#33ccff, #660066); */
+/* background-repeat: no-repeat; */
+
+}
+.AdminRegistration-form-container{
+  justify-items: center;
+  width: 45%;
   
-  /* background:linear-gradient(#33ccff , #660066); */
 }
 
-.form {
-  background: linear-gradient(#dde3e6, #8991ce);
+.AdminRegistration-form {
+  /* background: linear-gradient(#dde3e6, #8991ce); */
+  background-color: rgb(255, 255, 255);
+
   max-width: 500px;
   min-height: 500px;
   margin: 0 auto;
@@ -14,38 +40,38 @@ body{
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
   margin-top: 3rem;
   overflow: scroll;
+  width: 160%;
   margin-bottom: 3rem;
-  margin-left: 400px;
+  /* opacity: 80%; */
 }
-.form::-webkit-scrollbar{
+.AdminRegistration-form::-webkit-scrollbar{
   width: 0.5rem;
   display: none;
 }
-.form::-webkit-scrollbar-track{
+.AdminRegistration-form::-webkit-scrollbar-track{
   background-color: transparent;
 }
-.form::-webkit-scrollbar-thumb{
+.AdminRegistration-form::-webkit-scrollbar-thumb{
   background-color: #888;
 }
-.form:hover::-webkit-scrollbar-thumb{
+.AdminRegistration-form:hover::-webkit-scrollbar-thumb{
   background-color: #555;
 }
-.form-header{
+.AdminRegistration-form-header{
   text-align: center;
   /* font-family: 'Forum', cursive; */
 }
-.form-group{
+.AdminRegistration-form-group{
   display: flex;
   justify-content: space-between;
   height:30%;
 }
-.form-label {
+.AdminRegistration-form-label {
   padding-top: 10px;
 }
-.AR-form-input {
+.AdminRegistration-form-input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -62,26 +88,28 @@ body{
   font-size: 14px;
   margin-bottom: 3px;
   width: 70%;
+  background-color: rgb(241, 235, 235);
   /* margin-bottom: 15px; */
   border-radius: 4px;
   box-sizing: border-box;
   border-radius: 5px;
 }
 
-.form-dropdown {
+.AdminRegistration-form-dropdown {
   width: 70%;
+  background-color: rgb(241, 235, 235);
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
   margin-bottom: 3px;
 }
-.buttons{
+.AdminRegistration-buttons{
   display: flex ;
   justify-content: space-between ;
   margin-top: 20px;
 }
-.button-submit {
+.AdminRegistration-button-submit {
   margin-left: 10px;
   padding: 10px 20px;
   background-color: #007BFF;
@@ -92,10 +120,10 @@ body{
   font-size: 16px;
   transition: background-color 0.3s ease;
 }
-.button-submit:hover {
+.AdminRegistration-button-submit:hover {
   background-color: #0056B3;
 }
-.button-cancel {
+.AdminRegistration-button-cancel {
   padding: 10px 20px;
   background-color:  #007BFF;
   color: #fff;
@@ -105,6 +133,6 @@ body{
   font-size: 16px;
   transition: background-color 0.3s ease;
 }
-.button-cancel:hover {
+.AdminRegistration-button-cancel:hover {
   background-color: #8B0000;
 }

@@ -3,6 +3,7 @@ import axios from "axios";
 import "./RequestedResourceList.css";
 import { useNavigate } from "react-router-dom";
 import adminService from "../../Service/AdminService";
+import Button from "../../components/Button";
 function RequestedResourcesList() {
   const [RRList, setRRList] = useState([]);
   const [deleteResponse, setDeleteResponse] = useState("");
@@ -43,57 +44,6 @@ function RequestedResourcesList() {
       console.error("Error fetching data:", error);
     }
   };
-  
-
-  // const getAllRequestedResources = async () => {
-  //   try {
-  //     adminService.requestedResource().then((response) => {
-  //       setRRList(response.data);
-  //       setIsLoading(false);
-  //     });
-  //     // const response = await axios.get(
-  //     //   "http://localhost:8080/api/RequestedResource"
-  //     // );
-  //     // // console.log(response.data);
-  //     // setRRList(response.data);
-  //     // setIsLoading(false); // Set loading to false when data is fetched
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
-  // console.log(RRList);
-
-  // const handleReject = async (id) => {
-  //   try {
-  //     // const response = await axios.delete(
-  //     //   `http://localhost:8080/api/Delete/RequestedResource/${id}`
-  //     // );
-  //     // setDeleteResponse(response.data);
-  //     // getAllRequestedResources();
-  //     adminService.rejectRequestedResource().then((response) => {
-  //       setDeleteResponse(response.data);
-  //       getAllRequestedResources();
-  //     });
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
-
-  // const handleAcceptClick = async (id) => {
-  //   try {
-  //     // const response = await axios.put(
-  //     //   `http://localhost:8080/api/Accept/RequestedResource/${id}`
-  //     // );
-  //     // setAcceptResponse(response.data);
-  //     // getAllRequestedResources();
-  //     adminService.acceptRequestedResource().then((response) => {
-  //       setAcceptResponse(response.data);
-  //       getAllRequestedResources();
-  //     });
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
   const handleCancel = (e) => {
     navigate("/AdminDashboard");
   };
@@ -104,9 +54,12 @@ function RequestedResourcesList() {
   return (
     <div>
       <h1 className="RR-head">REQUESTED RESOURCES</h1>
-      <button type="button" className="RR-closeee" onClick={handleCancel}>
-        Back To home
-      </button>
+      <Button 
+      type="button" 
+      className={"RR-closeee"}
+      onClick={handleCancel}
+        text ={"Back To home"}
+      />
 
       {isLoading ? ( // Check if data is still loading
         <p>Loading...</p>
@@ -136,18 +89,17 @@ function RequestedResourcesList() {
                   </td>
                   <td>{requ.comment}</td>
                   <td>
-                    <button
+                    <Button
                       className="accept"
                       onClick={() => handleAcceptClick(requ.id)}
-                    >
-                      Accept
-                    </button>
-                    <button
-                      className="reject"
+                      text={"Accept"}
+                    />
+                    <Button
+                      className={"reject"}
                       onClick={() => handleReject(requ.id)}
-                    >
-                      Reject
-                    </button>
+                      text={"Reject"}
+                    />
+
                   </td>
                 </tr>
               ))}

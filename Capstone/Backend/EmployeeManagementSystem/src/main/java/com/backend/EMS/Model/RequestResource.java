@@ -39,7 +39,7 @@ public class RequestResource {
     /**
      * The comment for the RequestResource.
      */
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String comment;
     /**
      * @return the id

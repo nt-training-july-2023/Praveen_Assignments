@@ -7,17 +7,16 @@ import { toast } from "react-toastify"; // Import toast and ToastContainer from 
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
 import adminService from "../../../Service/AdminService";
+import Button from "../../../components/Button";
 
 function AssignProject() {
   const [projects, setProjects] = useState([]);
   const [employeeDetails, setEmployeeDetails] = useState([]);
   const [managerId, setManagerId] = useState(0);
   const [projectId, setProjectId] = useState(0);
-  const [assignError, setAssignError] = useState();
   const { employeeId } = useParams();
 
   const navigate = useNavigate();
-  console.log({ employeeId });
 
   const location = useLocation();
   const stateData = location.state;
@@ -26,15 +25,6 @@ function AssignProject() {
   useEffect(() => {
     getAllProjects();
   }, []);
-
-  const validateAssign = () => {
-    if (projectId === "" || managerId == "") {
-      console.log("praveen");
-      setAssignError("select designation");
-    } else {
-      setAssignError("");
-    }
-  };
 
   const getAllProjects = async () => {
     try {
@@ -47,13 +37,14 @@ function AssignProject() {
   
   const handleUpdate = async () => {
     const toastId = "handleUpdate";
-    validateAssign();
-    if (assignError) {
+    if (projectId === 0 || managerId === 0) {
       toast.error("Please Select Project", {
         position: "top-right",
         autoClose: 1000,
         toastId,
+        
       });
+      return;
     } else {
       try {
         const data = {
@@ -113,12 +104,17 @@ function AssignProject() {
         </select>
 
         <div className="AP-button-container">
-          <button type="button" onClick={handleUpdate}>
-            Assign Project
-          </button>
-          <button type="button" className="secondary" onClick={handleCancel}>
-            Cancel
-          </button>
+          <Button 
+          type="button" 
+          onClick={handleUpdate}
+           text={"Assign Project"}
+          />
+          <Button
+           type="button" 
+           className={"secondary"}
+           onClick={handleCancel}
+            text={"Cancel"}
+            />
         </div>
       </div>
     </div>

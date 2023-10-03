@@ -6,6 +6,7 @@ import { Base64 } from "js-base64";
 import { toast } from "react-toastify"; // Import toast and ToastContainer from react-toastify
 import "react-toastify/dist/ReactToastify.css"; // Import the default styles
 import loginService from "../../Service/LoginService";
+import Button from "../../components/Button";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -144,7 +145,10 @@ function Login() {
                 <br></br>
               </div>
 
-              <button type="submit">Login</button>
+              <Button 
+              type="submit"
+              text={"Login"}
+              />
             </form>
             <br></br>
             <div className="Admin">

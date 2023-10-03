@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import managerService from "../../Service/ManagerService";
+import Button from "../../components/Button";
 
 function EmployeeCarddd() {
   const [employees, setEmployees] = useState([]);
@@ -42,15 +43,6 @@ function EmployeeCarddd() {
   const getAllEmployees = async () => {
     setIsLoading(true);
     try {
-      // const response = await axios.get(
-      //   "http://localhost:8080/api/filteredEmployees",
-      //   {
-      //     params: {
-      //       selectedSkills: selectedSkills.join(","),
-      //       showUnassigned: showUnassigned,
-      //     },
-      //   }
-      // );
       const response = await managerService.getFilteredEmployees(
         selectedSkills,
         showUnassigned
@@ -209,20 +201,23 @@ function EmployeeCarddd() {
                   {!employee.projectId && (
                     <p>
                       {employee.isRequested ? (
-                        <button className="MD-requested-button" disabled>
-                          Requested
-                        </button>
+                        <Button 
+                        className={"MD-requested-button"}
+                         disabled
+                         text={"Requested"}
+                         />
+                          
+                        
                       ) : (
-                        <button
-                          className="MD-assign-button"
+                        <Button
+                          className={"MD-assign-button"}
                           onClick={() => {
                             navigate(`/requestResource/${employee.id}`, {
                               state: { empName: employee.name },
                             });
                           }}
-                        >
-                          Request Resource
-                        </button>
+                          text={"Request Resource"}
+                        />
                       )}
                     </p>
                   )}

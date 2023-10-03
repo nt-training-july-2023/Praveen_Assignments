@@ -3,6 +3,7 @@ package com.backend.EMS.Validation;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,6 +74,17 @@ public class Validation {
         }
     }
     /**
+     * check if Admin is already present.
+     * @throwsUserAlreadyFound exception.
+     */
+    public final void checkAdminExists() {
+        List<Employee> employee = employeeRepository.findByRole(Role.Admin);
+        if(employee.size()!=0) {
+            throw new UserAlreadyFound(
+            "Admin Already Exists");
+        }
+    }
+    /**
      * Check if a role exists.
      *
      * @param role The role to check.
@@ -80,7 +92,7 @@ public class Validation {
      */
     public final void checkRoleExists(final String role) {
         try {
-            Role role1 = Role.valueOf(role);
+            Role.valueOf(role);
             return; // The role exists
         } catch (IllegalArgumentException e) {
             LOGGER.error("Role is not Present");
@@ -176,6 +188,7 @@ public class Validation {
          */
         public final void checkAdmin(@Valid final EmployeeInDto empDto) {
             // TODO Auto-generated method stub
+            checkAdminExists();
             checkEmailExists(empDto);
             checkEmployeeIdExists(empDto);
             checkContactNumberExists(empDto);

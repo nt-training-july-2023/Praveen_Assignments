@@ -73,7 +73,7 @@ function ProjectCard() {
                 </span>
                 {project.description.length > 40 ? (
                   <p>
-                    {project.description.slice(0, 40)}{" "}
+                    {project.description.slice(0, 20)}{" "}
                     <span
                       style={{ color: "blue", textDecorationLine: "underline" }}
                       onClick={() => handleReadMoreClick(project.description)}

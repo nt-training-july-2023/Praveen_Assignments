@@ -8,6 +8,7 @@ import bcrypt from "bcryptjs";
 import { Slide, toast } from "react-toastify"; // Import toast and ToastContainer from react-toastify
 import "react-toastify/dist/ReactToastify.css"; // Import the default styles
 import adminService from "../../../Service/AdminService";
+import Button from "../../../components/Button";
 
 function AdminRegistration() {
   const [name, setName] = useState("");
@@ -229,208 +230,221 @@ function AdminRegistration() {
     }
   };
   return (
-    <div className="container">
-      <div className="form">
-        <div className="form-header">
-          <h2>Registration Form</h2>
-        </div>
+    <div className="AdminRegistration-container">
+      <div className="AdminRegistration-form-container">
+        <div className="AdminRegistration-form">
+          <div className="AdminRegistration-form-header">
+            <h2>Registration Form</h2>
+          </div>
 
-        <div className="form-body">
-          <div className="form-group">
-            <label className="form-label">Name</label>
-            <input
-              className="AR-form-input"
-              type="text"
-              placeholder="Enter Name"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              onBlur={validateName}
+          <div className="AdminRegistration-form-body">
+            <div className="AdminRegistration-form-group">
+              <label className="AdminRegistration-form-label">Name</label>
+              <input
+                className="AdminRegistration-form-input"
+                type="text"
+                placeholder="Enter Name"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                onBlur={validateName}
+              />
+            </div>
+            {nameError && (
+              <span style={{ fontSize: "12px", color: "red" }}>
+                {nameError}
+              </span>
+            )}
+
+            <div className="AdminRegistration-form-group">
+              <label className="AdminRegistration-form-label">Email</label>
+              <input
+                className="AdminRegistration-form-input"
+                type="email"
+                placeholder="example abc@Nucleusteq.com"
+                value={email}
+                onChange={(event) => {
+                  setEmail(event.target.value);
+                }}
+                onBlur={validateEmail}
+              />
+            </div>
+            {emailError && (
+              <span style={{ fontSize: "12px", color: "red" }}>
+                {emailError}
+              </span>
+            )}
+
+            <div className="AdminRegistration-form-group">
+              <label className="AdminRegistration-form-label">EmployeeId</label>
+              <input
+                className="AdminRegistration-form-input"
+                type="text"
+                placeholder="Enter Employee ID"
+                value={empId}
+                onChange={(event) => {
+                  setEmpId(event.target.value);
+                }}
+                onBlur={validateEmployeeId}
+              />
+            </div>
+            {employeeIdError && (
+              <span style={{ fontSize: "12px", color: "red" }}>
+                {employeeIdError}
+              </span>
+            )}
+            <div className="AdminRegistration-form-group">
+              <label className="AdminRegistration-form-label">DOB</label>
+              <input
+                className="AdminRegistration-form-input"
+                type="date"
+                placeholder="Enter DOB"
+                value={dob}
+                onChange={(event) => {
+                  setDOB(event.target.value);
+                }}
+                onBlur={validateDOB}
+              />
+            </div>
+            {dobError && (
+              <span style={{ fontSize: "12px", color: "red" }}>{dobError}</span>
+            )}
+
+            <div className="AdminRegistration-form-group">
+              <label className="form-label">DOJ</label>
+              <input
+                className="AdminRegistration-form-input"
+                type="date"
+                placeholder="Enter DOJ"
+                value={doj}
+                onChange={(event) => {
+                  setDOJ(event.target.value);
+                }}
+                onBlur={validateDOJ}
+              />
+            </div>
+            {dojError && (
+              <span style={{ fontSize: "12px", color: "red" }}>{dojError}</span>
+            )}
+
+            <div className="AdminRegistration-form-group">
+              <label className="AdminRegistration-form-label">location</label>
+              <select
+                className="AdminRegistration-form-dropdown"
+                value={location}
+                onChange={(event) => setLocation(event.target.value)}
+                onBlur={validateLocation}
+              >
+                <option value="">Select Location</option>
+                {locations.map((option, index) => (
+                  <option key={index} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {locationError && (
+              <span style={{ fontSize: "12px", color: "red" }}>
+                {locationError}
+              </span>
+            )}
+
+            <div class="AdminRegistration-form-group">
+              <label className="AdminRegistration-form-label">
+                designation
+              </label>
+              <select
+                className="AdminRegistration-form-dropdown"
+                value={designation}
+                onChange={(event) => setDesignation(event.target.value)}
+                onBlur={validateDesignation}
+              >
+                <option value="">Select Designation</option>
+                {designations.map((option, index) => (
+                  <option key={index} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {designationError && (
+              <span style={{ fontSize: "12px", color: "red" }}>
+                {designationError}
+              </span>
+            )}
+
+            <div className="AdminRegistration-form-group">
+              <label className="AdminRegistration-form-label">contactNo</label>
+              <input
+                className="AdminRegistration-form-input"
+                type="text"
+                placeholder="Enter Contact Number"
+                value={contactNo}
+                onChange={(event) => {
+                  setContactNo(event.target.value);
+                }}
+                onBlur={validateContactNo}
+              />
+            </div>
+            {contactError && (
+              <span style={{ fontSize: "12px", color: "red" }}>
+                {contactError}
+              </span>
+            )}
+
+            <div className="AdminRegistration-form-group">
+              <label className="AdminRegistration-form-label">password</label>
+              <input
+                className="AdminRegistration-form-input"
+                type="password"
+                placeholder="Enter Password"
+                value={password}
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                }}
+                onBlur={validatePassword}
+              />
+            </div>
+            {passwordError && (
+              <span style={{ fontSize: "12px", color: "red" }}>
+                {passwordError}
+              </span>
+            )}
+            <div className="AdminRegistration-form-group">
+              <label className="AdminRegistration-form-label">
+                Confirm Password
+              </label>
+              <input
+                className="AdminRegistration-form-input"
+                type="password"
+                placeholder="Enter Confirm Password"
+                value={confirmPassword}
+                onChange={(event) => {
+                  setConfirmPassword(event.target.value);
+                }}
+                onBlur={validateConfirmPassword}
+              />
+            </div>
+            {confirmPasswordError && (
+              <span style={{ fontSize: "12px", color: "red" }}>
+                {confirmPasswordError}
+              </span>
+            )}
+          </div>
+          <div className="AdminRegistration-buttons">
+            <Button
+              type="submit"
+              className={"AdminRegistration-button-cancel"}
+              onClick={redirectToLogin}
+              text={"Back to Login"}
+            />
+
+            <Button
+              type="submit"
+              className={"AdminRegistration-button-submit"}
+              onClick={save}
+              text="Register"
             />
           </div>
-          {nameError && (
-            <span style={{ fontSize: "12px", color: "red" }}>{nameError}</span>
-          )}
-
-          <div className="form-group">
-            <label className="form-label">Email</label>
-            <input
-              className="AR-form-input"
-              type="email"
-              placeholder="example abc@Nucleusteq.com"
-              value={email}
-              onChange={(event) => {
-                setEmail(event.target.value);
-              }}
-              onBlur={validateEmail}
-            />
-          </div>
-          {emailError && (
-            <span style={{ fontSize: "12px", color: "red" }}>{emailError}</span>
-          )}
-
-          <div className="form-group">
-            <label className="form-label">EmployeeId</label>
-            <input
-              className="AR-form-input"
-              type="text"
-              placeholder="Enter Employee ID"
-              value={empId}
-              onChange={(event) => {
-                setEmpId(event.target.value);
-              }}
-              onBlur={validateEmployeeId}
-            />
-          </div>
-          {employeeIdError && (
-            <span style={{ fontSize: "12px", color: "red" }}>
-              {employeeIdError}
-            </span>
-          )}
-          <div className="form-group">
-            <label className="form-label">DOB</label>
-            <input
-              className="AR-form-input"
-              type="date"
-              placeholder="Enter DOB"
-              value={dob}
-              onChange={(event) => {
-                setDOB(event.target.value);
-              }}
-              onBlur={validateDOB}
-            />
-          </div>
-          {dobError && (
-            <span style={{ fontSize: "12px", color: "red" }}>{dobError}</span>
-          )}
-
-          <div className="form-group">
-            <label className="form-label">DOJ</label>
-            <input
-              className="AR-form-input"
-              type="date"
-              placeholder="Enter DOJ"
-              value={doj}
-              onChange={(event) => {
-                setDOJ(event.target.value);
-              }}
-              onBlur={validateDOJ}
-            />
-          </div>
-          {dojError && (
-            <span style={{ fontSize: "12px", color: "red" }}>{dojError}</span>
-          )}
-
-          <div className="form-group">
-            <label className="form-label">location</label>
-            <select
-              className="form-dropdown"
-              value={location}
-              onChange={(event) => setLocation(event.target.value)}
-              onBlur={validateLocation}
-            >
-              <option value="">Select Location</option>
-              {locations.map((option, index) => (
-                <option key={index} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
-          {locationError && (
-            <span style={{ fontSize: "12px", color: "red" }}>
-              {locationError}
-            </span>
-          )}
-
-          <div class="form-group">
-            <label className="form-label">designation</label>
-            <select
-              className="form-dropdown"
-              value={designation}
-              onChange={(event) => setDesignation(event.target.value)}
-              onBlur={validateDesignation}
-            >
-              <option value="">Select Designation</option>
-              {designations.map((option, index) => (
-                <option key={index} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
-          {designationError && (
-            <span style={{ fontSize: "12px", color: "red" }}>
-              {designationError}
-            </span>
-          )}
-
-          <div className="form-group">
-            <label className="form-label">contactNo</label>
-            <input
-              className="AR-form-input"
-              type="text"
-              placeholder="Enter Contact Number"
-              value={contactNo}
-              onChange={(event) => {
-                setContactNo(event.target.value);
-              }}
-              onBlur={validateContactNo}
-            />
-          </div>
-          {contactError && (
-            <span style={{ fontSize: "12px", color: "red" }}>
-              {contactError}
-            </span>
-          )}
-
-          <div className="form-group">
-            <label className="form-label">password</label>
-            <input
-              className="AR-form-input"
-              type="password"
-              placeholder="Enter Password"
-              value={password}
-              onChange={(event) => {
-                setPassword(event.target.value);
-              }}
-              onBlur={validatePassword}
-            />
-          </div>
-          {passwordError && (
-            <span style={{ fontSize: "12px", color: "red" }}>
-              {passwordError}
-            </span>
-          )}
-          <div className="form-group">
-            <label className="form-label">Confirm Password</label>
-            <input
-              className="AR-form-input"
-              type="password"
-              placeholder="Enter Confirm Password"
-              value={confirmPassword}
-              onChange={(event) => {
-                setConfirmPassword(event.target.value);
-              }}
-              onBlur={validateConfirmPassword}
-            />
-          </div>
-          {confirmPasswordError && (
-            <span style={{ fontSize: "12px", color: "red" }}>
-              {confirmPasswordError}
-            </span>
-          )}
-        </div>
-        <div className="buttons">
-          <button
-            type="submit"
-            className="button-cancel"
-            onClick={redirectToLogin}
-          >
-            Back to Login
-          </button>
-          <button type="submit" className="button-submit" onClick={save}>
-            Register
-          </button>
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Organization from './Organization.jsx';
 import './EmployeeDashboard.css';
 import MyProfile from './MyProfile.jsx';
+import Button from '../../components/Button.jsx';
 
 
 
@@ -63,9 +64,12 @@ function EmployeeDashboard() {
         
          
             <div className= "ED-logout-button">
-          <button className="ED-logout-btn" onClick={logout}>
-            Logout
-          </button>
+          <Button
+          className={"ED-logout-btn"}
+           onClick={logout}
+           text={" Logout"}
+           />
+   
          
          </div>
          

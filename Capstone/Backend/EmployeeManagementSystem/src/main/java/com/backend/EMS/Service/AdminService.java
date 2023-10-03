@@ -22,16 +22,8 @@ import com.backend.EMS.Repository.EmployeeRepository;
 import com.backend.EMS.Repository.ProjectRepository;
 import com.backend.EMS.Repository.RequestResourceRepository;
 
-
 /**
  * Service class for managing admin-related operations.
- */
-/**
- * This class provides services for managing administrative user data and
- * authentication-related functionality. It uses an
- * {@link EmployeeRepository} for
- * data storage and retrieval and a {@link BCryptPasswordEncoder} for secure
- * password encoding and verification.
  */
 @Service
 
@@ -40,7 +32,7 @@ public class AdminService {
      * The repository for administrator data.
      */
     @Autowired
-    private  EmployeeRepository employeeRepository;
+    private EmployeeRepository employeeRepository;
     /**
      * The repository for RequestResource.
      */
@@ -56,13 +48,14 @@ public class AdminService {
      */
     @Autowired
     private ModelMapper modelMapper;
+
     /**
      * Adds a new admin user to the system.
      *
-     * @param employeeInDto The EmployeeInDto containing
-     * admin user details to be added.
-     * @return True if the admin user was added successfully;
-     * otherwise, false.
+     * @param employeeInDto The EmployeeInDto containing admin
+     * user details to be
+     *                      added.
+     * @return True if the admin user was added successfully; otherwise, false.
      * @throws UserAlreadyFound if an admin user with the
      * same email, employee ID,
      *                          or contact number already exists.
@@ -98,12 +91,13 @@ public class AdminService {
         Employee user = employeeRepository.findByEmail(loginInDto.getEmail());
         return user.getRole();
     }
+
     /**
-     * Retrieve a list of requested resources as
-     * RequestResourceOutDto objects.
+     * Retrieve a list of requested resources as RequestResourceOutDto objects.
      *
      * @return A list of RequestResourceOutDto objects
-     *representing the requested resources.
+     * representing the requested
+     *         resources.
      */
     public final List<RequestResourceOutDto> requestedResource() {
         List<RequestResource> requestResourceList = this.
@@ -111,15 +105,15 @@ public class AdminService {
         System.out.println(requestResourceList + "praveen");
 //        RequestResourceOutDto requestResourceOutDto = new
 //        RequestResourceOutDto();
-        List<RequestResourceOutDto> requestResourceOutDtoList =
-                new ArrayList<>();
+        List<RequestResourceOutDto> requestResourceOutDtoList = new
+                ArrayList<>();
         for (RequestResource requestResource : requestResourceList) {
             RequestResourceOutDto requestResourceOutDto = new
                     RequestResourceOutDto();
             // Create a new instance for each iteration
             requestResourceOutDto.setId(requestResource.getId());
-            requestResourceOutDto.setEmployeeId(requestResource.
-                    getEmployeeId());
+            requestResourceOutDto.
+            setEmployeeId(requestResource.getEmployeeId());
             requestResourceOutDto.setManagerId(requestResource.getManagerId());
             requestResourceOutDto.setProjectId(requestResource.getProjectId());
             requestResourceOutDto.setComment(requestResource.getComment());
@@ -136,32 +130,34 @@ public class AdminService {
                     findById(requestResource.getProjectId());
             System.out.println(project);
             if (project.isPresent()) {
-            requestResourceOutDto.setProjectName(project.get().
-                    getProjectName());
-            requestResourceOutDtoList.add(requestResourceOutDto);
+                requestResourceOutDto.setProjectName(project.get()
+                        .getProjectName());
+                requestResourceOutDtoList.add(requestResourceOutDto);
             }
 ////            System.out.println(requestResourceOutDto + "praveen");
         }
 
         return requestResourceOutDtoList;
     }
+
     /**
      * Deletes a requested resource by its ID.
      *
      * @param id The ID of the requested resource to be deleted.
-     * @return A ResponseDto indicating the status of
-     * the resource deletion process.
+     * @return A ResponseDto indicating the status of the
+     * resource deletion process.
      */
     public final ResponseDto deleteRequestedResource(final Long id) {
         requestResourceRepository.deleteById(id);
         return new ResponseDto("Deleted Successfuly");
     }
+
     /**
      * Accepts a requested resource and assigns it to an employee.
      *
      * @param id The ID of the requested resource to be accepted.
-     * @return A ResponseDto indicating the status
-     * of the resource acceptance process.
+     * @return A ResponseDto indicating the status of the resource acceptance
+     *         process.
      */
     public final ResponseDto acceptRequestedResource(final Long id) {
         RequestResource requestResource = this.
@@ -181,18 +177,22 @@ public class AdminService {
         }
         return new ResponseDto("Requested Resource Accepted");
     }
+
     /**
      * Retrieve a list of filtered employees based on selected
-     * skills and an option to include unassigned employees.
+     * skills and an option
+     * to include unassigned employees.
      *
      * @param selectedSkills A list of skills to filter employees by.
-     * @param showUnassigned A flag indicating whether to
-     * include unassigned employees in the result.
+     * @param showUnassigned A flag indicating whether to include unassigned
+     *                       employees in the result.
      * @return A list of EmployeeOutDto objects representing filtered employees.
      */
-    public final List<EmployeeOutDto> getFilteredEmployees(
-            final List<String> selectedSkills, final boolean showUnassigned) {
-        List<Employee> employees = employeeRepository.findByRole(Role.Employee);
+    public final List<EmployeeOutDto> getFilteredEmployees(final
+            List<String> selectedSkills,
+            final boolean showUnassigned) {
+        List<Employee> employees = employeeRepository.
+                findByRole(Role.Employee);
         List<EmployeeOutDto> employeeOutDtoList = new ArrayList<>();
 
         for (Employee employee : employees) {
@@ -225,7 +225,7 @@ public class AdminService {
             if (showUnassigned && employee.getProjectId() != null) {
                 addEmployee = false;
             }
-         // Check if the employee should be included based on selectedSkills
+            // Check if the employee should be included based on selectedSkills
             if (selectedSkills != null && !selectedSkills.isEmpty()) {
                 boolean hasMatchingSkill = false;
                 for (String skill : selectedSkills) {
@@ -240,7 +240,6 @@ public class AdminService {
                 }
             }
 
-
             // Add the employee to the filtered list if it meets the criteria
             if (addEmployee) {
                 filteredEmployees.add(employee);
@@ -249,6 +248,7 @@ public class AdminService {
 
         return filteredEmployees;
     }
+
     /**
      * Unassigns a project from an employee.
      *
@@ -269,6 +269,5 @@ public class AdminService {
 //        the project has been unassigned
         return new ResponseDto("Unassigned the project");
     }
-
 
 }
