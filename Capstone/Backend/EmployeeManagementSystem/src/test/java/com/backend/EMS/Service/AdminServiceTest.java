@@ -72,7 +72,6 @@ public class AdminServiceTest {
         employeeInDto.setDoj("17-07-2023");
         
         Employee employee = new Employee();
-        // Set sample employee properties here
         employee.setName(employeeInDto.getName());
         employee.setEmail(employeeInDto.getEmail());
         employee.setEmpId(employeeInDto.getEmpId());
@@ -90,21 +89,16 @@ public class AdminServiceTest {
     }
     @Test
     public void testGetRoleByEmail_Success() {
-        // Create a LoginInDto with a known email
         LoginInDto loginInDto = new LoginInDto();
         loginInDto.setEmail("test@example.com");
 
-        // Create a mock Employee object with a known role
         Employee mockEmployee = new Employee();
         mockEmployee.setRole(Role.Admin);
 
-        // Mock the repository call
         when(employeeRepository.findByEmail("test@example.com")).thenReturn(mockEmployee);
 
-        // Call the method
         Role role = adminService.getRoleByEmial(loginInDto);
 
-        // Assertions
         assertNotNull(role);
         assertEquals(Role.Admin, role);
     }
@@ -112,7 +106,6 @@ public class AdminServiceTest {
 
     @Test
     public void testRequestedResource_Success() {
-        // Create test data
         RequestResource requestResource1 = new RequestResource();
 
         requestResource1.setEmployeeId(2L);
@@ -155,7 +148,6 @@ public class AdminServiceTest {
         project2.setId(8L);
         project2.setProjectName("Project 2");
 
-        // Mock repository calls
         when(requestResourceRepository.findAll()).thenReturn(List.of(requestResource1, requestResource2));
         when(employeeRepository.findById(2L)).thenReturn(Optional.of(employee1));
         when(employeeRepository.findById(6L)).thenReturn(Optional.of(employee2));
@@ -164,7 +156,6 @@ public class AdminServiceTest {
         when(projectRepository.findById(4L)).thenReturn(Optional.of(project1));
         when(projectRepository.findById(8L)).thenReturn(Optional.of(project2));
 
-        // Call the method
         List<RequestResourceOutDto> requestResourceOutDtos = adminService.requestedResource();
 
         // Assertions
@@ -256,7 +247,6 @@ public class AdminServiceTest {
 
         when(requestResourceRepository.findById(id)).thenReturn(Optional.of(requestResource));
         when(employeeRepository.findById(2L)).thenReturn(Optional.empty());
-
         assertThrows(NoSuchElementException.class, () -> {
             adminService.acceptRequestedResource(id);
         });
@@ -266,11 +256,8 @@ public class AdminServiceTest {
     public void testGetFilteredEmployees_EmptyList() {
         List<String> selectedSkills = Collections.singletonList("Java");
         boolean showUnassigned = false;
-
         when(employeeRepository.findByRole(Role.Employee)).thenReturn(Collections.emptyList());
-
         List<EmployeeOutDto> filteredEmployees = adminService.getFilteredEmployees(selectedSkills, showUnassigned);
-
         assertNotNull(filteredEmployees);
         assertTrue(filteredEmployees.isEmpty());
     }
@@ -306,30 +293,18 @@ public class AdminServiceTest {
         employeeOutDto2.setProjectId(employee2.getProjectId());
         employeeOutDto2.setSkills(employee2.getSkills());
         employeeOutDto2.setProjectName("AAA");
-        
-//        Project project = new Project();
-//        project.setProjectName("EMS");
-        
-//        Optional<Project> optionalProject = Optional.of(project);
- 
         List<String> selectedSkills = List.of("Skill1", "Skill2");
         when(modelMapper.map(employee1, EmployeeOutDto.class)).thenReturn(employeeOutDto1);
         when(modelMapper.map(employee2, EmployeeOutDto.class)).thenReturn(employeeOutDto2);
-        // Mock repository calls
         when(employeeRepository.findByRole(Role.Employee)).thenReturn(List.of(employee1, employee2));
         Project project = new Project();
         project.setProjectName("EMS");
       Optional<Project> optionalProject = Optional.of(project);
         
         when(projectRepository.findById(3L)).thenReturn(optionalProject);
-
-        // Call the method
         List<EmployeeOutDto> filteredEmployees = adminService.getFilteredEmployees(selectedSkills, true);
-        
-        // Assertions
         assertNotNull(filteredEmployees);
         assertEquals(1, filteredEmployees.size());
-
         EmployeeOutDto employeeOutDto = filteredEmployees.get(0);
         assertEquals(1L, employeeOutDto.getId());
         assertEquals("E001", employeeOutDto.getEmpId());
@@ -339,66 +314,50 @@ public class AdminServiceTest {
 
     @Test
     public void testGetFilteredEmployees_ShowUnassignedAndNoSelectedSkills() {
-        // Create test data
         Employee employee1 = new Employee();
         employee1.setId(1L);
         employee1.setEmpId("E001");
         employee1.setName("Employee 1");
         employee1.setProjectId(null);
-
         Employee employee2 = new Employee();
         employee2.setId(2L);
         employee2.setEmpId("E002");
         employee2.setName("Employee 2");
         employee2.setProjectId(3L);
-        
         EmployeeOutDto employeeOutDto1 = new EmployeeOutDto();
         employeeOutDto1.setId(employee1.getId());
         employeeOutDto1.setEmpId(employee1.getEmpId());
         employeeOutDto1.setName(employee1.getName());
         employeeOutDto1.setProjectId(employee1.getProjectId());
-//        employeeOutDto1.setSkills(employee1.getSkills());
-//        employeeOutDto1.setProjectName("AAA");
-        
         EmployeeOutDto employeeOutDto2 = new EmployeeOutDto();
         employeeOutDto2.setId(employee2.getId());
         employeeOutDto2.setEmpId(employee2.getEmpId());
         employeeOutDto2.setName(employee2.getName());
         employeeOutDto2.setProjectId(employee2.getProjectId());
-//        employeeOutDto2.setSkills(employee2.getSkills());
         employeeOutDto2.setProjectName("AAA");
-
-        // Mock repository calls
         when(employeeRepository.findByRole(Role.Employee)).thenReturn(List.of(employee1, employee2));
         when(modelMapper.map(employee1, EmployeeOutDto.class)).thenReturn(employeeOutDto1);
         when(modelMapper.map(employee2, EmployeeOutDto.class)).thenReturn(employeeOutDto2);
         when(projectRepository.findById(3L)).thenReturn(Optional.of(new Project()));
-
-        // Call the method
         List<EmployeeOutDto> filteredEmployees = adminService.getFilteredEmployees(null, true);
-
-        // Assertions
         assertNotNull(filteredEmployees);
         assertEquals(1, filteredEmployees.size());
     }
 
     @Test
     public void testGetFilteredEmployees_NotShowUnassignedAndSelectedSkills() {
-        // Create test data
         Employee employee1 = new Employee();
         employee1.setId(1L);
         employee1.setEmpId("E001");
         employee1.setName("Employee 1");
         employee1.setProjectId(1L);
         employee1.setSkills(List.of("Skill1", "Skill2"));
-
         Employee employee2 = new Employee();
         employee2.setId(2L);
         employee2.setEmpId("E002");
         employee2.setName("Employee 2");
         employee2.setProjectId(3L);
         employee2.setSkills(List.of("Skill1", "Skill2"));
-        
         EmployeeOutDto employeeOutDto1 = new EmployeeOutDto();
         employeeOutDto1.setId(employee1.getId());
         employeeOutDto1.setEmpId(employee1.getEmpId());
@@ -406,7 +365,6 @@ public class AdminServiceTest {
         employeeOutDto1.setProjectId(employee1.getProjectId());
         employeeOutDto1.setSkills(employee1.getSkills());
         employeeOutDto1.setProjectName("AAA");
-        
         EmployeeOutDto employeeOutDto2 = new EmployeeOutDto();
         employeeOutDto2.setId(employee2.getId());
         employeeOutDto2.setEmpId(employee2.getEmpId());
@@ -414,27 +372,18 @@ public class AdminServiceTest {
         employeeOutDto2.setProjectId(employee2.getProjectId());
         employeeOutDto2.setSkills(employee2.getSkills());
         employeeOutDto2.setProjectName("AAA");
-
         List<String> selectedSkills = List.of("Skill1", "Skill2");
-
-        // Mock repository calls
         when(employeeRepository.findByRole(Role.Employee)).thenReturn(List.of(employee1, employee2));
         when(modelMapper.map(employee1, EmployeeOutDto.class)).thenReturn(employeeOutDto1);
         when(modelMapper.map(employee2, EmployeeOutDto.class)).thenReturn(employeeOutDto2);
         when(projectRepository.findById(3L)).thenReturn(Optional.of(new Project()));
-
-        // Call the method
         List<EmployeeOutDto> filteredEmployees = adminService.getFilteredEmployees(selectedSkills, false);
-
-        // Assertions
         assertNotNull(filteredEmployees);
         assertEquals(2, filteredEmployees.size());
-
         EmployeeOutDto employeeOutDto = filteredEmployees.get(1);
         assertEquals(2L, employeeOutDto.getId());
         assertEquals("E002", employeeOutDto.getEmpId());
         assertEquals("Employee 2", employeeOutDto.getName());
-//        assertEquals("N/A", employeeOutDto.getProjectName());
     }
 
     @Test
@@ -445,14 +394,11 @@ public class AdminServiceTest {
         employee1.setEmpId("E001");
         employee1.setName("Employee 1");
         employee1.setProjectId(null);
-        
-
         Employee employee2 = new Employee();
         employee2.setId(2L);
         employee2.setEmpId("E002");
         employee2.setName("Employee 2");
-        employee2.setProjectId(3L);
-        
+        employee2.setProjectId(3L);       
         EmployeeOutDto employeeOutDto1 = new EmployeeOutDto();
         employeeOutDto1.setId(employee1.getId());
         employeeOutDto1.setEmpId(employee1.getEmpId());
@@ -465,19 +411,11 @@ public class AdminServiceTest {
         employeeOutDto2.setEmpId(employee2.getEmpId());
         employeeOutDto2.setName(employee2.getName());
         employeeOutDto2.setProjectId(employee2.getProjectId());
-//        employeeOutDto2.setSkills(employee2.getSkills());
-     
-
-        // Mock repository calls
         when(employeeRepository.findByRole(Role.Employee)).thenReturn(List.of(employee1, employee2));
         when(modelMapper.map(employee1, EmployeeOutDto.class)).thenReturn(employeeOutDto1);
         when(modelMapper.map(employee2, EmployeeOutDto.class)).thenReturn(employeeOutDto2);
         when(projectRepository.findById(3L)).thenReturn(Optional.of(new Project()));
-
-        // Call the method
         List<EmployeeOutDto> filteredEmployees = adminService.getFilteredEmployees(null, false);
-
-        // Assertions
         assertNotNull(filteredEmployees);
         assertEquals(2, filteredEmployees.size());
     }
@@ -490,49 +428,25 @@ public class AdminServiceTest {
         Employee employee = new Employee();
         employee.setProjectId(2L);
         employee.setManagerId(3L);
-
         when(employeeRepository.findById(id)).thenReturn(Optional.of(employee));
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
-
         ResponseDto response = adminService.unAssign(id);
-
         assertNotNull(response);
         assertEquals("Unassigned the project", response.getMessage());
         assertNull(employee.getProjectId());
         assertEquals(1L, employee.getManagerId());
         assertEquals("Ankita", employee.getManagerName());
-
-        // Verify that save was called once with the updated employee
         verify(employeeRepository, times(1)).save(employee);
     }
 
     @Test
     public void testUnAssign_EmployeeNotFound() {
         Long id = 1L;
-
         when(employeeRepository.findById(id)).thenReturn(Optional.empty());
-
         assertThrows(NoSuchElementException.class, () -> {
             adminService.unAssign(id);
         });
     }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     private EmployeeInDto createSampleEmployeeDto() {
         EmployeeInDto employeeInDto = new EmployeeInDto();

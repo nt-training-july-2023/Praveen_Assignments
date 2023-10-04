@@ -54,15 +54,11 @@ public class EmployeeServiceTest {
 
     @BeforeEach
     public void setUp() {
-//        employeeRepository = mock(EmployeeRepository.class);
-//        modelMapper = new ModelMapper();
-//        employeeService = new EmployeeService(employeeRepository, modelMapper);
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
     public void testAddEmployee_Successful() {
-        // Arrange
         EmployeeInDto employeeInDto = new EmployeeInDto();
         employeeInDto.setName("Praveen");
         employeeInDto.setEmail("praveen@nucleusteq.com");
@@ -74,7 +70,6 @@ public class EmployeeServiceTest {
         employeeInDto.setDoj("17-07-2023"); 
         
         Employee employee = new Employee();
-        // Set sample employee properties here
         employee.setName(employeeInDto.getName());
         employee.setEmail(employeeInDto.getEmail());
         employee.setEmpId(employeeInDto.getEmpId());
@@ -86,56 +81,13 @@ public class EmployeeServiceTest {
         
         when(modelMapper.map(employeeInDto, Employee.class)).thenReturn(employee);
         when(employeeRepository.save(employee)).thenReturn(employee);      
-        // Act
         ResponseDto responseDto = employeeService.addEmployee(employeeInDto);
 
-
-        // Assert
         assertNotNull(responseDto);
         assertEquals("Employee Added successfully", responseDto.getMessage());
     }
-
-//    @Test
-//    public void testAddEmployee_DuplicateContactNo() {
-//        // Arrange
-//        EmployeeInDto employeeInDto = new EmployeeInDto();
-//        employeeInDto.setContactNo(1234567890L); // Use a long value
-//
-//        when(employeeRepository.findByEmail(anyString())).thenReturn(null);
-//        when(employeeRepository.findByEmpId(anyString())).thenReturn(null);
-//        when(employeeRepository.findByContactNo(anyLong())).thenReturn(new Employee()); // Update this line
-//
-//        // Act and Assert
-//        assertThrows(UserAlreadyFound.class, () -> employeeService.addEmployee(employeeInDto));
-//    }
-//
-//    @Test
-//    public void testAddEmployee_DuplicateEmail() {
-//        // Arrange
-//        EmployeeInDto employeeInDto = new EmployeeInDto();
-//        employeeInDto.setEmail("test@example.com");
-//
-//        when(employeeRepository.findByEmail(anyString())).thenReturn(new Employee());
-//
-//        // Act and Assert
-//        assertThrows(UserAlreadyFound.class, () -> employeeService.addEmployee(employeeInDto));
-//    }
-//
-//    @Test
-//    public void testAddEmployee_DuplicateEmpId() {
-//        // Arrange
-//        EmployeeInDto employeeInDto = new EmployeeInDto();
-//        employeeInDto.setEmpId("EMP001");
-//
-//        when(employeeRepository.findByEmail(anyString())).thenReturn(null);
-//        when(employeeRepository.findByEmpId(anyString())).thenReturn(new Employee());
-//
-//        // Act and Assert
-//        assertThrows(UserAlreadyFound.class, () -> employeeService.addEmployee(employeeInDto));
-//    }
     @Test
     public void testUpdateEmployee() {
-        // Prepare the test data
         Long id = 1L;
         Long projectId = 2L;
         Long managerId = 3L;
@@ -145,7 +97,6 @@ public class EmployeeServiceTest {
         updatedDetails.put("projectId", projectId);
         updatedDetails.put("managerId", managerId);
 
-        // Create a mock employee and manager
         Employee employee = new Employee();
         employee.setId(id);
 
@@ -153,26 +104,21 @@ public class EmployeeServiceTest {
         manager.setId(managerId);
         manager.setName(managerName);
 
-        // Mock repository behavior
         when(employeeRepository.findById(id)).thenReturn(Optional.of(employee));
         when(employeeRepository.findById(managerId)).thenReturn(Optional.of(manager));
 
-        // Call the method to test
         ResponseDto response = employeeService.updateEmployee(id, updatedDetails);
 
-        // Verify that the employee properties were updated
         assertEquals(projectId, employee.getProjectId());
         assertEquals(managerId, employee.getManagerId());
         assertEquals(managerName, employee.getManagerName());
 
-        // Verify that the response is as expected
         assertEquals("Updated Successfully", response.getMessage());
     }
     
 
     @Test
     public void testGetAllEmployeesAndManagers() {
-        // Create test data
         List<Role> roles = new ArrayList<>(List.of(Role.Manager, Role.Employee));
         Employee employee1 = new Employee();
         employee1.setName("Praveen");
@@ -194,10 +140,8 @@ public class EmployeeServiceTest {
         employee2.setDob("14-10-2001");
         employee2.setDoj("17-07-2023");
 
-        // Mock repository behavior
         when(employeeRepository.findByRoleIn(roles)).thenReturn(List.of(employee1, employee2));
 
-        // Mock modelMapper behavior
         EmployeeOutDto employeeOutDto1 = new EmployeeOutDto();
         employeeOutDto1.setName("Praveen");
         employeeOutDto1.setEmail("praveen@nucleusteq.com");
@@ -223,10 +167,8 @@ public class EmployeeServiceTest {
         when(modelMapper.map(employee1, EmployeeOutDto.class)).thenReturn(employeeOutDto1);
         when(modelMapper.map(employee2, EmployeeOutDto.class)).thenReturn(employeeOutDto2);
 
-        // Call the method to test
         List<EmployeeOutDto> result = employeeService.getAllEmployeesAndManagers();
 
-        // Verify the result
         assertEquals(2, result.size());
 
         EmployeeOutDto retrievedEmployee1 = result.get(0);
@@ -256,7 +198,6 @@ public class EmployeeServiceTest {
     
     @Test
     public void testGetEmployeeById() {
-        // Create test data
         Long employeeId = 1L;
         Employee employee1 = new Employee();
         employee1.setId(employeeId);
@@ -273,11 +214,9 @@ public class EmployeeServiceTest {
         project.setId(2L);
         project.setProjectName("Test Project");
 
-        // Mock repository behavior
         when(employeeRepository.findById(employeeId)).thenReturn(Optional.of(employee1));
         when(projectRepository.findById(2L)).thenReturn(Optional.of(project));
 
-        // Mock modelMapper behavior
         EmployeeOutDto expectedEmployeeOutDto1 = new EmployeeOutDto();
         expectedEmployeeOutDto1.setId(employeeId);
         expectedEmployeeOutDto1.setName("Praveen");
@@ -291,10 +230,8 @@ public class EmployeeServiceTest {
 
         when(modelMapper.map(employee1, EmployeeOutDto.class)).thenReturn(expectedEmployeeOutDto1);
 
-        // Call the method to test
         EmployeeOutDto result = employeeService.getEmployeeById(employeeId);
 
-        // Verify the result
         assertNotNull(result);
         assertEquals(employeeId, result.getId());
         assertEquals("Praveen", result.getName());
@@ -307,11 +244,6 @@ public class EmployeeServiceTest {
         assertEquals("17-07-2023", result.getDoj());
     }
 
-    
-    
-    
-    
-    
     @Test
     public void testUpdateSkills() {
         Long id = 1L;
@@ -321,12 +253,10 @@ public class EmployeeServiceTest {
         UpdateSkillsDto updateSkillsDto = new UpdateSkillsDto();
         updateSkillsDto.setSkills(skills);
 
-
         Employee employee = new Employee();
         employee.setId(id);
         employee.setSkills(updateSkillsDto.getSkills());
         
-
         when(employeeRepository.findById(id)).thenReturn(java.util.Optional.of(employee));
 
         ResponseDto response = employeeService.updateSkills(id, updateSkillsDto);
@@ -337,7 +267,6 @@ public class EmployeeServiceTest {
     
     @Test
     public void testRequestResource() {
-        // Create test data
         RequestResourceInDto requestResourceInDto = new RequestResourceInDto();
         requestResourceInDto.setEmployeeId(1L);
         requestResourceInDto.setProjectId(2L);
@@ -350,45 +279,19 @@ public class EmployeeServiceTest {
         mappedRequestResource.setManagerId(3L);
         mappedRequestResource.setComment("Test comment");
 
-        // Mock modelMapper behavior
         when(modelMapper.map(requestResourceInDto, RequestResource.class)).thenReturn(mappedRequestResource);
         
         when(requestResourceRepository.save(mappedRequestResource)).thenReturn(mappedRequestResource);
 
-        // Call the method to test
         ResponseDto response = employeeService.requestResource(requestResourceInDto);
 
-        // Verify the result
         assertNotNull(response);
         assertEquals("Requested resource", response.getMessage());
 
-        // Verify that the mapped RequestResource object is saved to the repository
-//        verify(employeeRepository, times(1)).save(mappedRequestResource);
     }
 
-    
-//    @Test
-//    public void testGetManagerIdById() {
-//        // Create test data
-//        Long employeeId = 1L;
-//        Employee employee = new Employee();
-//        employee.setId(employeeId);
-//
-//        // Mock repository behavior
-//        when(employeeRepository.findById(employeeId)).thenReturn(Optional.of(employee));
-//
-//        // Call the method to test
-//        EmployeeOutDto result = employeeService.getMangerIdById(employeeId);
-//
-//        // Verify the result
-//        assertNotNull(result);
-//        assertEquals(employeeId, result.getId());
-//    }
-//    
-    
     @Test
     public void testIsRequested() {
-        // Create test data
         Long employeeId = 1L;
         Long managerId = 2L;
 
@@ -403,26 +306,20 @@ public class EmployeeServiceTest {
         requestResource.setEmployeeId(employeeId);
         requestResource.setManagerId(managerId);
 
-        // Mock repository behavior
         when(employeeRepository.findById(managerId)).thenReturn(Optional.of(manager));
         when(requestResourceRepository.findByEmployeeIdAndManagerId(employeeId, managerId)).thenReturn(requestResource);
 
-        // Call the method to test
         IsRequestedOutDto result = employeeService.isRequested(isRequestedInDto);
 
-        // Verify the result
         assertNotNull(result);
         assertTrue(result.isRequested());
     }
     
     @Test
     public void testGetEmployeesByRole() {
-        // Create test data
         String roleName = "Admin";
         Role role = Role.valueOf(roleName);
        
-
-        // Set up the employee object with the provided data
         Employee employee1 = new Employee();
         employee1.setId(1L);
         employee1.setProjectId(2L);
@@ -443,11 +340,9 @@ public class EmployeeServiceTest {
         project.setId(2L);
         project.setProjectName("Test Project");
 
-        // Mock repository behavior
         when(employeeRepository.findByRole(role)).thenReturn(List.of(employee1, employee2));
         when(projectRepository.findById(employee1.getProjectId())).thenReturn(Optional.of(project));
 
-        // Mock modelMapper behavior
         EmployeeOutDto employeeOutDto1 = new EmployeeOutDto();
         employeeOutDto1.setId(1L);
         employeeOutDto1.setProjectId(2L);
@@ -460,10 +355,8 @@ public class EmployeeServiceTest {
         when(modelMapper.map(employee1, EmployeeOutDto.class)).thenReturn(employeeOutDto1);
         when(modelMapper.map(employee2, EmployeeOutDto.class)).thenReturn(employeeOutDto2);
 
-        // Call the method to test
         List<EmployeeOutDto> result = employeeService.getEmployeesByRole(roleName);
 
-        // Verify the result
         assertNotNull(result);
         assertEquals(2, result.size());
 

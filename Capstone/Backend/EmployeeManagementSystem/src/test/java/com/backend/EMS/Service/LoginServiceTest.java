@@ -35,7 +35,6 @@ class LoginServiceTest {
 
     @Test
     void testLogin() {
-        // Create a mock Employee and LoginInDto
         Employee mockEmployee = new Employee();
         mockEmployee.setId(1L);
         mockEmployee.setName("John Doe");
@@ -44,33 +43,16 @@ class LoginServiceTest {
 
         LoginInDto loginInDto = new LoginInDto();
         loginInDto.setEmail("johndoe@example.com");
-        loginInDto.setPassword("encodedPassword"); // You can use the encoded password here
-
-        // Mock the behavior of employeeRepository.findByEmail
+        loginInDto.setPassword("encodedPassword"); 
         when(employeeRepository.findByEmail(loginInDto.getEmail())).thenReturn(mockEmployee);
 
-        // Call the login method
         LoginOutDto loginResponse = loginService.login(loginInDto);
 
-        // Verify that the loginResponse is as expected
         assertEquals("Login Successful", loginResponse.getMessage());
         assertEquals(Role.Admin, loginResponse.getRole());
         assertEquals(1L, loginResponse.getId());
         assertEquals("John Doe", loginResponse.getName());
     }
 
-//    @Test
-//    void testLoginUserNotFound() {
-//        // Create a LoginInDto with an email
-//        LoginInDto loginInDto = new LoginInDto();
-//        loginInDto.setEmail("nonexistent@example.com");
-//        loginInDto.setPassword("encodedPassword");
-//
-//        // Mock the behavior of employeeRepository.findByEmail to return null
-//        when(employeeRepository.findByEmail(loginInDto.getEmail())).thenReturn(null);
-//
-//        // Call the login method
-//        assertThrows(UserNotFound.class, () -> loginService.login(loginInDto));
-//    }
 }
 

@@ -17,7 +17,6 @@ public class RequestResourceOutDtoTest {
 
     @Test
     public void testGettersAndSetters() {
-        // Test setters and getters
         requestResource.setId(1L);
         requestResource.setEmployeeId(101L);
         requestResource.setEmployeeEmpId("EMP001");
@@ -40,7 +39,6 @@ public class RequestResourceOutDtoTest {
         assertEquals("Project ABC", requestResource.getProjectName());
         assertEquals("This is a comment.", requestResource.getComment());
 
-        // Null tests for setters
         requestResource.setId(null);
         requestResource.setEmployeeId(null);
         requestResource.setEmployeeEmpId(null);
@@ -66,7 +64,6 @@ public class RequestResourceOutDtoTest {
 
     @Test
     public void testHashCode() {
-        // Test hashCode with non-null values (similar to previous test)
         requestResource.setId(1L);
         requestResource.setEmployeeId(101L);
         requestResource.setEmployeeEmpId("EMP001");
@@ -81,7 +78,6 @@ public class RequestResourceOutDtoTest {
         int expectedHashCode = Objects.hash("This is a comment.", "EMP001", 101L, "John Doe", 1L, "MGR001", 301L, "Jane Smith", 201L, "Project ABC");
         assertEquals(expectedHashCode, requestResource.hashCode());
 
-        // Test hashCode with null values (similar to null tests for setters)
         requestResource.setId(null);
         requestResource.setEmployeeId(null);
         requestResource.setEmployeeEmpId(null);
@@ -102,7 +98,6 @@ public class RequestResourceOutDtoTest {
         RequestResourceOutDto requestResource1 = new RequestResourceOutDto();
         RequestResourceOutDto requestResource2 = new RequestResourceOutDto();
 
-        // Test equals with non-null values (similar to previous test)
         requestResource1.setId(1L);
         requestResource1.setEmployeeId(101L);
         requestResource1.setEmployeeEmpId("EMP001");
@@ -127,7 +122,6 @@ public class RequestResourceOutDtoTest {
 
         assertTrue(requestResource1.equals(requestResource2));
 
-        // Test equals with null values (similar to null tests for setters)
         requestResource1.setId(null);
         requestResource1.setEmployeeId(null);
         requestResource1.setEmployeeEmpId(null);
@@ -155,7 +149,6 @@ public class RequestResourceOutDtoTest {
 
     @Test
     public void testToString() {
-        // Test toString with non-null values (similar to previous test)
         requestResource.setId(1L);
         requestResource.setEmployeeId(101L);
         requestResource.setEmployeeEmpId("EMP001");
@@ -170,7 +163,6 @@ public class RequestResourceOutDtoTest {
         String expectedToString = "RequestResourceOutDto [id=1, employeeId=101, employeeEmpId=EMP001, projectId=201, managerId=301, managerEmpId=MGR001, employeeName=John Doe, managerName=Jane Smith, projectName=Project ABC, comment=This is a comment.]";
         assertEquals(expectedToString, requestResource.toString());
 
-        // Test toString with null values (similar to null tests for setters)
         requestResource.setId(null);
         requestResource.setEmployeeId(null);
         requestResource.setEmployeeEmpId(null);

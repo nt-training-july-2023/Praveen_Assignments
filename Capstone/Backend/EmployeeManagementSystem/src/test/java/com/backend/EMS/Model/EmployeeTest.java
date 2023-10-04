@@ -65,10 +65,6 @@ class EmployeeTest {
         assertEquals("N1123", employee.getEmpId());
     }
 
-//    @Test
-//    void testSetEmpId_InvalidInput() {
-//        assertThrows(IllegalArgumentException.class, () -> admin.setEmpId(null));
-//    }
 
     @Test
     void testGetdob() {
@@ -141,36 +137,4 @@ class EmployeeTest {
         employee.setPassword("myPassword");
         assertEquals("myPassword", employee.getPassword());
     }
-
-//    @Test
-//    void testGetConfirmPassword() {
-//        admin.setConfirmPassword("myPassword");
-//        assertEquals("myPassword", admin.getConfirmPassword());
-//    }
-//
-//    @Test
-//    void testSetConfirmPassword() {
-//        admin.setConfirmPassword("myPassword");
-//        assertEquals("myPassword", admin.getConfirmPassword());
-//    }
-
-//    @Test
-//    void testToString() {
-//        admin.setName("Praveen");
-//        admin.setEmail("Praveen@example.com");
-//        admin.setEmpId("N1123");
-//        admin.setDob("1990-01-01");
-//        admin.setDoj("2021-01-01");
-//        admin.setLocation("Raipur");
-//        admin.setDesignation("Manager");
-//        admin.setContactNo(1234567890L);
-//        admin.setPassword("myPassword");
-//        admin.setConfirmPassword("myPassword");
-//
-//        String expectedString = "EmployeeInDto [name=Praveen, email=Praveen@example.com, empId=N1123, dob=1990-01-01, " +
-//                "doj=2021-01-01, location=Raipur, designation=Manager, contactNo=1234567890, " +
-//                "password=myPassword, confirmPassword=myPassword]";
-//        assertEquals(expectedString, admin.toString());
-//    }
-
 }

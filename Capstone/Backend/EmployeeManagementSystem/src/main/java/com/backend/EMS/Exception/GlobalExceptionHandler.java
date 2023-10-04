@@ -45,7 +45,6 @@ public class GlobalExceptionHandler {
         String message = ex.getMessage();
         return new ResponseDto(message);
     }
-    
     /**
      * validation method.
      * @param ex exception
@@ -64,18 +63,4 @@ public class GlobalExceptionHandler {
         });
         return resp;
     }
-
-//    /**
-//     * Handle the CustomException exception by returning a
-//      NOT_ACCEPTABLE status and a ResponseDto with the error message.
-//     *
-//     * @param ex The CustomException exception.
-//     * @return A ResponseDto with the error message.
-//     */
-//    @ExceptionHandler(CustomException.class)
-//    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-//    public final ResponseDto validation(final CustomException ex) {
-//        String message = ex.getMessage();
-//        return new ResponseDto(message);
-//    }
 }

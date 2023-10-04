@@ -26,7 +26,6 @@ import com.backend.EMS.Repository.RequestResourceRepository;
  * Service class for managing admin-related operations.
  */
 @Service
-
 public class AdminService {
     /**
      * The repository for administrator data.
@@ -61,7 +60,6 @@ public class AdminService {
      *                          or contact number already exists.
      */
     public final ResponseDto addAdmin(final EmployeeInDto employeeInDto) {
-        // Initialize a response DTO
         ResponseDto responseDto = new ResponseDto();
         Employee employee = new Employee();
         employee.setName(employeeInDto.getName());
@@ -73,7 +71,6 @@ public class AdminService {
         employee.setDesignation(employeeInDto.getDesignation());
         employee.setContactNo(employeeInDto.getContactNo());
         employee.setRole(Role.Admin);
-
         employee.setPassword(employeeInDto.getPassword());
         employeeRepository.save(employee);
         responseDto.setMessage("Admin Registered successfully");
@@ -103,14 +100,11 @@ public class AdminService {
         List<RequestResource> requestResourceList = this.
                 requestResourceRepository.findAll();
         System.out.println(requestResourceList + "praveen");
-//        RequestResourceOutDto requestResourceOutDto = new
-//        RequestResourceOutDto();
         List<RequestResourceOutDto> requestResourceOutDtoList = new
                 ArrayList<>();
         for (RequestResource requestResource : requestResourceList) {
             RequestResourceOutDto requestResourceOutDto = new
                     RequestResourceOutDto();
-            // Create a new instance for each iteration
             requestResourceOutDto.setId(requestResource.getId());
             requestResourceOutDto.
             setEmployeeId(requestResource.getEmployeeId());
@@ -125,7 +119,6 @@ public class AdminService {
                     findById(requestResource.getManagerId()).get();
             requestResourceOutDto.setManagerEmpId(manager.getEmpId());
             requestResourceOutDto.setManagerName(manager.getName());
-
             Optional<Project> project = projectRepository.
                     findById(requestResource.getProjectId());
             System.out.println(project);
@@ -134,9 +127,7 @@ public class AdminService {
                         .getProjectName());
                 requestResourceOutDtoList.add(requestResourceOutDto);
             }
-////            System.out.println(requestResourceOutDto + "praveen");
         }
-
         return requestResourceOutDtoList;
     }
 
@@ -198,8 +189,6 @@ public class AdminService {
         for (Employee employee : employees) {
             EmployeeOutDto employeeOutDto = modelMapper.map(employee,
                     EmployeeOutDto.class);
-            // Check if the employee is assigned to a project and
-//            set the project name accordingly
             if (employee.getProjectId() == null) {
                 employeeOutDto.setProjectName("N/A");
             } else {
@@ -211,7 +200,6 @@ public class AdminService {
                     employeeOutDto.setProjectName("N/A");
                 }
             }
-
             employeeOutDtoList.add(employeeOutDto);
         }
 
@@ -219,33 +207,25 @@ public class AdminService {
 
         for (EmployeeOutDto employee : employeeOutDtoList) {
             boolean addEmployee = true;
-
-            // Check if the employee should be included
-//            based on showUnassigned
             if (showUnassigned && employee.getProjectId() != null) {
                 addEmployee = false;
             }
-            // Check if the employee should be included based on selectedSkills
             if (selectedSkills != null && !selectedSkills.isEmpty()) {
                 boolean hasMatchingSkill = false;
                 for (String skill : selectedSkills) {
                     if (employee.getSkills().contains(skill)) {
                         hasMatchingSkill = true;
-                        break; // Exit the loop as soon as
-//                        a matching skill is found
+                        break;
                     }
                 }
                 if (!hasMatchingSkill) {
                     addEmployee = false;
                 }
             }
-
-            // Add the employee to the filtered list if it meets the criteria
             if (addEmployee) {
                 filteredEmployees.add(employee);
             }
         }
-
         return filteredEmployees;
     }
 
@@ -256,18 +236,11 @@ public class AdminService {
      * @return A ResponseDto indicating the status of the unassignment process.
      */
     public final ResponseDto unAssign(final Long id) {
-        // Find the employee by their ID
         Employee employee = employeeRepository.findById(id).get();
-        // Set the employee's manager ID to 1 and manager name to "Ankita"
         employee.setManagerId(1L);
         employee.setManagerName("Ankita");
-        // Clear the employee's project ID
         employee.setProjectId(null);
-        // Save the updated employee information
         employeeRepository.save(employee);
-        // Return a ResponseDto with a message indicating
-//        the project has been unassigned
         return new ResponseDto("Unassigned the project");
     }
-
 }

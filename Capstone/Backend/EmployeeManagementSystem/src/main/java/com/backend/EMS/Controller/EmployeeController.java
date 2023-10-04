@@ -35,7 +35,6 @@ import com.backend.EMS.Service.ProjectService;
 import com.backend.EMS.Validation.Validation;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 
 /**
  * Controller class for handling admin-related operations.
@@ -54,7 +53,6 @@ public class EmployeeController {
      */
     @Autowired
     private AdminService adminService;
-
     /**
      * The Validation instance used for validating operations.
      */
@@ -70,8 +68,6 @@ public class EmployeeController {
      */
     private static final Logger LOGGER
             = LoggerFactory.getLogger(EmployeeController.class);
-
-
     /**
      * Endpoint to register a new admin.
      *
@@ -79,7 +75,7 @@ public class EmployeeController {
      * @param bindingResult The bindingResult containing validation errors.
      * @return A response DTO indicating the registration status.
      */
-    @PostMapping("/adminRegistration")
+    @PostMapping("/admin-registration")
     public final ResponseDto registerAdmin(@RequestBody @Valid
             final EmployeeInDto employeeInDto
             ) {
@@ -89,14 +85,12 @@ public class EmployeeController {
         LOGGER.info("Admin Registered Successful");
         return responseDto;
     }
-
     /**
      * The EmployeeService instance used for managing
      *  add employee related operations.
      */
     @Autowired
     private EmployeeService employeeService;
-
     /**
      * Endpoint to add a new employee.
      *
@@ -104,7 +98,7 @@ public class EmployeeController {
      * @param bindingResult The bindingResult containing validation errors.
      * @return A response DTO indicating the registration status.
      */
-    @PostMapping("/addEmployee")
+    @PostMapping("/admin/add-employee")
     public final ResponseDto addEmployee(@RequestBody @Valid
             final EmployeeInDto employeeInDto) {
         validation.checkEmployee(employeeInDto);
@@ -130,7 +124,6 @@ public class EmployeeController {
         LOGGER.info("Retrieved Employees by role");
         return employeeOutDto;
     }
-
     /**
      * Endpoint for admin login.
      *
@@ -138,14 +131,14 @@ public class EmployeeController {
      * @return A response DTO indicating the login status.
      */
     @PostMapping("/login")
-    public final LoginOutDto login(@RequestBody final LoginInDto loginInDto) {
+    public final LoginOutDto login(@RequestBody @Valid final
+            LoginInDto loginInDto) {
         LOGGER.info("Login Method Invoked");
         validation.checkLogin(loginInDto);
         LoginOutDto loginOutDto = loginService.login(loginInDto);
         LOGGER.info("Login Successful");
         return loginOutDto;
     }
-
     /**
      * Update employee details, including project and manager, by ID.
      *
@@ -154,33 +147,25 @@ public class EmployeeController {
      *  details like projectId and managerId.
      * @return A ResponseDto representing the result of the update operation.
      */
-    @PutMapping("/updateEmployee/{id}")
+    @PutMapping("/admin/assign-project/{id}")
     public final ResponseDto assignProject(@PathVariable final Long id,
             @RequestBody final  Map<String, Long> updatedDetails) {
         Long projectId = updatedDetails.get("projectId");
         Long managerId = updatedDetails.get("managerId");
-        if (projectId == null || managerId == null) {
-            // Handle the case where projectId or managerId is not provided
-            return new ResponseDto(" projectId and"
-                    + " managerId must be provided");
-        }
-        validation.checkEmployeeExists(id);
-        validation.checkManagerExists(managerId);
-        validation.checkProjectExists(projectId);
+        validation.assignProject(id, managerId, projectId);
         LOGGER.info("Update Employee method invoked");
         ResponseDto responseDto = employeeService.updateEmployee(id,
                 updatedDetails);
         LOGGER.info("Employee Updated Successfully");
         return responseDto;
     }
-
     /**
      * Retrieve a list of all employees, including managers, from the system.
      *
      * @return A list of EmployeeOutDto objects containing
      *  information for all employees and managers.
      */
-    @GetMapping("/allManagersAndEmployees")
+    @GetMapping("/managers-employees")
     public final List<EmployeeOutDto> getAllManagersAndEmployees() {
         LOGGER.info("getAllEmployeeAndManagers method invoked");
         List<EmployeeOutDto>  employeeOutDto = employeeService.
@@ -195,7 +180,7 @@ public class EmployeeController {
      * @return A list of ProjectOutDto objects representing
      *  projects managed by the specified manager.
      */
-    @GetMapping("/projectCards/{managerId}")
+    @GetMapping("/projects/{managerId}")
     public final List<ProjectOutDto> getAllByManagerId(@PathVariable
             final Long managerId) {
         validation.checkManagerExists(managerId);
@@ -205,7 +190,6 @@ public class EmployeeController {
         LOGGER.info("retrieved all projects of the manager successfully");
         return projectOutDto;
     }
-
     /**
      * Retrieve an employee's information by their email address.
      *
@@ -213,7 +197,7 @@ public class EmployeeController {
      * @return An EmployeeOutDto containing the informationt
      *  of the employee with the provided id.
      */
-    @GetMapping("/employee/id/{id}")
+    @GetMapping("/employee/{id}")
     public final EmployeeOutDto getByEmployeeId(@PathVariable
             final Long id) {
         validation.checkEmployeeExists(id);
@@ -222,7 +206,6 @@ public class EmployeeController {
         LOGGER.info("retrieved employee data by ID");
         return employeeOutDto;
     }
-
     /**
      * Update a skill record identified by its
      *  unique ID using an HTTP PUT request.
@@ -238,11 +221,10 @@ public class EmployeeController {
      *  @param bindingResult The errors in validations.
      * @return A ResponseDto representing the result of the update operation.
      */
-    @PutMapping("/updateSkill/{id}")
+    @PutMapping("/employee/update-skill/{id}")
     public final ResponseDto updateSkill(@PathVariable final Long id,
             @RequestBody @Valid final UpdateSkillsDto updateSkillsDto
               ) {
-        // Call the service to perform the skill record
         validation.checkEmployeeExists(id);
         LOGGER.info("updateSkill method invoked");
         ResponseDto responseDto = employeeService.updateSkills(id,
@@ -257,10 +239,9 @@ public class EmployeeController {
      * @param requestResourceInDto The data for the resource request.
      * @return A ResponseDto indicating the status of the request.
      */
-    @PostMapping("/requestResource")
+    @PostMapping("/manager/request-resource")
     public final ResponseDto requestResource(@RequestBody
-            final RequestResourceInDto requestResourceInDto) {
-        // Delegate the request to the service layer for processing
+            @Valid final RequestResourceInDto requestResourceInDto) {
         LOGGER.info("request resource method invoked");
         ResponseDto responseDto = employeeService.
                 requestResource(requestResourceInDto);
@@ -273,7 +254,7 @@ public class EmployeeController {
      * @return A list of RequestResourceOutDto objects
      * representing the requested resources.
      */
-    @GetMapping("/RequestedResource")
+    @GetMapping("/admin/requested-resources")
     public final List<RequestResourceOutDto> requestedResource() {
         LOGGER.info("requestedResource method invoked");
         List<RequestResourceOutDto> requestResourceOutDto = adminService.
@@ -288,7 +269,7 @@ public class EmployeeController {
      * @return A ResponseDto containing the result of the
      * resource deletion operation.
      */
-    @DeleteMapping("/Delete/RequestedResource/{id}")
+    @DeleteMapping("/admin/requested-resources/reject/{id}")
     public final ResponseDto deleteRequestedResource(@PathVariable
             final Long id) {
         validation.checkRequestResourceExists(id);
@@ -304,7 +285,7 @@ public class EmployeeController {
      * @return A ResponseDto containing the result of the
      * resource acceptance operation.
      */
-    @PutMapping("/Accept/RequestedResource/{id}")
+    @PutMapping("/admin/requested-resources/accept/{id}")
     public final ResponseDto acceptRequestedResource(@PathVariable
             final Long id) {
         validation.checkRequestResourceExists(id);
@@ -318,8 +299,8 @@ public class EmployeeController {
      * containing information about the request.
      * @return A boolean value indicating whether the request is requested.
      */
-    @PostMapping("/isRequested")
-    public final IsRequestedOutDto isRequested(@RequestBody final
+    @PostMapping("/manager/employee/is-requested")
+    public final IsRequestedOutDto isRequested(@RequestBody @Valid final
             IsRequestedInDto isRequestedInDto) {
         validation.checkManagerExists(isRequestedInDto.getId());
         validation.checkOnlyEmployeeExists(isRequestedInDto.getEmployeeId());
@@ -339,7 +320,7 @@ public class EmployeeController {
      * @return A list of EmployeeOutDto objects representing
        the filtered employees.
      */
-    @GetMapping("/filteredEmployees")
+    @GetMapping("/manager/filtered-employees")
     public final List<EmployeeOutDto> getFilteredEmployees(
             @RequestParam (value = "selectedSkills", required = false)
             final List<String> selectedSkills,
@@ -359,7 +340,7 @@ public class EmployeeController {
      * @return A ResponseDto containing the result of
      * the unAssignment operation.
      */
-    @PutMapping("/unAssign/Project/{id}")
+    @PutMapping("/admin/employee/unassign/project/{id}")
     public final ResponseDto unAssign(@PathVariable final Long id) {
         validation.checkOnlyEmployeeExists(id);
         LOGGER.info("unAssign method invoked");

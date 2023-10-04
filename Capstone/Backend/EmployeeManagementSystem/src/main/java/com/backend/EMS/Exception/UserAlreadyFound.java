@@ -12,7 +12,6 @@ public class UserAlreadyFound extends RuntimeException {
      *
      */
     private static final long serialVersionUID = 1L;
-
     /**
      * Constructs a new userAlreadyFound exception
         with the specified error message.

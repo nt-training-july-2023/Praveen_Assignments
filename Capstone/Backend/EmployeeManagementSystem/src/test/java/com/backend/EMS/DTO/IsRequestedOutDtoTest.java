@@ -18,11 +18,9 @@ class IsRequestedOutDtoTest {
         IsRequestedOutDto dto3 = new IsRequestedOutDto();
         dto3.setRequested(false);
 
-        // Test equality
         assertEquals(dto1, dto2);
         assertNotEquals(dto1, dto3);
 
-        // Test hashCode
         assertEquals(dto1.hashCode(), dto2.hashCode());
         assertNotEquals(dto1.hashCode(), dto3.hashCode());
     }

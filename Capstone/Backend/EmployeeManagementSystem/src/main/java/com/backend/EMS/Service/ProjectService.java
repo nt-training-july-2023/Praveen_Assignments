@@ -46,10 +46,6 @@ public class ProjectService {
     public final ResponseDto addProject(final ProjectInDto projectInDto) {
         Project project = this.modelMapper.map(projectInDto, Project.class);
         ResponseDto responseDto = new ResponseDto();
-//        if (projectRepository.findByProjectName(
-//                projectInDto.getProjectName()) != null) {
-//            throw new UserAlreadyFound("Project is already added");
-//        }
         projectRepository.save(project);
         responseDto.setMessage("Project Added Successfully");
         return responseDto;
@@ -65,19 +61,12 @@ public class ProjectService {
         for (Project project : projects) {
             ProjectOutDto dto = this.modelMapper.map(project,
                     ProjectOutDto.class);
-
                 List<Employee> teamMembers = employeeRepository.
                         findEmployeesByProjectId(project.getId());
-
                 List<String> teamMemberNames = new ArrayList<>();
-
-                // Add names of team members to the list
                 for (Employee teamMember : teamMembers) {
                     teamMemberNames.add(teamMember.getName());
-                    // Assuming there's a "getName()" method in Employee class
                 }
-
-                // Set the team members' names in the employeeOutDto
                 dto.setTeam(teamMemberNames);
             Employee manager = employeeRepository.findById(project.
                     getManagerId()).orElse(null);
@@ -110,12 +99,9 @@ public class ProjectService {
             List<Employee> teamMembers = employeeRepository.
                     findEmployeesByProjectId(project.getId());
             List<String> teamMemberNames = new ArrayList<>();
-            // Add names of team members to the list
             for (Employee teamMember : teamMembers) {
                 teamMemberNames.add(teamMember.getName());
-                // Assuming there's a "getName()" method in Employee class
             }
-            // Set the team members' names in the employeeOutDto
             projectOutDto.setTeam(teamMemberNames);
             projectOutList.add(projectOutDto);
         }

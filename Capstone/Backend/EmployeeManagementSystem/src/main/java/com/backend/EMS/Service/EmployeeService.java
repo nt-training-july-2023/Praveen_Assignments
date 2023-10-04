@@ -47,23 +47,6 @@ public class EmployeeService {
      */
     @Autowired
     private ProjectRepository projectRepository;
-
-
-//    /**
-//     * Constructs an EmployeeService with the necessary dependencies.
-//     *
-//     * @param adminsRepository The repository for managing Admin entities.
-//     * @param modelMappers     The ModelMapper for mapping between DTOs and
-//     *                         entities.
-//     */
-//    @Autowired
-//    public EmployeeService(final EmployeeRepository adminsRepository,
-//            final ModelMapper modelMappers) {
-//        super();
-//        this.adminRepository = adminsRepository;
-//        this.modelMapper = modelMappers;
-//    }
-
     /**
      * Add a new employee to the system.
      *
@@ -75,16 +58,11 @@ public class EmployeeService {
      *                          contact number already exists.
      */
     public final ResponseDto addEmployee(final EmployeeInDto employeeInDto) {
-//        modelMapper.getConfiguration().setMatchingStrategy(
-//                MatchingStrategies.STRICT);
         Employee employee = this.modelMapper.map(employeeInDto, Employee.class);
         employee.setManagerName("Ankita");
         employee.setManagerId(1L);
-
         employeeRepository.save(employee);
-        // Initialize a responseDto
         ResponseDto responseDto = new ResponseDto();
-        // Set response values for successful registration
         responseDto.setMessage("Employee Added successfully");
         return responseDto;
     }
@@ -110,7 +88,6 @@ public class EmployeeService {
             employee.setProjectId(projectId);
             employee.setManagerName(manager.getName());
             employeeRepository.save(employee);
-
             return new ResponseDto("Updated Successfully");
         }
     }
@@ -153,7 +130,6 @@ public class EmployeeService {
         } else {
             employeeOutDto.setProjectName("N/A");
         }
-
         return employeeOutDto;
     }
 
@@ -180,12 +156,9 @@ public class EmployeeService {
      */
     public final ResponseDto requestResource(final
             RequestResourceInDto requestResourceInDto) {
-        // Map the request data to a RequestResource object
         RequestResource requestResource = this.modelMapper.map(
                 requestResourceInDto, RequestResource.class);
-        // Save the mapped RequestResource object to the repository
         requestResourceRepository.save(requestResource);
-        // Return a ResponseDto indicating the success of the request
         return new ResponseDto("Requested resource");
     }
     /**

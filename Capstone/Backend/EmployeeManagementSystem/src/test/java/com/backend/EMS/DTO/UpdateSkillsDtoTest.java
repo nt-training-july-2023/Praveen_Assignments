@@ -22,7 +22,6 @@ public class UpdateSkillsDtoTest {
 
     @Test
     public void testGettersAndSetters() {
-        // Test setters and getters
         List<String> skillsList = new ArrayList<>();
         skillsList.add("Java");
         skillsList.add("Python");
@@ -35,7 +34,6 @@ public class UpdateSkillsDtoTest {
         assertNotNull(retrievedSkills);
         assertEquals(skillsList, retrievedSkills);
 
-        // Test null values for setters and getters
         List<String> nullSkillsList = new ArrayList<>();
         updateSkillsDto.setSkills(nullSkillsList);
 
@@ -46,7 +44,6 @@ public class UpdateSkillsDtoTest {
 
     @Test
     public void testHashCode() {
-        // Test hashCode with non-null values
         List<String> skillsList1 = new ArrayList<>();
         skillsList1.add("Java");
         skillsList1.add("Python");
@@ -62,7 +59,6 @@ public class UpdateSkillsDtoTest {
 
         assertEquals(updateSkillsDto.hashCode(), anotherUpdateSkillsDto.hashCode());
 
-        // Test hashCode with null values
         List<String> nullSkillsList = new ArrayList<>();
         updateSkillsDto.setSkills(nullSkillsList);
 
@@ -74,7 +70,6 @@ public class UpdateSkillsDtoTest {
 
     @Test
     public void testEquals() {
-        // Test equals with non-null values
         List<String> skillsList1 = new ArrayList<>();
         skillsList1.add("Java");
         skillsList1.add("Python");
@@ -90,7 +85,6 @@ public class UpdateSkillsDtoTest {
 
         assertTrue(updateSkillsDto.equals(anotherUpdateSkillsDto));
 
-        // Test equals with null values
         List<String> nullSkillsList = new ArrayList<>();
         updateSkillsDto.setSkills(nullSkillsList);
 
@@ -103,7 +97,6 @@ public class UpdateSkillsDtoTest {
 
     @Test
     public void testToString() {
-        // Test toString with non-null values
         List<String> skillsList = new ArrayList<>();
         skillsList.add("Java");
         skillsList.add("Python");
@@ -113,7 +106,6 @@ public class UpdateSkillsDtoTest {
         String expectedToString = "UpdateSkillsDto [skills=[Java, Python]]";
         assertEquals(expectedToString, updateSkillsDto.toString());
 
-        // Test toString with null values
         List<String> nullSkillsList = new ArrayList<>();
         updateSkillsDto.setSkills(nullSkillsList);
 

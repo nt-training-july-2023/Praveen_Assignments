@@ -25,7 +25,6 @@ public class EmployeeInDtoTest {
 
     @Test
     public void testGetterAndSetterMethods() {
-        // Test Setter methods with non-null values
         employee.setId(1L);
         employee.setName("John Doe");
         employee.setEmail("john.doe@nucleusteq.com");
@@ -42,7 +41,6 @@ public class EmployeeInDtoTest {
         skills.add("Spring Boot");
         employee.setSkills(skills);
 
-        // Test Getter methods
         assertEquals(1L, employee.getId());
         assertEquals("John Doe", employee.getName());
         assertEquals("john.doe@nucleusteq.com", employee.getEmail());
@@ -58,7 +56,6 @@ public class EmployeeInDtoTest {
         assertEquals("Java", employee.getSkills().get(0));
         assertEquals("Spring Boot", employee.getSkills().get(1));
 
-        // Test Setter methods with null values
         employee.setId(null);
         employee.setName(null);
         employee.setEmail(null);
@@ -72,7 +69,6 @@ public class EmployeeInDtoTest {
         employee.setRole(null);
         employee.setSkills(new ArrayList());
 
-        // Test Getter methods for null values
         assertNull(employee.getId());
         assertNull(employee.getName());
         assertNull(employee.getEmail());
@@ -123,11 +119,11 @@ public class EmployeeInDtoTest {
         employee.setEmpId("N1234");
         employee.setDob("1990-01-01");
         employee.setDoj("2022-05-15");
-        employee.setLocation(Location.Bangalore); // Use the enum constant
-        employee.setDesignation(Designation.Architect); // Use the enum constant
+        employee.setLocation(Location.Bangalore); 
+        employee.setDesignation(Designation.Architect); 
         employee.setContactNo(1234567890L);
         employee.setPassword("secret");
-        employee.setRole(Role.Admin); // Use the enum constant
+        employee.setRole(Role.Admin);
 
         String expectedString = "EmployeeInDto [id=1, name=John Doe, email=john.doe@example.com, empId=N1234, dob=1990-01-01, doj=2022-05-15, location=Bangalore, designation=Architect, contactNo=1234567890, password=secret, role=Admin, skills=null]";
         Assertions.assertEquals(expectedString, employee.toString());

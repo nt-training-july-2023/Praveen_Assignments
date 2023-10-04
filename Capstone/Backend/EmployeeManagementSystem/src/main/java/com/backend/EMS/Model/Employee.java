@@ -25,67 +25,56 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     /**
      * The name of the employee.
      */
     @Column(nullable = false)
     private String name;
-
     /**
      * The email of the employee.
      */
     @Column(nullable = false)
     private String email;
-
     /**
      * The employee ID of the employee.
      */
     @Column(nullable = false)
     private String empId;
-
     /**
      * The date of birth of the employee.
      */
     @Column(nullable = false)
     private String dob;
-
     /**
      * The date of joining of the employee.
      */
     @Column(nullable = false)
     private String doj;
-
     /**
      * The location of the employee.
      */
     @Enumerated(EnumType.STRING)
     private Location location;
-
     /**
      * The designation of the employee.
      */
     @Enumerated(EnumType.STRING)
     private Designation designation;
-
     /**
      * The contact number of the employee.
      */
     @Column(nullable = false)
     private Long contactNo;
-
     /**
      * The password of the employee.
      */
     @Column(nullable = false)
     private String password;
-
     /**
      * The role for the employee.
      */
     @Enumerated(EnumType.STRING)
     private Role role;
-
     /**
      * The skills of the employee.
      */
@@ -96,7 +85,6 @@ public class Employee {
      */
     @Column
     private Long projectId;
-
     /**
      * Get the project ID associated with the employee.
      *
@@ -105,7 +93,6 @@ public class Employee {
     public final Long getProjectId() {
         return projectId;
     }
-
     /**
      * Set the project ID for the employee.
      *
@@ -114,7 +101,6 @@ public class Employee {
     public final void setProjectId(final Long projectIds) {
         this.projectId = projectIds;
     }
-
     /**
      * Get the manager ID of the employee.
      *
@@ -123,7 +109,6 @@ public class Employee {
     public final Long getManagerId() {
         return managerId;
     }
-
     /**
      * Set the manager ID for the employee.
      *
@@ -142,7 +127,6 @@ public class Employee {
      */
     @Column
     private String managerName;
-
     /**
      * Get the manager's name of the employee.
      *
@@ -151,7 +135,6 @@ public class Employee {
     public final String getManagerName() {
         return managerName;
     }
-
     /**
      * Set the manager's name for the employee.
      *
@@ -160,7 +143,6 @@ public class Employee {
     public final void setManagerName(final String managerNames) {
         this.managerName = managerNames;
     }
-
     /**
      * Get the employee's unique identifier.
      *
@@ -169,7 +151,6 @@ public class Employee {
     public final long getId() {
         return id;
     }
-
     /**
      * Set the employee's unique identifier.
      *
@@ -178,7 +159,6 @@ public class Employee {
     public final void setId(final long ids) {
         this.id = ids;
     }
-
     /**
      * Get the name of the employee.
      *
@@ -187,7 +167,6 @@ public class Employee {
     public final String getName() {
         return name;
     }
-
     /**
      * Set the name of the employee.
      *
@@ -196,7 +175,6 @@ public class Employee {
     public final void setName(final String names) {
         this.name = names;
     }
-
     /**
      * Get the email of the employee.
      *
@@ -205,7 +183,6 @@ public class Employee {
     public final String getEmail() {
         return email;
     }
-
     /**
      * Set the email of the employee.
      *
@@ -223,7 +200,6 @@ public class Employee {
     public final String getEmpId() {
         return empId;
     }
-
     /**
      * Set the employee ID of the employee.
      *

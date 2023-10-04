@@ -104,8 +104,6 @@ public class EmployeeControllerTest {
         ResponseDto response = new ResponseDto();
         response.setMessage("Employee Added Succesfully");
         doNothing().when(validator).checkEmployee(empDto);
-//        when(employeeService.addEmployee(Mockito.any())).thenReturn(response);
-
         MvcResult mvcResult = this.mockMvc.perform(post("/api/addEmployee")
                 .contentType(MediaType.APPLICATION_JSON).content(inputJSON))
                 .andReturn();
@@ -142,34 +140,6 @@ public class EmployeeControllerTest {
         int status = mvcResult.getResponse().getStatus();
         assertEquals(404, status);
     }
-//    @Test
-//    void testRegisterAdmin_Success() throws Exception {
-//        EmployeeInDto employeeInDto = new EmployeeInDto();
-//        employeeInDto.setEmployeeId("N0001");
-//        employeeInDto.setEmployeeName("Hemant Kumar");
-//        employeeInDto.setEmployeeEmail("hemant.kumar@nucleusteq.com");
-//        employeeInDto.setDateOfBirth("2001-05-12");
-//        employeeInDto.setDateOfJoining("2023-07-17");
-//        employeeInDto.setLocation(Location.Raipur);
-//        employeeInDto.setDesignation(Designation.Engineer);
-//        employeeInDto.setContactNumber("1234567890");
-//        employeeInDto.setPassword("N0001@12052001");
-//        skills.add("Java");
-//        skills.add("Spring");
-//        employeeInDto.setSkills(skills);
-//        employeeInDto.setManager("Ankita Sharma");
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        String inputJSON = objectMapper.writeValueAsString(employeeInDto);
-//        MvcResult mvcResult = mockMvc.perform(post("/api/register")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(inputJSON))
-//                .andExpect(status().isOk())
-//                .andReturn();
-//
-//        // Verify the response message
-//        String responseBody = mvcResult.getResponse().getContentAsString();
-//        assertTrue(responseBody.contains("Registered Successfully"));
-//    }
     @Test
     public void testRegisterAdmin() throws Exception {
         skills.add("React");
@@ -401,11 +371,6 @@ public class EmployeeControllerTest {
         updatedSkills.put("skills", skills);
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBody = objectMapper.writeValueAsString(updatedSkills);
-
-//        mockMvc.perform(put("/api/updateSkill/{id}", employeeId)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(requestBody))
-//                .andExpect(status().isOk());
         MvcResult mvcResult = this .mockMvc.perform(put("/api/updateSkill/{id}", employeeId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
@@ -415,7 +380,6 @@ public class EmployeeControllerTest {
         }
     @Test
     void testGetFilteredEmployees() throws Exception {
-        // Define query parameters
         List<String> selectedSkills = Arrays.asList("Java", "Spring");
         boolean showOnlyUnassigned = true; 
 
@@ -513,21 +477,7 @@ public class EmployeeControllerTest {
     }
     @Test
     void testGetAllByManagerId() throws Exception{
-//        List<ProjectOutDto> list = new ArrayList<>();
-//        List<String> teams = new ArrayList<>();
-//        ProjectOutDto prjDto = new ProjectOutDto();
-//        prjDto.setProjectName("Fynder");
-//        prjDto.setManagerId(1L);
-//        prjDto.setStartDate("2023-06-07");
-//        prjDto.setRequiredSkills(skills);
-//        prjDto.setDescription("Description");
-//        prjDto.setHead("Ankita Sharma");
-//        prjDto.setId(0L);
-//        prjDto.setTeam(teams);
-//        list.add(prjDto);
-//
-//       
-//        when(projectService.getAllByManagerId(prjDto.getManagerId())).thenReturn(list);
+
         MvcResult mvcResult = this.mockMvc.perform(get("/api/projectCards/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();

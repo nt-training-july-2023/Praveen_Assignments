@@ -2,6 +2,8 @@ package com.backend.EMS.DTO;
 
 import java.util.Objects;
 
+import jakarta.validation.constraints.NotBlank;
+
 /**
  * Data Transfer Object (DTO) for handling login information.
  */
@@ -9,11 +11,13 @@ public class LoginInDto {
     /**
      * The email associated with the login.
      */
+    @NotBlank
     private String email;
 
     /**
      * The password associated with the login.
      */
+    @NotBlank
     private String password;
 
     /**

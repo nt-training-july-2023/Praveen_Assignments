@@ -206,17 +206,6 @@ function AddProject() {
                 label: `${manager.empId} - ${manager.name}`,
               }))}
             />
-
-            {/* <Select
-            type={"text"}
-            name={"managerId"}
-            className={"AddProject-abc"}
-            onChange={(e) => {
-              setManagerId(e.target.value);
-            }}
-            options={managerList}
-            placeholder={"Select Manager"}
-          /> */}
             {/* <option value="">Select Manager</option>
             {managerList.map((manager) => {
               return (

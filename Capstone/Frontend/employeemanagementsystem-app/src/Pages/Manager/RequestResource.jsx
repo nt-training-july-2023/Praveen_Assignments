@@ -8,6 +8,7 @@ import "./RequestResource.css";
 import managerService from "../../Service/ManagerService";
 import Button from "../../components/Button";
 import Select from "../../components/Select";
+import Label from "../../components/Label";
 
 function RequestResource() {
   const [projects, setProjects] = useState([]);
@@ -139,7 +140,7 @@ function RequestResource() {
         </select>
         <div>
           {" "}
-          <label className="form-label">Description</label>
+          <Label className={"form-label"} text={"Description"}/>
         </div>
         <div>
           <textarea

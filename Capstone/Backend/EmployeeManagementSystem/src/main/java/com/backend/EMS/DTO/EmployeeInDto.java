@@ -79,6 +79,7 @@ public class EmployeeInDto {
     /**
      * The role of employee.
      */
+    @NotNull
     private Role role;
 
     /**

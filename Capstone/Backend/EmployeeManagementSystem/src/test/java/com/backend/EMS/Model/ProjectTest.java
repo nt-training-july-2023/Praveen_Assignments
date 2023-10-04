@@ -73,12 +73,10 @@ public class ProjectTest {
         project2.setId(2L);
         project2.setProjectName("Project B");
 
-        // Test equality
         assertTrue(project1.equals(project1));
         assertFalse(project1.equals(null));
         assertFalse(project1.equals(project2));
 
-        // Test hash code
         assertEquals(project1.hashCode(), project1.hashCode());
         assertNotEquals(project1.hashCode(), project2.hashCode());
     }

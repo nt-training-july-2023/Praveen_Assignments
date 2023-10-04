@@ -15,19 +15,15 @@ public class LoginOutDtoTest {
     public void testSetterGetter() {
         LoginOutDto dto = new LoginOutDto();
 
-        // Test setId and getId
         dto.setId(1L);
         assertEquals(Long.valueOf(1L), dto.getId());
 
-        // Test setRole and getRole
         dto.setRole(Role.Admin);
         assertEquals(Role.Admin, dto.getRole());
 
-        // Test setMessage and getMessage
         dto.setMessage("Success");
         assertEquals("Success", dto.getMessage());
 
-        // Test setName and getName
         dto.setName("John");
         assertEquals("John", dto.getName());
     }
@@ -36,13 +32,11 @@ public class LoginOutDtoTest {
     public void testNullValues() {
         LoginOutDto dto = new LoginOutDto();
 
-        // Test setting null values
         dto.setId(null);
         dto.setRole(null);
         dto.setMessage(null);
         dto.setName(null);
 
-        // Test getting null values
         assertNull(dto.getId());
         assertNull(dto.getRole());
         assertNull(dto.getMessage());
@@ -63,7 +57,6 @@ public class LoginOutDtoTest {
         dto2.setMessage("Success");
         dto2.setName("John");
 
-        // HashCode should be the same for equal objects
         assertEquals(dto1.hashCode(), dto2.hashCode());
     }
 
@@ -87,10 +80,8 @@ public class LoginOutDtoTest {
         dto3.setMessage("Failure");
         dto3.setName("Jane");
 
-        // Test equality with equal objects
         assertEquals(dto1, dto2);
 
-        // Test inequality with different objects
         assertNotEquals(dto1, dto3);
     }
 

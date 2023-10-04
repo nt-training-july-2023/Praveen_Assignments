@@ -97,7 +97,7 @@ public class Validation {
     public final void checkRoleExists(final String role) {
         try {
             Role.valueOf(role);
-            return; // The role exists
+            return; 
         } catch (IllegalArgumentException e) {
             LOGGER.error("Role is not Present");
             throw new UserNotFound("Role not found");
@@ -169,7 +169,6 @@ public class Validation {
      * @param loginInDto login dto containing login informations
      */
         public final void checkLogin(@Valid final LoginInDto loginInDto) {
-            // TODO Auto-generated method stub
             checkEmailNotExists(loginInDto);
             Employee employee = employeeRepository
                     .findByEmail(loginInDto.getEmail());
@@ -191,7 +190,6 @@ public class Validation {
          * @param empDto Employee dto containing admin informations
          */
         public final void checkAdmin(@Valid final EmployeeInDto empDto) {
-            // TODO Auto-generated method stub
             checkAdminExists();
             checkEmailExists(empDto);
             checkEmployeeIdExists(empDto);
@@ -202,7 +200,6 @@ public class Validation {
          * @param empDto employee dto containing employee informations
          */
         public final void checkEmployee(@Valid final EmployeeInDto empDto) {
-            // TODO Auto-generated method stub
             checkEmailExists(empDto);
             checkEmployeeIdExists(empDto);
             checkContactNumberExists(empDto);
@@ -281,6 +278,16 @@ public class Validation {
                 throw new UserNotFound("employee not exists");
             }
         }
+        public final void assignProject(Long id, Long managerId,Long projectId) {
+            if(managerId==null || projectId==null) {
+                throw new UserNotFound("managerId and projectId "
+                        + " should not be null");
+            }
+            checkEmployeeExists(id);
+            checkManagerExists(managerId);
+            checkProjectExists(projectId);
+        }
+        
 
 }
 

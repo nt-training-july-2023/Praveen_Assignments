@@ -1,6 +1,8 @@
 package com.backend.EMS.DTO;
 
 import java.util.Objects;
+
+import jakarta.validation.constraints.NotNull;
 /**
  * Data Transfer Object (DTO) for handling IsRequested information.
  */
@@ -8,10 +10,12 @@ public class IsRequestedInDto {
     /**
      * The employeeId of the employee.
      */
+    @NotNull
     private Long employeeId;
     /**
      * The id of the employee.
      */
+    @NotNull
     private Long id;
     /**
      * @return the employeeId

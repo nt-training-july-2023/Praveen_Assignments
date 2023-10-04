@@ -2,6 +2,8 @@ package com.backend.EMS.DTO;
 
 import java.util.Objects;
 
+import jakarta.validation.constraints.NotBlank;
+
 /**
  * Data Transfer Object (DTO) for handling response information.
  */
@@ -9,22 +11,27 @@ public class RequestResourceInDto {
     /**
      * The unique identifier for the RequestResource.
      */
+    @NotBlank
     private Long id;
     /**
      * The employeeId of the RequestResource.
      */
+    @NotBlank
     private Long employeeId;
     /**
      * The projectId of the RequestResource.
      */
+    @NotBlank
     private Long projectId;
     /**
      * the ManagerId of the RequestResource.
      */
+    @NotBlank
     private Long managerId;
     /**
      * The comment for the RequestResource.
      */
+    @NotBlank
     private String comment;
 
     /**

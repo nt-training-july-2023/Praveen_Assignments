@@ -39,16 +39,12 @@ public class ProjectServiceTest {
 
     @BeforeEach
     public void setUp() {
-//        projectRepository = mock(ProjectRepository.class);
-//        modelMapper = new ModelMapper();
-//        projectService = new ProjectService(projectRepository, modelMapper);
         MockitoAnnotations.openMocks(this);
     }
 
 
     @Test
     public void testAddProject() {
-        // Create test data
         ProjectInDto projectInDto = new ProjectInDto();
         projectInDto.setProjectName("NuoData");
         projectInDto.setId(1L);
@@ -60,20 +56,16 @@ public class ProjectServiceTest {
         project.setId(1L);
         project.setProjectName("NuoData");
 
-        // Mock repository behavior
         when(projectRepository.save(any(Project.class))).thenReturn(project);
 
-        // Call the method to test
         ResponseDto response = projectService.addProject(projectInDto);
 
-        // Verify the result
         assertNotNull(response);
         assertEquals("Project Added Successfully", response.getMessage());
     }
     
     @Test
     public void testGetAllProject() {
-        // Create test data
         Project project1 = new Project();
         project1.setId(1L);
         project1.setProjectName("Project A");
@@ -94,13 +86,11 @@ public class ProjectServiceTest {
         manager2.setId(2L);
         manager2.setName("Manager B");
 
-        // Mock repository behavior
         when(projectRepository.findAll()).thenReturn(projects);
         when(employeeRepository.findEmployeesByProjectId(Mockito.anyLong())).thenReturn(new ArrayList<>());
         when(employeeRepository.findById(1L)).thenReturn(java.util.Optional.of(manager1));
         when(employeeRepository.findById(2L)).thenReturn(java.util.Optional.of(manager2));
 
-        // Mock modelMapper behavior
         ProjectOutDto projectOutDto1 = new ProjectOutDto();
         projectOutDto1.setId(1L);
         projectOutDto1.setProjectName("Project A");
@@ -116,10 +106,8 @@ public class ProjectServiceTest {
         when(modelMapper.map(project1, ProjectOutDto.class)).thenReturn(projectOutDto1);
         when(modelMapper.map(project2, ProjectOutDto.class)).thenReturn(projectOutDto2);
 
-        // Call the method to test
         List<ProjectOutDto> result = projectService.getAllProject();
 
-        // Verify the result
         assertNotNull(result);
         assertEquals(2, result.size());
 
@@ -136,7 +124,6 @@ public class ProjectServiceTest {
     
     @Test
     public void testGetAllByManagerId() {
-        // Create test data
         Long managerId = 1L;
 
         Project project1 = new Project();
@@ -161,15 +148,12 @@ public class ProjectServiceTest {
         teamMember2.setId(4L);
         teamMember2.setName("Employee 2");
 
-        // Mock repository behavior
         when(projectRepository.findAllByManagerId(managerId)).thenReturn(projects);
-//        when(employeeRepository.findEmployeesByProjectId()).thenReturn(new ArrayList<>());
         when(employeeRepository.findEmployeesByProjectId(Mockito.anyLong())).thenReturn(new ArrayList<>());
 
         when(employeeRepository.findById(3L)).thenReturn(java.util.Optional.of(teamMember1));
         when(employeeRepository.findById(4L)).thenReturn(java.util.Optional.of(teamMember2));
 
-        // Mock modelMapper behavior
         ProjectOutDto projectOutDto1 = new ProjectOutDto();
         projectOutDto1.setId(1L);
         projectOutDto1.setProjectName("Project A");
@@ -185,10 +169,8 @@ public class ProjectServiceTest {
         when(modelMapper.map(project1, ProjectOutDto.class)).thenReturn(projectOutDto1);
         when(modelMapper.map(project2, ProjectOutDto.class)).thenReturn(projectOutDto2);
 
-        // Call the method to test
         List<ProjectOutDto> result = projectService.getAllByManagerId(managerId);
 
-        // Verify the result
         assertNotNull(result);
         assertEquals(2, result.size());
 
@@ -196,21 +178,15 @@ public class ProjectServiceTest {
         assertEquals(1L, retrievedProject1.getId());
         assertEquals("Project A", retrievedProject1.getProjectName());
         assertEquals(managerId, retrievedProject1.getManagerId());
-//        assertEquals(List.of("Employee 1", "Employee 2"), retrievedProject1.getTeam());
 
         ProjectOutDto retrievedProject2 = result.get(1);
         assertEquals(2L, retrievedProject2.getId());
         assertEquals("Project B", retrievedProject2.getProjectName());
         assertEquals(managerId, retrievedProject2.getManagerId());
-//        assertEquals(List.of("Employee 1", "Employee 2"), retrievedProject2.getTeam());
     }
 
-    // Add more test cases as needed for different scenarios
-
-    // Helper method to create a sample ProjectInDto
     private ProjectInDto createSampleProjectDto() {
         ProjectInDto projectInDto = new ProjectInDto();
-        // Set sample project DTO properties here
         projectInDto.setProjectName("NuoData");
         projectInDto.setId(1L);
         projectInDto.setManagerId(1L);

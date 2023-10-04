@@ -44,7 +44,6 @@ public class ProjectController {
      */
     private static final Logger LOGGER
             = LoggerFactory.getLogger(EmployeeController.class);
-
     /**
      * Add a new project.
      *
@@ -54,7 +53,7 @@ public class ProjectController {
      * @return A ResponseDto indicating the
         success or failure of the project addition.
      */
-    @PostMapping("/addProject")
+    @PostMapping("/admin/add-project")
     public final ResponseDto addProject(@RequestBody @Valid
             final ProjectInDto projectInDto,
             final BindingResult bindingResult) {
@@ -70,7 +69,7 @@ public class ProjectController {
      *
      * @return A list of ProjectOutDto objects representing all projects.
      */
-    @GetMapping("/projectCards")
+    @GetMapping("/projects")
     public final List<ProjectOutDto> getAllProjects() {
         LOGGER.info("get all projects method invoked");
         List<ProjectOutDto> projectOutDtoList = projectService.

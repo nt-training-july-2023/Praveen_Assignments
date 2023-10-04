@@ -17,37 +17,30 @@ public class RequestResourceInDtoTest {
 
     @Test
     public void testSetterGetter() {
-        // Test setId and getId
         dto.setId(1L);
         assertEquals(1L,  dto.getId());
 
-        // Test setEmployeeId and getEmployeeId
         dto.setEmployeeId(2L);
         assertEquals(2L,  dto.getEmployeeId());
 
-        // Test setProjectId and getProjectId
         dto.setProjectId(3L);
         assertEquals(3L, dto.getProjectId());
 
-        // Test setManagerId and getManagerId
         dto.setManagerId(4L);
         assertEquals(4L, dto.getManagerId());
 
-        // Test setComment and getComment
         dto.setComment("Test comment");
         assertEquals("Test comment", dto.getComment());
     }
 
     @Test
     public void testNullValues() {
-        // Test getting null values for all fields
         assertNull(dto.getId());
         assertNull(dto.getEmployeeId());
         assertNull(dto.getProjectId());
         assertNull(dto.getManagerId());
         assertNull(dto.getComment());
 
-        // Test setting null values for all fields
         dto.setId(null);
         dto.setEmployeeId(null);
         dto.setProjectId(null);
@@ -77,7 +70,6 @@ public class RequestResourceInDtoTest {
         dto2.setManagerId(4L);
         dto2.setComment("Test comment");
 
-        // HashCode should be the same for equal objects
         assertEquals(dto1.hashCode(), dto2.hashCode());
     }
 
@@ -104,10 +96,8 @@ public class RequestResourceInDtoTest {
         dto3.setManagerId(8L);
         dto3.setComment("Another comment");
 
-        // Test equality with equal objects
         assertEquals(dto1, dto2);
 
-        // Test inequality with different objects
         assertNotEquals(dto1, dto3);
     }
 
