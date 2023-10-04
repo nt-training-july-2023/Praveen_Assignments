@@ -7,6 +7,9 @@ import SkillsDropDown from "../../../components/Dropdowns/Skills";
 import MultipleSelectDropdown from "../../../components/MultipleSelectDropdown/MultipleSelectDropdown";
 import adminService from "../../../Service/AdminService";
 import Button from "../../../components/Button";
+import Label from "../../../components/Label";
+import Input from "../../../components/Input";
+import Select from "../../../components/Select";
 
 function AddProject() {
   const [projectName, setProjectName] = useState("");
@@ -163,40 +166,58 @@ function AddProject() {
     return <h1>Unauthorized access</h1>;
   }
   return (
-    <div className="AddProject-form">
-      <div className="AddProject-form-header">
-        <h2>ADD PROJECT</h2>
-      </div>
-
-      <div className="AddProject-form-body">
-        <div className="AddProject-form-group">
-          <label className="AddProject-form-label">ProjectName</label>
-          <input
-            className="AddProject-input"
-            type="text"
-            placeholder="Enter ProjectName"
-            value={projectName}
-            onChange={(event) => setProjectName(event.target.value)}
-            onBlur={validateProjectName}
-          />
+    <div className="AddProject-container">
+      <div className="AddProject-form">
+        <div className="AddProject-form-header">
+          <h2>ADD PROJECT</h2>
         </div>
-        {projectNameError && (
-          <span style={{ fontSize: "12px", color: "red" }}>
-            {projectNameError}
-          </span>
-        )}
 
-        <div className="AddProject-form-group">
-          <label className="AddProject-form-label">ManagerId</label>
-          <select
-            type="text"
-            name="managerId"
-            className="AddProject-abc"
+        <div className="AddProject-form-body">
+          <div className="AddProject-form-group">
+            <Label className={"AddProject-form-label"} text={"ProjectName"} />
+            <Input
+              className={"AddProject-input"}
+              type={"text"}
+              placeholder={"Enter ProjectName"}
+              value={projectName}
+              onChange={(event) => setProjectName(event.target.value)}
+              onBlur={validateProjectName}
+            />
+          </div>
+          {projectNameError && (
+            <span style={{ fontSize: "12px", color: "red" }}>
+              {projectNameError}
+            </span>
+          )}
+
+          <div className="AddProject-form-group">
+            <Label className="AddProject-form-label" text={"ManagerId"} />
+            <Select
+              type={"text"}
+              name={"managerId"}
+              className={"AddProject-abc"}
+              placeholder={"Select Manager"}
+              value={managerId}
+              onChange={(e) => {
+                setManagerId(e.target.value);
+              }}
+              options={managerList.map((manager) => ({
+                value: manager.id, // Use the appropriate property for the value
+                label: `${manager.empId} - ${manager.name}`,
+              }))}
+            />
+
+            {/* <Select
+            type={"text"}
+            name={"managerId"}
+            className={"AddProject-abc"}
             onChange={(e) => {
               setManagerId(e.target.value);
             }}
-          >
-            <option value="">Select Manager</option>
+            options={managerList}
+            placeholder={"Select Manager"}
+          /> */}
+            {/* <option value="">Select Manager</option>
             {managerList.map((manager) => {
               return (
                 <option key={manager.id} value={manager.id}>
@@ -204,88 +225,92 @@ function AddProject() {
                 </option>
               );
             })}
-          </select>
-        </div>
-        {managerIdError && (
-          <span style={{ fontSize: "12px", color: "red" }}>
-            {managerIdError}
-          </span>
-        )}
+          </Select> */}
+          </div>
+          {managerIdError && (
+            <span style={{ fontSize: "12px", color: "red" }}>
+              {managerIdError}
+            </span>
+          )}
 
-        <div className="AddProject-form-group">
-          <label className="AddProject-form-label">Start Date</label>
-          <input
-            className="AddProject-input"
-            type="date"
-            placeholder="Enter Start Date"
-            value={startDate}
-            onChange={(event) => {
-              setStartDate(event.target.value);
-            }}
-            onBlur={validateStartDate}
+          <div className="AddProject-form-group">
+            <Label className={"AddProject-form-label"} text={"Start Date"} />
+            <Input
+              className={"AddProject-input"}
+              type={"date"}
+              placeholder={"Enter Start Date"}
+              value={startDate}
+              onChange={(event) => {
+                setStartDate(event.target.value);
+              }}
+              onBlur={validateStartDate}
+            />
+          </div>
+          {startDateError && (
+            <span style={{ fontSize: "12px", color: "red" }}>
+              {startDateError}
+            </span>
+          )}
+
+          <div className="AddProject-form-group">
+            <Label
+              className={"AddProject-form-label"}
+              text={"Skills Required"}
+            />
+            <MultipleSelectDropdown
+              options={SkillsDropDown.map((skill) => ({
+                value: skill,
+                label: skill,
+              }))}
+              selectedOptions={selectedSkills.map((skill) => ({
+                value: skill,
+                label: skill,
+              }))}
+              onChange={handleSkillChange}
+              placeholder="Select Skills"
+              onBlur={validateRequiredSkills}
+            />
+          </div>
+          {requiredSkillsError && (
+            <span style={{ fontSize: "12px", color: "red" }}>
+              {requiredSkillsError}
+            </span>
+          )}
+          <div>
+            {" "}
+            <Label className={"AddProject-form-label"} text={"Description"} />
+          </div>
+          <div>
+            <textarea
+              id="description"
+              className="AddProject-description-box"
+              placeholder="Enter your description here..."
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
+              onBlur={validateDescription}
+            ></textarea>
+          </div>
+          {descriptionError && (
+            <span style={{ fontSize: "12px", color: "red" }}>
+              {descriptionError}
+            </span>
+          )}
+        </div>
+
+        <div className="AddProject-buttons">
+          <Button
+            type="submit"
+            className={"AddProject-button-cancel"}
+            onClick={redirectToAdminDashboard}
+            text={"Back to Home"}
+          />
+          <Button
+            type="submit"
+            className={"AddProject-button-submit"}
+            onClick={save}
+            text={"ADD Project"}
           />
         </div>
-        {startDateError && (
-          <span style={{ fontSize: "12px", color: "red" }}>
-            {startDateError}
-          </span>
-        )}
-
-        <div className="AddProject-form-group">
-          <label className="AddProject-form-label">SkillsRequired</label>
-          <MultipleSelectDropdown
-            options={SkillsDropDown.map((skill) => ({
-              value: skill,
-              label: skill,
-            }))}
-            selectedOptions={selectedSkills.map((skill) => ({
-              value: skill,
-              label: skill,
-            }))}
-            onChange={handleSkillChange}
-            placeholder="Select Skills"
-            onBlur={validateRequiredSkills}
-          />
-        </div>
-        {requiredSkillsError && (
-          <span style={{ fontSize: "12px", color: "red" }}>
-            {requiredSkillsError}
-          </span>
-        )}
-        <div>
-          {" "}
-          <label className="AddProject-form-label">Description</label>
-        </div>
-        <div>
-          <textarea
-            id="description"
-            className="AddProject-description-box"
-            placeholder="Enter your description here..."
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
-            onBlur={validateDescription}
-          ></textarea>
-        </div>
-        {descriptionError && (
-          <span style={{ fontSize: "12px", color: "red" }}>
-            {descriptionError}
-          </span>
-        )}
-      </div>
-
-      <div className="AddProject-buttons">
-        <Button
-          type="submit"
-          className={"AddProject-button-cancel"}
-          onClick={redirectToAdminDashboard}
-          text={"Back to Home"}
-        />
-        <Button
-          type="submit"
-          className={"AddProject-button-submit"}
-          onClick={save}
-          text={"ADD Project"}
-        />
       </div>
     </div>
   );

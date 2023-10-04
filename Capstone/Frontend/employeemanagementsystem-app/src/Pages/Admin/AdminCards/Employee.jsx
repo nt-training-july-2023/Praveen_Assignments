@@ -26,33 +26,7 @@ function EmployeeCard() {
     setSelectedEmployee(null);
   };
 
-  // useEffect(() => {
-  //   getAllEmployees();
-  // }, []);
 
-  // const getAllEmployees = async () => {
-  //   try {
-  //     adminService.getAllEmployees().then((response) => {
-  //       // console.log(response.data);
-  //       setEmployees(response.data);
-  //     });
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
-  // // Function to handle unassigning an employee
-  // const handleUnassignEmployee = async () => {
-  //   if (selectedEmployee) {
-  //     try {
-  //       adminService.unassignProject(selectedEmployee.id).then((response) => {
-  //         getAllEmployees();
-  //         closeUnassignPopup(); // Close the popup after successful unassignment
-  //       });
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   }
-  // };
   useEffect(() => {
     getAllEmployees();
   }, []);

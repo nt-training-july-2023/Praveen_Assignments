@@ -4,9 +4,30 @@ body{
     
     /* background:linear-gradient(#33ccff , #660066); */
   }
+  .AddProject-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* overflow-y: scroll; */
+    height: 100vh;
+    width: 100%;
+    /* background-image:
+     linear-gradient(to right , rgb(0, 0, 0 , 0.7) , rgba(48, 48, 48, 0.555) ), 
+    url(../../../assets/admin/bg.jpg)
+    ; */
+  /* background-color: #8B0000; */
+  background-size: cover;
+  /* background-repeat: no-repeat; */
+  background-attachment: fixed;
+   background: linear-gradient(#dde3e6, #8991ce);
+   
+  
+
+  }
   
   .AddProject-form {
-    background: linear-gradient(#dde3e6, #8991ce);
+    
+    /* background: linear-gradient(#dde3e6, #8991ce); */
     max-width: 500px;
     min-height: 500px;
     margin: 0 auto;

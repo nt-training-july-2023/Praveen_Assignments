@@ -9,6 +9,9 @@ import { Slide, toast } from "react-toastify"; // Import toast and ToastContaine
 import "react-toastify/dist/ReactToastify.css"; // Import the default styles
 import adminService from "../../../Service/AdminService";
 import Button from "../../../components/Button";
+import Label from "../../../components/Label";
+import Input from "../../../components/Input";
+import Select from "../../../components/Select";
 
 function AdminRegistration() {
   const [name, setName] = useState("");
@@ -239,11 +242,11 @@ function AdminRegistration() {
 
           <div className="AdminRegistration-form-body">
             <div className="AdminRegistration-form-group">
-              <label className="AdminRegistration-form-label">Name</label>
-              <input
-                className="AdminRegistration-form-input"
-                type="text"
-                placeholder="Enter Name"
+              <Label className={"AdminRegistration-form-label"} text={"Name"} />
+              <Input
+                className={"AdminRegistration-form-input"}
+                type={"text"}
+                placeholder={"Enter Name"}
                 value={name}
                 onChange={(event) => setName(event.target.value)}
                 onBlur={validateName}
@@ -256,11 +259,14 @@ function AdminRegistration() {
             )}
 
             <div className="AdminRegistration-form-group">
-              <label className="AdminRegistration-form-label">Email</label>
-              <input
-                className="AdminRegistration-form-input"
-                type="email"
-                placeholder="example abc@Nucleusteq.com"
+              <Label
+                className={"AdminRegistration-form-label"}
+                text={"Email"}
+              />
+              <Input
+                className={"AdminRegistration-form-input"}
+                type={"email"}
+                placeholder={"example abc@Nucleusteq.com"}
                 value={email}
                 onChange={(event) => {
                   setEmail(event.target.value);
@@ -275,11 +281,14 @@ function AdminRegistration() {
             )}
 
             <div className="AdminRegistration-form-group">
-              <label className="AdminRegistration-form-label">EmployeeId</label>
-              <input
-                className="AdminRegistration-form-input"
-                type="text"
-                placeholder="Enter Employee ID"
+              <Label
+                className={"AdminRegistration-form-label"}
+                text={"EmployeeId"}
+              />
+              <Input
+                className={"AdminRegistration-form-input"}
+                type={"text"}
+                placeholder={"Enter Employee ID"}
                 value={empId}
                 onChange={(event) => {
                   setEmpId(event.target.value);
@@ -293,11 +302,11 @@ function AdminRegistration() {
               </span>
             )}
             <div className="AdminRegistration-form-group">
-              <label className="AdminRegistration-form-label">DOB</label>
-              <input
-                className="AdminRegistration-form-input"
-                type="date"
-                placeholder="Enter DOB"
+              <Label className={"AdminRegistration-form-label"} text={"DOB"} />
+              <Input
+                className={"AdminRegistration-form-input"}
+                type={"date"}
+                placeholder={"Enter DOB"}
                 value={dob}
                 onChange={(event) => {
                   setDOB(event.target.value);
@@ -310,11 +319,11 @@ function AdminRegistration() {
             )}
 
             <div className="AdminRegistration-form-group">
-              <label className="form-label">DOJ</label>
-              <input
-                className="AdminRegistration-form-input"
-                type="date"
-                placeholder="Enter DOJ"
+              <Label className={"form-label"} text={"DOJ"} />
+              <Input
+                className={"AdminRegistration-form-input"}
+                type={"date"}
+                placeholder={"Enter DOJ"}
                 value={doj}
                 onChange={(event) => {
                   setDOJ(event.target.value);
@@ -327,20 +336,25 @@ function AdminRegistration() {
             )}
 
             <div className="AdminRegistration-form-group">
-              <label className="AdminRegistration-form-label">location</label>
-              <select
-                className="AdminRegistration-form-dropdown"
+              <Label
+                className={"AdminRegistration-form-label"}
+                text={"location"}
+              />
+              <Select
+                className={"AdminRegistration-form-dropdown"}
                 value={location}
                 onChange={(event) => setLocation(event.target.value)}
+                placeholder={"Select Location"}
                 onBlur={validateLocation}
-              >
-                <option value="">Select Location</option>
+                options={locations}
+              />
+              {/* <option value="">Select Location</option>
                 {locations.map((option, index) => (
                   <option key={index} value={option}>
                     {option}
                   </option>
-                ))}
-              </select>
+                ))} */}
+              {/* </Sele> */}
             </div>
             {locationError && (
               <span style={{ fontSize: "12px", color: "red" }}>
@@ -349,22 +363,26 @@ function AdminRegistration() {
             )}
 
             <div class="AdminRegistration-form-group">
-              <label className="AdminRegistration-form-label">
-                designation
-              </label>
-              <select
-                className="AdminRegistration-form-dropdown"
+              <Label
+                className={"AdminRegistration-form-label"}
+                text={"designation"}
+              />
+
+              <Select
+                className={"AdminRegistration-form-dropdown"}
                 value={designation}
                 onChange={(event) => setDesignation(event.target.value)}
                 onBlur={validateDesignation}
-              >
-                <option value="">Select Designation</option>
+                placeholder={"Select Designation"}
+                options={designations}
+              />
+              {/* <option value="">Select Designation</option>
                 {designations.map((option, index) => (
                   <option key={index} value={option}>
                     {option}
                   </option>
                 ))}
-              </select>
+              </Select> */}
             </div>
             {designationError && (
               <span style={{ fontSize: "12px", color: "red" }}>
@@ -373,11 +391,14 @@ function AdminRegistration() {
             )}
 
             <div className="AdminRegistration-form-group">
-              <label className="AdminRegistration-form-label">contactNo</label>
-              <input
-                className="AdminRegistration-form-input"
-                type="text"
-                placeholder="Enter Contact Number"
+              <Label
+                className={"AdminRegistration-form-label"}
+                text={"conatactNo"}
+              />
+              <Input
+                className={"AdminRegistration-form-input"}
+                type={"text"}
+                placeholder={"Enter Contact Number"}
                 value={contactNo}
                 onChange={(event) => {
                   setContactNo(event.target.value);
@@ -392,11 +413,14 @@ function AdminRegistration() {
             )}
 
             <div className="AdminRegistration-form-group">
-              <label className="AdminRegistration-form-label">password</label>
-              <input
-                className="AdminRegistration-form-input"
-                type="password"
-                placeholder="Enter Password"
+              <Label
+                className={"AdminRegistration-form-label"}
+                text={"password"}
+              />
+              <Input
+                className={"AdminRegistration-form-input"}
+                type={"password"}
+                placeholder={"Enter Password"}
                 value={password}
                 onChange={(event) => {
                   setPassword(event.target.value);
@@ -410,13 +434,14 @@ function AdminRegistration() {
               </span>
             )}
             <div className="AdminRegistration-form-group">
-              <label className="AdminRegistration-form-label">
-                Confirm Password
-              </label>
-              <input
-                className="AdminRegistration-form-input"
-                type="password"
-                placeholder="Enter Confirm Password"
+              <Label
+                className={"AdminRegistration-form-label"}
+                text={"Confirm passwoed"}
+              />
+              <Input
+                className={"AdminRegistration-form-input"}
+                type={"password"}
+                placeholder={"Enter Confirm Password"}
                 value={confirmPassword}
                 onChange={(event) => {
                   setConfirmPassword(event.target.value);
@@ -442,7 +467,7 @@ function AdminRegistration() {
               type="submit"
               className={"AdminRegistration-button-submit"}
               onClick={save}
-              text="Register"
+              text={"Register"}
             />
           </div>
         </div>

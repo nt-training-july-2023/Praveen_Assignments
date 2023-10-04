@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./RequestResource.css";
 import managerService from "../../Service/ManagerService";
 import Button from "../../components/Button";
+import Select from "../../components/Select";
 
 function RequestResource() {
   const [projects, setProjects] = useState([]);
@@ -25,7 +26,6 @@ function RequestResource() {
 
   const navigate = useNavigate();
 
-
   const validateDescription = () => {
     if (description === "") {
       setDescriptionError("Description cannot be empty");
@@ -36,7 +36,6 @@ function RequestResource() {
 
   const validateAssign = () => {
     if (projectId === "" || managerId == "") {
-  
       setAssignError("select designation");
     } else {
       setAssignError("");
@@ -52,10 +51,10 @@ function RequestResource() {
         console.error("Error fetching data:", error);
       }
     };
-  
+
     fetchData();
   }, [id]);
-  
+
   const handleUpdate = async () => {
     const toastId = "handleUpdate";
     validateAssign();
@@ -83,7 +82,6 @@ function RequestResource() {
       }
     }
   };
-  
 
   const handleCancel = (e) => {
     navigate("/ManagerDashboard");
@@ -110,6 +108,18 @@ function RequestResource() {
       <br />
       <div className="RR-container">
         <h2 style={{ fontWeight: "bold" }}>{stateData.empName}</h2>
+        {/* <Select
+          value={projectId}
+          onChange={handleSelectChange}
+          className="RR-project-input-box"
+          onBlur={validateAssign}
+          placeholder={"Select Project"}
+          options={projects.map((item) => ({
+            label: `${item.id} - ${item.projectName}`,
+            value: item.id,
+          }))}
+        /> */}
+
         <select
           type="text"
           name="managerId"
@@ -148,18 +158,13 @@ function RequestResource() {
         )}
 
         <div className="RR-button-container">
+          <Button type="button" onClick={handleUpdate} text={"Request"} />
           <Button
-           type="button" 
-           onClick={handleUpdate}
-           text ={"Request"}
-           />
-          <Button
-           type="button" 
-           className={"secondary"} 
-           onClick={handleCancel}
-           text = {" Cancel"}
-           />
-         
+            type="button"
+            className={"secondary"}
+            onClick={handleCancel}
+            text={" Cancel"}
+          />
         </div>
       </div>
     </div>

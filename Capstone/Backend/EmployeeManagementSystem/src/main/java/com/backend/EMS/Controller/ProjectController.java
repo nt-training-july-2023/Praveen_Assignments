@@ -59,7 +59,6 @@ public class ProjectController {
             final ProjectInDto projectInDto,
             final BindingResult bindingResult) {
         validation.checkProject(projectInDto);
-        validation.patterValidations(bindingResult);
         LOGGER.info("Add project method invoked");
         ResponseDto responseDto = projectService.addProject(projectInDto);
         LOGGER.info("Added project successfully");

@@ -65,7 +65,8 @@ public class Validation {
      * @param employeeInDto The EmployeeinDto
      * @throwsUserAlreadyFound exception
      */
-    public final void checkEmailExists(final EmployeeInDto employeeInDto) {
+    public final void checkEmailExists(final
+            EmployeeInDto employeeInDto) {
         if (employeeRepository.findByEmail(employeeInDto.
                 getEmail()) != null) {
             LOGGER.error("Email id already exists");
@@ -78,8 +79,10 @@ public class Validation {
      * @throwsUserAlreadyFound exception.
      */
     public final void checkAdminExists() {
-        List<Employee> employee = employeeRepository.findByRole(Role.Admin);
+        List<Employee> employee = employeeRepository.
+                findByRole(Role.Admin);
         if(employee.size()!=0) {
+            LOGGER.error("Admin Already exists");
             throw new UserAlreadyFound(
             "Admin Already Exists");
         }
@@ -88,7 +91,8 @@ public class Validation {
      * Check if a role exists.
      *
      * @param role The role to check.
-     * @throws UserNotFound If the role is not found, throw this exception.
+     * @throws UserNotFound If the role is not found,
+     * throw this exception.
      */
     public final void checkRoleExists(final String role) {
         try {
@@ -202,49 +206,6 @@ public class Validation {
             checkEmailExists(empDto);
             checkEmployeeIdExists(empDto);
             checkContactNumberExists(empDto);
-        }
-        /**
-         * Perform pattern-based validations and handle validation errors.
-         *
-         * This method checks for validation
-         * errors in the provided {@link BindingResult}.
-         * If validation errors are found, it
-         * throws an {@link CustomException} exception
-         * containing a string representation of the validation errors.
-         *
-         * @param bindingResult The {@link BindingResult}
-         * containing validation results.
-         * @throws CustomException If validation errors
-         * are found, an exception is thrown
-         *                             with details about the validation errors.
-         */
-        public final void patterValidations(final BindingResult bindingResult) {
-            // Check for validation errors
-            if (bindingResult.hasErrors()) {
-                // Get validation errors as a String
-                String validationErrors =
-                        getValidationErrorsAsString(bindingResult);
-
-                // Throw a custom exception with the validation errors
-                LOGGER.error("Validation errors");
-                throw new CustomException(validationErrors);
-            }
-        }
-        /**
-         * Get validation errors as a string.
-         *
-         * @param bindingResult The BindingResult containing validation errors.
-         * @return A string representation of validation errors.
-         */
-        public final String getValidationErrorsAsString(final
-                BindingResult bindingResult) {
-            StringBuilder errorBuilder = new StringBuilder();
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                errorBuilder.append("Field: ").append(error.getField());
-                errorBuilder.append(", Error: ").append(error.
-                        getDefaultMessage()).append("\n");
-            }
-            return errorBuilder.toString();
         }
         /**
          * Check if an employee exists by ID.

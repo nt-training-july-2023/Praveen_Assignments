@@ -3,12 +3,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #ffffff;
-  /* min-height: 100vh; */
+  /* background: linear-gradient(#dde3e6, #8991ce); */
+  /* background: linear-gradient(#dde3e6, grey); */
+ 
+  min-height: 100vh;
+  
 }
 
 .nav-bar {
-  background: linear-gradient(#19161a, #420248);
+  background: linear-gradient(#272328, #420248);
   color: #fff;
   padding: 20px;
   width: 97%;

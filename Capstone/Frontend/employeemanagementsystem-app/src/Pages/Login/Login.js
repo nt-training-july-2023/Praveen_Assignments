@@ -7,6 +7,7 @@ import { toast } from "react-toastify"; // Import toast and ToastContainer from 
 import "react-toastify/dist/ReactToastify.css"; // Import the default styles
 import loginService from "../../Service/LoginService";
 import Button from "../../components/Button";
+import Input from "../../components/Input";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -108,10 +109,10 @@ function Login() {
             <br></br>
             <form onSubmit={handleLogin}>
               <div className="fields">
-                <input
-                  className="login-input"
-                  type="email"
-                  placeholder="Email"
+                <Input
+                  className={"login-input"}
+                  type={"email"}
+                  placeholder={"Email"}
                   value={email}
                   onChange={(e) => {
                     setEmail(e.target.value);
@@ -126,10 +127,10 @@ function Login() {
               </div>
 
               <div className="fields">
-                <input
-                  className="login-input"
-                  type="password"
-                  placeholder="Password"
+                <Input
+                  className={"login-input"}
+                  type={"password"}
+                  placeholder={"Password"}
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);

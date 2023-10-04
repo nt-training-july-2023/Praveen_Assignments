@@ -7,6 +7,7 @@ import com.backend.EMS.Model.Designation;
 import com.backend.EMS.Model.Location;
 import com.backend.EMS.Model.Role;
 
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -56,11 +57,13 @@ public class EmployeeInDto {
     /**
      * The location of the employee.
      */
+    @NotNull
     private Location location;
 
     /**
      * The designation of the employee.
      */
+    @NotNull
     private Designation designation;
     /**
      * The contact number of the employee.

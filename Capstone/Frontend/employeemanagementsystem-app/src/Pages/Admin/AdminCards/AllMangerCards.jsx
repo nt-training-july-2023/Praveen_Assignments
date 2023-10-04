@@ -8,17 +8,6 @@ import adminService from "../../../Service/AdminService";
 export default function ManagerList() {
   const [employees, setEmployees] = useState([]);
 
-  // const getAllManager = async () => {
-  //   try {
-  //     // const response = await axios.get("http://localhost:8080/api/all/Manager");
-  //     // setEmployees(response.data);
-  //     adminService.getAllManagers().then((response) => {
-  //       setEmployees(response.data);
-  //     });
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
   const getAllManagers = async () => {
     try {
       const response = await adminService.getAllManagers();

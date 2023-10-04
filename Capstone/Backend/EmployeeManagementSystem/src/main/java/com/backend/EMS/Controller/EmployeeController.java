@@ -6,7 +6,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.backend.EMS.DTO.EmployeeInDto;
 import com.backend.EMS.DTO.EmployeeOutDto;
 import com.backend.EMS.DTO.IsRequestedInDto;
@@ -28,15 +28,14 @@ import com.backend.EMS.DTO.RequestResourceInDto;
 import com.backend.EMS.DTO.RequestResourceOutDto;
 import com.backend.EMS.DTO.ResponseDto;
 import com.backend.EMS.DTO.UpdateSkillsDto;
+import com.backend.EMS.Service.AdminService;
 import com.backend.EMS.Service.EmployeeService;
 import com.backend.EMS.Service.LoginService;
 import com.backend.EMS.Service.ProjectService;
 import com.backend.EMS.Validation.Validation;
 
-import com.backend.EMS.Service.AdminService;
-
-
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Controller class for handling admin-related operations.
@@ -82,11 +81,9 @@ public class EmployeeController {
      */
     @PostMapping("/adminRegistration")
     public final ResponseDto registerAdmin(@RequestBody @Valid
-            final EmployeeInDto employeeInDto, final BindingResult bindingResult
+            final EmployeeInDto employeeInDto
             ) {
         validation.checkAdmin(employeeInDto);
-        // Check for validation errors
-        validation.patterValidations(bindingResult);
         LOGGER.info("Register Admin method Invoked");
         ResponseDto responseDto = adminService.addAdmin(employeeInDto);
         LOGGER.info("Admin Registered Successful");
@@ -109,10 +106,8 @@ public class EmployeeController {
      */
     @PostMapping("/addEmployee")
     public final ResponseDto addEmployee(@RequestBody @Valid
-            final EmployeeInDto employeeInDto,
-            final BindingResult bindingResult) {
+            final EmployeeInDto employeeInDto) {
         validation.checkEmployee(employeeInDto);
-        validation.patterValidations(bindingResult);
         LOGGER.info("Add Admin method Invoked");
         ResponseDto responseDto = employeeService.addEmployee(employeeInDto);
         LOGGER.info("Admin Added successful");
@@ -161,9 +156,14 @@ public class EmployeeController {
      */
     @PutMapping("/updateEmployee/{id}")
     public final ResponseDto assignProject(@PathVariable final Long id,
-            @RequestBody final Map<String, Long> updatedDetails) {
+            @RequestBody final  Map<String, Long> updatedDetails) {
         Long projectId = updatedDetails.get("projectId");
         Long managerId = updatedDetails.get("managerId");
+        if (projectId == null || managerId == null) {
+            // Handle the case where projectId or managerId is not provided
+            return new ResponseDto(" projectId and"
+                    + " managerId must be provided");
+        }
         validation.checkEmployeeExists(id);
         validation.checkManagerExists(managerId);
         validation.checkProjectExists(projectId);
@@ -240,11 +240,9 @@ public class EmployeeController {
      */
     @PutMapping("/updateSkill/{id}")
     public final ResponseDto updateSkill(@PathVariable final Long id,
-            @RequestBody @Valid final UpdateSkillsDto updateSkillsDto,
-            final BindingResult bindingResult) {
+            @RequestBody @Valid final UpdateSkillsDto updateSkillsDto
+              ) {
         // Call the service to perform the skill record
-//        update and return a response.
-        validation.patterValidations(bindingResult);
         validation.checkEmployeeExists(id);
         LOGGER.info("updateSkill method invoked");
         ResponseDto responseDto = employeeService.updateSkills(id,
@@ -252,17 +250,6 @@ public class EmployeeController {
         LOGGER.info("Updated Skills successfully");
         return responseDto;
     }
-//    /**
-//     * Get an employee's name by their ID.
-//     *
-//     * @param employeeId The ID of the employee.
-//     * @return An EmployeeNameDto object containing the employee's name.
-//     */
-//    @GetMapping("/employeeName/{employeeId}")
-//    public final EmployeeNameDto getByEmployeeId(@PathVariable
-//            final Long employeeId) {
-//        return employeeService.getEmployeeById(employeeId);
-//    }
     /**
      * Handles HTTP POST requests to request a resource
      * using the provided data.
@@ -324,21 +311,6 @@ public class EmployeeController {
         ResponseDto responseDto = adminService.acceptRequestedResource(id);
         return responseDto;
     }
-//    /**
-//     * Retrieve an employee's information by their Id.
-//     *
-//     * @param id The email address of the employee to look up.
-//     * @return An EmployeeOutDto containing the informationt
-//     *  of the employee with the provided id.
-//     */
-//    @GetMapping("/manager/id/{id}")
-//    public final EmployeeOutDto getManagerIdById(@PathVariable
-//            final Long id) {
-//        LOGGER.info("getManagerIdById method invoked");
-//        EmployeeOutDto employeeOutDto = employeeService.getMangerIdById(id);
-//        LOGGER.info("retrieved the manager Id by Id successfully");
-//        return employeeOutDto;
-//    }
     /**
      * Handles HTTP POST requests to check if a request is requested.
      *

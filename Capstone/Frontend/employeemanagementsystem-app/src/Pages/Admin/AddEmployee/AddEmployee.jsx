@@ -12,6 +12,9 @@ import SkillsDropDown from "../../../components/Dropdowns/Skills";
 import MultipleSelectDropdown from "../../../components/MultipleSelectDropdown/MultipleSelectDropdown";
 import adminService from "../../../Service/AdminService";
 import Button from "../../../components/Button";
+import Input from "../../../components/Input";
+import Select from "../../../components/Select";
+import Label from "../../../components/Label";
 
 function AddEmployee() {
   const [name, setName] = useState("");
@@ -280,11 +283,11 @@ function AddEmployee() {
 
         <div className="AddEmployee-form-body">
           <div className="AddEmployee-form-group">
-            <label className="AddEmployee-form-label">Name</label>
-            <input
-              className="AddEmployee-input"
-              type="text"
-              placeholder="Enter Name"
+            <Label className={"AddEmployee-form-label"} text={"Name"} />
+            <Input
+              className={"AddEmployee-input"}
+              type={"text"}
+              placeholder={"Enter Name"}
               value={name}
               onChange={(event) => setName(event.target.value)}
               onBlur={validateName}
@@ -295,11 +298,11 @@ function AddEmployee() {
           )}
 
           <div className="AddEmployee-form-group">
-            <label className="AddEmployee-form-label">Email</label>
-            <input
-              className="AddEmployee-input"
-              type="email"
-              placeholder="example abc@Nucleusteq.com"
+            <Label className="AddEmployee-form-label" text={"Email"}/>
+            <Input
+              className={"AddEmployee-input"}
+              type={"email"}
+              placeholder={"example abc@Nucleusteq.com"}
               value={email}
               onChange={(event) => {
                 setEmail(event.target.value);
@@ -312,11 +315,11 @@ function AddEmployee() {
           )}
 
           <div className="AddEmployee-form-group">
-            <label className="AddEmployee-form-label">EmployeeId</label>
-            <input
-              className="AddEmployee-input"
-              type="text"
-              placeholder="Enter Employee ID"
+            <Label className="AddEmployee-form-label"  text={"EmployeeId"}>EmployeeId</Label>
+            <Input
+              className={"AddEmployee-input"}
+              type={"text"}
+              placeholder={"Enter Employee ID"}
               value={empId}
               onChange={(event) => {
                 setEmpId(event.target.value);
@@ -330,11 +333,11 @@ function AddEmployee() {
             </span>
           )}
           <div className="AddEmployee-form-group">
-            <label className="AddEmployee-form-label">DOB</label>
-            <input
-              className="AddEmployee-input"
-              type="date"
-              placeholder="Enter DOB"
+            <Label className={"AddEmployee-form-label"} text={"DOB"}/>
+            <Input
+              className={"AddEmployee-input"}
+              type={"date"}
+              placeholder={"Enter DOB"}
               value={dob}
               onChange={(event) => {
                 setDOB(event.target.value);
@@ -347,11 +350,11 @@ function AddEmployee() {
           )}
 
           <div className="AddEmployee-form-group">
-            <label className="form-label">DOJ</label>
-            <input
-              className="AddEmployee-input"
-              type="date"
-              placeholder="Enter DOJ"
+            <Label className={"form-label"} text={"DOJ"}/>
+            <Input
+              className={"AddEmployee-input"}
+              type={"date"}
+              placeholder={"Enter DOJ"}
               value={doj}
               onChange={(event) => {
                 setDOJ(event.target.value);
@@ -364,20 +367,22 @@ function AddEmployee() {
           )}
 
           <div className="AddEmployee-form-group">
-            <label className="AddEmployee-form-label">location</label>
-            <select
-              className="AddEmployee-form-dropdown"
+            <Label className={"AddEmployee-form-label"} text={"location"}/>
+            <Select
+              className={"AddEmployee-form-dropdown"}
               value={location}
               onChange={(event) => setLocation(event.target.value)}
               onBlur={validateLocation}
+              placeholder={"Select Location"}
+              options={locations}
             >
-              <option value="">Select Location</option>
-              {locations.map((option, index) => (
+              {/* <option value="">Select Location</option> */}
+              {/* {locations.map((option, index) => (
                 <option key={index} value={option}>
                   {option}
                 </option>
-              ))}
-            </select>
+              ))} */}
+            </Select>
           </div>
           {locationError && (
             <span style={{ fontSize: "12px", color: "red" }}>
@@ -386,20 +391,22 @@ function AddEmployee() {
           )}
 
           <div class="AddEmployee-form-group">
-            <label className="AddEmployee-form-label">designation</label>
-            <select
-              className="AddEmployee-form-dropdown"
+            <Label className={"AddEmployee-form-label"} text={"designation"}/>
+            <Select
+              className={"AddEmployee-form-dropdown"}
               value={designation}
               onChange={(event) => setDesignation(event.target.value)}
               onBlur={validateDesignation}
+              placeholder={"Select Designation"}
+              options={designations}
             >
-              <option value="">Select Designation</option>
-              {designations.map((option, index) => (
+              {/* <option value="">Select Designation</option> */}
+              {/* {designations.map((option, index) => (
                 <option key={index} value={option}>
                   {option}
                 </option>
-              ))}
-            </select>
+              ))} */}
+            </Select>
           </div>
           {designationError && (
             <span style={{ fontSize: "12px", color: "red" }}>
@@ -408,26 +415,28 @@ function AddEmployee() {
           )}
 
           <div class="AddEmployee-form-group">
-            <label className="AddEmployee-form-label">role</label>
-            <select
-              className="AddEmployee-form-dropdown"
+            <Label className={"AddEmployee-form-label"} text={"role"}/>
+            <Select
+              className={"AddEmployee-form-dropdown"}
               value={role}
+              placeholder={"Select Role"}
               onChange={(event) => setRole(event.target.value)}
               onBlur={validateRole}
+              options={Roles}
             >
-              <option value="">Select Role</option>
-              {Roles.map((option, index) => (
+              {/* <option value="">Select Role</option> */}
+              {/* {Roles.map((option, index) => (
                 <option key={index} value={option}>
                   {option}
                 </option>
-              ))}
-            </select>
+              ))} */}
+            </Select>
           </div>
           {roleError && (
             <span style={{ fontSize: "12px", color: "red" }}>{roleError}</span>
           )}
           <div className="AddEmployee-form-group">
-            <label className="AddEmployee-form-label">Skills</label>
+            <Label className={"AddEmployee-form-label"} text={"Skills"}/>
             <MultipleSelectDropdown
               options={SkillsDropDown.map((skill) => ({
                 value: skill,
@@ -437,7 +446,6 @@ function AddEmployee() {
                 value: skill,
                 label: skill,
               }))}
-              
               onChange={handleSkillChange}
               placeholder="Select Skills"
               onBlur={validateSkills}
@@ -450,11 +458,11 @@ function AddEmployee() {
           )}
 
           <div className="AddEmployee-form-group">
-            <label className="AddEmployee-form-label">contactNo</label>
-            <input
-              className="AddEmployee-input"
-              type="text"
-              placeholder="Enter Contact_Number"
+            <Label className="AddEmployee-form-label" text={"contactNo"}/>
+            <Input
+              className={"AddEmployee-input"}
+              type={"text"}
+              placeholder={"Enter Contact_Number"}
               value={contactNo}
               onChange={(event) => {
                 setContactNo(event.target.value);

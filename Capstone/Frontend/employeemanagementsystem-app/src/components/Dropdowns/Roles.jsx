@@ -1,6 +1,5 @@
 const Roles=[
-
-    "Employee",
-    "Manager"
+    { value: 'Employee', label: 'Employee' },
+    { value: 'Manager', label: 'Manager' },
 ]
 export default Roles;
