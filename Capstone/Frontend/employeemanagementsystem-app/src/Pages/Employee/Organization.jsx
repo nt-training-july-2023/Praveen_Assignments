@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Organization.css";
+import { toast } from "react-toastify";
 import employeeService from "../../Service/EmployeeService";
 
 function Organization() {
@@ -16,22 +17,31 @@ function Organization() {
       const response = await employeeService.getAll();
       setEmployees(response.data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      if (error.response) {
+        console.log(error);
+        toast.error(error.response.data.message, {
+          position: "top-right",
+          autoClose: 3000,
+         
+        });
+      } else {
+        toast.error("oops !! server down", {
+          position: "top-center",
+          autoClose: 3000,
+         
+        });
+      }
     }
   };
 
   function reverseDateFormat(inputDate) {
-    // Split the input date using the '-' separator
     const dateParts = inputDate.split("-");
 
-    // Check if the input has three parts (year, month, day)
     if (dateParts.length === 3) {
-      // Reverse the parts and join them with '-' separator
       const reversedDate =
         dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
       return reversedDate;
     } else {
-      // Handle invalid input format
       return "Invalid Date Format";
     }
   }
@@ -41,49 +51,50 @@ function Organization() {
         {employees.map((employee) => (
           <div className="EDcard-card" key={employee.id}>
             <div className="EDcard-column">
-              <h2>{employee.name}</h2>
+              <h2 className="EDcard-h2">{employee.name}</h2>
               <p>
-                <span style={{ fontSize: "0.7rem", marginTop: "-0.2rem" }}>
+                <span className="EDcard-designationSpan">
                   {employee.designation}
                 </span>
               </p>
 
               {employee.managerName ? (
                 <p>
-                  <span style={{ fontWeight: "bold" }}>Manager : </span>
+                  <span className="EDcard-ManagerNameSpan">Manager : </span>
                   {employee.managerName}
                 </p>
               ) : (
                 <p>
-                  <span style={{ fontWeight: "bold" }}>Manager:</span> Ankita
+                  <span className="EDcard-ManagerNameSpan">Manager:</span>{" "}
+                  Ankita
                 </p>
               )}
               <p>
-                <span style={{ fontWeight: "bold" }}>Contact : </span>
+                <span className="EDcard-ContactSpan">Contact : </span>
                 {employee.contactNo}
               </p>
               <p>
-                <span style={{ fontWeight: "bold" }}>Email : </span>
+                <span className="EDcard-EmailSpan">Email : </span>
                 {employee.email}
               </p>
             </div>
             <div className="EDcard-column">
               <br></br>
-              <p style={{ fontSize: "15px", marginTop: "-0.9rem" }}>
-                <span style={{ fontWeight: "bold" }}>Employee id : </span>
+              <p className="EDcard-EmployeeIdPara">
+                <span className="EDcard-EmployeeIdSpan">Employee id : </span>
                 {employee.empId}
               </p>
               <br></br>
-              <p style={{ marginTop: "0.8rem" }}>
-                <span style={{ fontWeight: "bold" }}>DOB : </span>
+              <p className="EDcard-DOBPara">
+                <span className="EDcard-DOBSpan">DOB : </span>
                 {reverseDateFormat(employee.dob)}
               </p>
               <p>
-                <span style={{ fontWeight: "bold" }}>DOJ: </span>
+                <span className="EDcard-DOJSpan">DOJ: </span>
                 {reverseDateFormat(employee.doj)}
               </p>
               <p>
-                <span style={{ fontWeight: "bold" }}>Location : </span>
+                <span className="EDcard-LocationSpan">Location : </span>
                 {employee.location}
               </p>
             </div>

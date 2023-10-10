@@ -104,7 +104,7 @@ public class EmployeeControllerTest {
         ResponseDto response = new ResponseDto();
         response.setMessage("Employee Added Succesfully");
         doNothing().when(validator).checkEmployee(empDto);
-        MvcResult mvcResult = this.mockMvc.perform(post("/api/addEmployee")
+        MvcResult mvcResult = this.mockMvc.perform(post("/api/admin/add-employee")
                 .contentType(MediaType.APPLICATION_JSON).content(inputJSON))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
@@ -165,7 +165,7 @@ public class EmployeeControllerTest {
         response.setMessage("Admin Registered successfully");
         when(adminService.addAdmin(Mockito.any())).thenReturn(response);
 
-        MvcResult mvcResult = this.mockMvc.perform(post("/api/adminRegistration")
+        MvcResult mvcResult = this.mockMvc.perform(post("/api/admin-registration")
                 .contentType(MediaType.APPLICATION_JSON).content(inputJSON))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
@@ -257,7 +257,7 @@ public class EmployeeControllerTest {
         String inputJSON = objectMapper.writeValueAsString(empDto);
         when(employeeService.getEmployeeById(Mockito.any())).thenReturn(empDto);
 
-        MvcResult mvcResult = this.mockMvc.perform(get("/api/employee/id/2")
+        MvcResult mvcResult = this.mockMvc.perform(get("/api/employee/2")
                 .contentType(MediaType.APPLICATION_JSON).content(inputJSON))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
@@ -286,7 +286,7 @@ public class EmployeeControllerTest {
         when(employeeService.getAllEmployeesAndManagers()).thenReturn(empOutList);
 
         
-        MvcResult mvcResult = this.mockMvc.perform(get("/api/allManagersAndEmployees")
+        MvcResult mvcResult = this.mockMvc.perform(get("/api/managers-employees")
                 .contentType(MediaType.APPLICATION_JSON).content(inputJSON))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
@@ -320,7 +320,7 @@ public class EmployeeControllerTest {
         String inputJSON = objectMapper.writeValueAsString(map);
         when(employeeService.updateEmployee(1L, map)).thenReturn(response);
 
-        MvcResult mvcResult = this.mockMvc.perform(put("/api/updateEmployee/1")
+        MvcResult mvcResult = this.mockMvc.perform(put("/api/admin/assign-project/1")
                 .contentType(MediaType.APPLICATION_JSON).content(inputJSON))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
@@ -356,7 +356,7 @@ public class EmployeeControllerTest {
         when (adminService.unAssign(1L)).thenReturn(resp);
 
         MvcResult mvcResult = this.mockMvc
-                .perform(put("/api/unAssign/Project/1")
+                .perform(put("/api/admin/employee/unassign/project/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(inputJSON))
                 .andReturn();
@@ -371,7 +371,7 @@ public class EmployeeControllerTest {
         updatedSkills.put("skills", skills);
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBody = objectMapper.writeValueAsString(updatedSkills);
-        MvcResult mvcResult = this .mockMvc.perform(put("/api/updateSkill/{id}", employeeId)
+        MvcResult mvcResult = this .mockMvc.perform(put("/api/employee/update-skill/{id}", employeeId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andReturn();
@@ -383,7 +383,7 @@ public class EmployeeControllerTest {
         List<String> selectedSkills = Arrays.asList("Java", "Spring");
         boolean showOnlyUnassigned = true; 
 
-        mockMvc.perform(get("/api/filteredEmployees")
+        mockMvc.perform(get("/api/manager/filtered-employees")
                 .param("selectedSkills", String.join(",", selectedSkills))
                 .param("showOnlyUnassigned", String.valueOf(showOnlyUnassigned)))
                 .andExpect(status().isOk())
@@ -404,7 +404,7 @@ public class EmployeeControllerTest {
         response.setMessage("Requested resource");
         when(employeeService.requestResource(Mockito.any())).thenReturn(response);
 
-        MvcResult mvcResult = this.mockMvc.perform(post("/api/requestResource")
+        MvcResult mvcResult = this.mockMvc.perform(post("/api/manager/request-resource")
                 .contentType(MediaType.APPLICATION_JSON).content(inputJSON))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
@@ -426,7 +426,7 @@ public class EmployeeControllerTest {
         when(adminService.requestedResource()).thenReturn(requestOutList);
 
         MvcResult mvcResult = this.mockMvc.perform(
-                get("/api/RequestedResource").contentType(MediaType.APPLICATION_JSON))
+                get("/api/admin/requested-resources").contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
@@ -447,7 +447,7 @@ public class EmployeeControllerTest {
         response.setMessage("Request Accepted");
         when(adminService.acceptRequestedResource(Mockito.any())).thenReturn(response);
 
-        MvcResult mvcResult = this.mockMvc.perform(put("/api/Accept/RequestedResource/5")
+        MvcResult mvcResult = this.mockMvc.perform(put("/api/admin/requested-resources/accept/5")
                 .contentType(MediaType.APPLICATION_JSON).content(inputJSON))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
@@ -469,7 +469,7 @@ public class EmployeeControllerTest {
         response.setMessage("Request Deleted");
         when(adminService.deleteRequestedResource(Mockito.any())).thenReturn(response);
 
-        MvcResult mvcResult = this.mockMvc.perform(delete("/api/Delete/RequestedResource/8")
+        MvcResult mvcResult = this.mockMvc.perform(delete("/api/admin/requested-resources/reject/8")
                 .contentType(MediaType.APPLICATION_JSON).content(inputJSON))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
@@ -478,7 +478,7 @@ public class EmployeeControllerTest {
     @Test
     void testGetAllByManagerId() throws Exception{
 
-        MvcResult mvcResult = this.mockMvc.perform(get("/api/projectCards/1")
+        MvcResult mvcResult = this.mockMvc.perform(get("/api/projects/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
@@ -499,7 +499,7 @@ public class EmployeeControllerTest {
         doNothing().when(validator).checkOnlyEmployeeExists(isRequestedInDto.getEmployeeId());
         
         when(employeeService.isRequested(isRequestedInDto)).thenReturn(isRequestedOutDto);
-        MvcResult mvcResult = this.mockMvc.perform(post("/api/isRequested")
+        MvcResult mvcResult = this.mockMvc.perform(post("/api/manager/employee/is-requested")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(inputJSON))
                 .andReturn();

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.backend.EMS.Constants.InvokeConstants;
+import com.backend.EMS.Constants.SuccessConstants;
 import com.backend.EMS.DTO.ProjectInDto;
 import com.backend.EMS.DTO.ProjectOutDto;
 import com.backend.EMS.DTO.ResponseDto;
@@ -58,9 +60,9 @@ public class ProjectController {
             final ProjectInDto projectInDto,
             final BindingResult bindingResult) {
         validation.checkProject(projectInDto);
-        LOGGER.info("Add project method invoked");
+        LOGGER.info(InvokeConstants.ADDPROJECT);
         ResponseDto responseDto = projectService.addProject(projectInDto);
-        LOGGER.info("Added project successfully");
+        LOGGER.info(SuccessConstants.ADDED);
         return responseDto;
 
     }
@@ -71,10 +73,10 @@ public class ProjectController {
      */
     @GetMapping("/projects")
     public final List<ProjectOutDto> getAllProjects() {
-        LOGGER.info("get all projects method invoked");
+        LOGGER.info(InvokeConstants.GETALLPROJECTS);
         List<ProjectOutDto> projectOutDtoList = projectService.
                 getAllProject();
-        LOGGER.info("retrieved all projects successfully");
+        LOGGER.info(SuccessConstants.GETALLPROJECTS);
         return projectOutDtoList;
     }
 }

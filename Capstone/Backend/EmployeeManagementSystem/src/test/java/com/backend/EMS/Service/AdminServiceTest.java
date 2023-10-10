@@ -24,6 +24,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 
+import com.backend.EMS.Constants.SuccessConstants;
 import com.backend.EMS.DTO.EmployeeInDto;
 import com.backend.EMS.DTO.EmployeeOutDto;
 import com.backend.EMS.DTO.LoginInDto;
@@ -84,7 +85,7 @@ public class AdminServiceTest {
 
         when(employeeRepository.save(employee)).thenReturn(employee);
         ResponseDto response = adminService.addAdmin(employeeInDto);
-        assertEquals("Admin Registered successfully", response.getMessage());
+        assertEquals(SuccessConstants.ADDED, response.getMessage());
 
     }
     @Test
@@ -191,7 +192,7 @@ public class AdminServiceTest {
         ResponseDto response = adminService.deleteRequestedResource(id);
 
         assertNotNull(response);
-        assertEquals("Deleted Successfuly", response.getMessage());
+        assertEquals(SuccessConstants.DELETE, response.getMessage());
     }
 
     @Test
@@ -218,7 +219,7 @@ public class AdminServiceTest {
         ResponseDto response = adminService.acceptRequestedResource(id);
 
         assertNotNull(response);
-        assertEquals("Requested Resource Accepted", response.getMessage());
+        assertEquals(SuccessConstants.ACCEPT, response.getMessage());
         assertEquals(4L, employee.getProjectId());
         assertEquals(3L, employee.getManagerId());
         assertEquals("Manager", employee.getManagerName());
@@ -432,7 +433,7 @@ public class AdminServiceTest {
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
         ResponseDto response = adminService.unAssign(id);
         assertNotNull(response);
-        assertEquals("Unassigned the project", response.getMessage());
+        assertEquals(SuccessConstants.UNASSIGN, response.getMessage());
         assertNull(employee.getProjectId());
         assertEquals(1L, employee.getManagerId());
         assertEquals("Ankita", employee.getManagerName());
@@ -450,7 +451,6 @@ public class AdminServiceTest {
 
     private EmployeeInDto createSampleEmployeeDto() {
         EmployeeInDto employeeInDto = new EmployeeInDto();
-        // Set sample employee DTO properties here
         employeeInDto.setName("Praveen");
         employeeInDto.setEmail("praveen@nucleusteq.com");
         employeeInDto.setEmpId("N0001");
@@ -464,7 +464,6 @@ public class AdminServiceTest {
 
     private Employee createSampleEmployee() {
         Employee employee = new Employee();
-        // Set sample employee properties here
         employee.setName("Praveen");
         employee.setEmail("praveen@nucleusteq.com");
         employee.setEmpId("N0001");

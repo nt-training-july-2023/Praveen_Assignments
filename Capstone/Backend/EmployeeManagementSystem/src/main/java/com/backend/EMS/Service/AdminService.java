@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.backend.EMS.Constants.SuccessConstants;
 import com.backend.EMS.DTO.EmployeeInDto;
 import com.backend.EMS.DTO.EmployeeOutDto;
 import com.backend.EMS.DTO.LoginInDto;
@@ -73,7 +74,7 @@ public class AdminService {
         employee.setRole(Role.Admin);
         employee.setPassword(employeeInDto.getPassword());
         employeeRepository.save(employee);
-        responseDto.setMessage("Admin Registered successfully");
+        responseDto.setMessage(SuccessConstants.ADDED);
         return responseDto;
 
     }
@@ -140,7 +141,7 @@ public class AdminService {
      */
     public final ResponseDto deleteRequestedResource(final Long id) {
         requestResourceRepository.deleteById(id);
-        return new ResponseDto("Deleted Successfuly");
+        return new ResponseDto(SuccessConstants.DELETE);
     }
 
     /**
@@ -166,7 +167,7 @@ public class AdminService {
         for (RequestResource rR : requestResourceList) {
             requestResourceRepository.deleteById(rR.getId());
         }
-        return new ResponseDto("Requested Resource Accepted");
+        return new ResponseDto(SuccessConstants.ACCEPT);
     }
 
     /**
@@ -241,6 +242,6 @@ public class AdminService {
         employee.setManagerName("Ankita");
         employee.setProjectId(null);
         employeeRepository.save(employee);
-        return new ResponseDto("Unassigned the project");
+        return new ResponseDto(SuccessConstants.UNASSIGN);
     }
 }

@@ -46,12 +46,12 @@ function SingleManagerCard({ employee }) {
   const noProjects = projectList.length === 0;
 
   return (
-    <div className="container">
-      <div className="card" key={employee.id}>
-        <div className="column">
-          <h2>{employee.name}</h2>
+    <div className="AC-SM-container">
+      <div className="AC-SM-card" key={employee.id}>
+        <div className="AC-SM-column1">
+          <h2 className="AC-SM-h2">{employee.name}</h2>
           <p>
-            <span style={{ fontSize: "0.8rem", marginTop: "-0.rem" }}>
+            <span className="AC-SM-DesignationSpan">
               {employee.designation}
             </span>
           </p>
@@ -78,33 +78,33 @@ function SingleManagerCard({ employee }) {
             )}
           </div>
           <p>
-            <span style={{ fontWeight: "bold" }}>Location : </span>
+            <span className="AC-SM-LocationSpan">Location : </span>
             {employee.location}
           </p>
           <p>
-            <span style={{ fontWeight: "bold" }}>Contact : </span>
+            <span className="AC-SM-ConatctSpan">Contact : </span>
             {employee.contactNo}
           </p>
           <p>
-            <span style={{ fontWeight: "bold" }}>Email : </span>
+            <span className="AC-SM-EmailSpan">Email : </span>
             {employee.email}
           </p>
         </div>
-        <div className="column">
+        <div className="AC-SM-column2">
           <br></br>
-          <p style={{ fontSize: "15px", marginTop: "-1rem" }}>
-            <span style={{ fontWeight: "bold" }}>Employee id : </span>
+          <p className="AC-SM-EmployeeIdPara">
+            <span className="AC-SM-EmployeeIdSpan">Employee id : </span>
             {employee.empId}
           </p>
           <br></br>
-          <p style={{ marginTop: "1rem" }}>
-            <span style={{ fontWeight: "bold" }}>Project Skills : </span>{" "}
+          <p className="AC-SM-ProjectSkillsPara">
+            <span className="AC-SM-ProjectSkillsSpan">Project Skills : </span>{" "}
             {selectedProjectData?.requiredSkills
               ? selectedProjectData.requiredSkills.join(", ")
               : "N/A"}
           </p>
-          <p style={{ marginTop: "1rem" }}>
-            <span style={{ fontWeight: "bold" }}>Team : </span>
+          <p className="AC-SM-TeamPara">
+            <span className="AC-SM-TeamSpan">Team : </span>
             {selectedProjectData?.team
               ? selectedProjectData.team.join(", ")
               : "N/A"}

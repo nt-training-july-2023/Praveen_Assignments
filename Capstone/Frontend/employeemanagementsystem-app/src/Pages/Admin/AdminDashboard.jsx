@@ -9,6 +9,7 @@ import ManagerList from "./AdminCards/AllMangerCards";
 import ProjectCard from "./AdminCards/Project";
 import EmployeeCard from "./AdminCards/Employee";
 import Button from "../../components/Button";
+import UnauthorizedPage from "../Unauthorized";
 
 function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("Employee");
@@ -49,10 +50,8 @@ function AdminDashboard() {
 
   const userRole = localStorage.getItem("userRole");
   if (userRole != "Admin") {
-    return (
-      // <div>UnauthrizedAccess</div>
-      <h1>unauthorized access</h1>
-    );
+    return <UnauthorizedPage/>;
+    
   }
 
   return (
@@ -107,7 +106,7 @@ function AdminDashboard() {
                   activeTab === "Employee" ? "active" : ""
                 }`}
                 onClick={toAddEmployee}
-                text ={"Add Employee"}
+                text ={" Add Employee"}
               />
                 
              

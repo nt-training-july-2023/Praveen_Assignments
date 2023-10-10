@@ -3,9 +3,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* background: linear-gradient(#dde3e6, #8991ce); */
-  /* background: linear-gradient(#dde3e6, grey); */
- 
+  background: linear-gradient(#dde3e6, #8991ce);
+
   min-height: 100vh;
   
 }
@@ -42,6 +41,11 @@
   justify-content: center;
   margin-top: 10px;
   margin-bottom:-5%;
+  justify-content: center;
+  border: 2px solid whitesmoke !important;
+  border-radius: 5px;
+  
+  box-shadow: 2px 2px 5px rgba(112, 146, 142, 0.7);
 }
 
 .employee-tab,

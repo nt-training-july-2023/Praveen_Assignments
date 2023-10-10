@@ -7,6 +7,8 @@ import java.util.Map;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.backend.EMS.Constants.SuccessConstants;
 import com.backend.EMS.DTO.EmployeeInDto;
 import com.backend.EMS.DTO.EmployeeOutDto;
 import com.backend.EMS.DTO.IsRequestedInDto;
@@ -63,7 +65,7 @@ public class EmployeeService {
         employee.setManagerId(1L);
         employeeRepository.save(employee);
         ResponseDto responseDto = new ResponseDto();
-        responseDto.setMessage("Employee Added successfully");
+        responseDto.setMessage(SuccessConstants.ADDED);
         return responseDto;
     }
 
@@ -88,7 +90,7 @@ public class EmployeeService {
             employee.setProjectId(projectId);
             employee.setManagerName(manager.getName());
             employeeRepository.save(employee);
-            return new ResponseDto("Updated Successfully");
+            return new ResponseDto(SuccessConstants.UPDATED);
         }
     }
 
@@ -145,7 +147,7 @@ public class EmployeeService {
         Employee employee = employeeRepository.findById(id).get();
         employee.setSkills(updateSkillDto.getSkills());
         employeeRepository.save(employee);
-        return new ResponseDto("Skills Updated");
+        return new ResponseDto(SuccessConstants.SKILLS_ADDED);
     }
     /**
      * Requests a resource using the provided data and
@@ -159,7 +161,7 @@ public class EmployeeService {
         RequestResource requestResource = this.modelMapper.map(
                 requestResourceInDto, RequestResource.class);
         requestResourceRepository.save(requestResource);
-        return new ResponseDto("Requested resource");
+        return new ResponseDto(SuccessConstants.REQUESTRESOURCE);
     }
     /**
      * Check if a resource is requested based on the provided input data.

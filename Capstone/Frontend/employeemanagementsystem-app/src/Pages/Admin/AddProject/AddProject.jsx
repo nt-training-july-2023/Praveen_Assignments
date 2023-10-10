@@ -10,6 +10,7 @@ import Button from "../../../components/Button";
 import Label from "../../../components/Label";
 import Input from "../../../components/Input";
 import Select from "../../../components/Select";
+import UnauthorizedPage from "../../Unauthorized";
 
 function AddProject() {
   const [projectName, setProjectName] = useState("");
@@ -118,7 +119,7 @@ function AddProject() {
         autoClose: 3000,
         toastId,
       });
-      return; // Exit the function if there are errors
+      return; 
     } else {
       try {
         const projectData = {
@@ -134,7 +135,7 @@ function AddProject() {
         if (response.status === 200) {
           toast.success("Project Added", {
             position: toast.POSITION.TOP_CENTER,
-            autoClose: 1000, // 3 seconds
+            autoClose: 1000, 
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -143,7 +144,7 @@ function AddProject() {
             transition: Slide,
           });
           navigate("/adminDashboard");
-          // Reset form fields after successful registration
+          
           setProjectName("");
           setManagerId("");
           setStartDate("");
@@ -152,24 +153,32 @@ function AddProject() {
           setManagerList([]);
         }
       } catch (err) {
-        toast.error(err.response.data.message, {
-          position: "top-right",
-          autoClose: 3000,
-          toastId,
-        });
+        if (err.response) {
+          toast.error(err.response.data.message, {
+            position: "top-right",
+            autoClose: 3000,
+            toastId,
+          });
+        } else {
+          toast.error("oops !! server down", {
+            position: "top-center",
+            autoClose: 3000,
+            toastId,
+          });
+        }
       }
     }
   };
 
   const userRole = localStorage.getItem("userRole");
   if (userRole !== "Admin") {
-    return <h1>Unauthorized access</h1>;
+    return <UnauthorizedPage/>;
   }
   return (
     <div className="AddProject-container">
       <div className="AddProject-form">
         <div className="AddProject-form-header">
-          <h2>ADD PROJECT</h2>
+          <h2 className="AddProject-h2">ADD PROJECT</h2>
         </div>
 
         <div className="AddProject-form-body">
@@ -185,7 +194,7 @@ function AddProject() {
             />
           </div>
           {projectNameError && (
-            <span style={{ fontSize: "12px", color: "red" }}>
+            <span className="AddProject-spanError">
               {projectNameError}
             </span>
           )}
@@ -194,7 +203,7 @@ function AddProject() {
             <Label className="AddProject-form-label" text={"ManagerId"} />
             <Select
               type={"text"}
-              name={"managerId"}
+              name={"manager"}
               className={"AddProject-abc"}
               placeholder={"Select Manager"}
               value={managerId}
@@ -202,7 +211,7 @@ function AddProject() {
                 setManagerId(e.target.value);
               }}
               options={managerList.map((manager) => ({
-                value: manager.id, // Use the appropriate property for the value
+                value: manager.id, 
                 label: `${manager.empId} - ${manager.name}`,
               }))}
             />
@@ -217,7 +226,7 @@ function AddProject() {
           </Select> */}
           </div>
           {managerIdError && (
-            <span style={{ fontSize: "12px", color: "red" }}>
+            <span className="AddProject-spanError">
               {managerIdError}
             </span>
           )}
@@ -236,7 +245,7 @@ function AddProject() {
             />
           </div>
           {startDateError && (
-            <span style={{ fontSize: "12px", color: "red" }}>
+            <span className="AddProject-spanError">
               {startDateError}
             </span>
           )}
@@ -261,7 +270,7 @@ function AddProject() {
             />
           </div>
           {requiredSkillsError && (
-            <span style={{ fontSize: "12px", color: "red" }}>
+            <span className="AddProject-spanError">
               {requiredSkillsError}
             </span>
           )}
@@ -280,7 +289,7 @@ function AddProject() {
             ></textarea>
           </div>
           {descriptionError && (
-            <span style={{ fontSize: "12px", color: "red" }}>
+            <span className="AddProject-spanError">
               {descriptionError}
             </span>
           )}
@@ -297,7 +306,7 @@ function AddProject() {
             type="submit"
             className={"AddProject-button-submit"}
             onClick={save}
-            text={"ADD Project"}
+            text={"Add Project"}
           />
         </div>
       </div>

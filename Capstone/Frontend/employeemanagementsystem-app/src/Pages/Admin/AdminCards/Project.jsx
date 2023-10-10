@@ -11,7 +11,12 @@ function ProjectCard() {
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    getAllProjects();
+    // getAllProjects();
+    return()=>{
+      getAllProjects();
+    }
+
+  
   }, []);
 
   const getAllProjects = async () => {
@@ -34,48 +39,39 @@ function ProjectCard() {
     setSelectedDescription("");
   };
   function reverseDateFormat(inputDate) {
-    // Split the input date using the '-' separator
     const dateParts = inputDate.split("-");
-
-    // Check if the input has three parts (year, month, day)
     if (dateParts.length === 3) {
-      // Reverse the parts and join them with '-' separator
       const reversedDate =
         dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
       return reversedDate;
     } else {
-      // Handle invalid input format
       return "Invalid Date Format";
     }
   }
 
   return (
-    <div className="container">
-      <div className="card-container">
+    <div className="AC-Project-container">
+      <div className="AC-Project-card-container">
         {projects.map((project) => (
-          <div className="card" key={project.id}>
-            <div className="column1">
-              <h2 style={{ fontWeight: "bold" }}>{project.projectName}</h2>
+          <div className="AC-Project-card" key={project.id}>
+            <div className="AC-Project-column1">
+              <h2 className="AC-Project-h2">{project.projectName}</h2>
               <p>
-                <span style={{ fontWeight: "bold" }}>Head :</span>
+                <span className="AC-Project-HeadSpan" >Head : </span>
                 {project.head}
               </p>
               <br></br>
-              <p style={{ fontSize: "1rem" }}>
+              <p className="AC-Project-Description-Para">
                 <span
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: "1rem",
-                    marginTop: "2rem",
-                  }}
+                className="AC-Project-DescriptionSpan"
                 >
                   Description :
                 </span>
                 {project.description.length > 40 ? (
                   <p>
-                    {project.description.slice(0, 20)}{" "}
+                    {project.description.slice(0, 25)}{" "}
                     <span
-                      style={{ color: "blue", textDecorationLine: "underline" }}
+                      className="AC-Project-ReadmoreSpan"
                       onClick={() => handleReadMoreClick(project.description)}
                     >
                       Read More
@@ -86,13 +82,9 @@ function ProjectCard() {
                 )}
               </p>
 
-              <p style={{ fontSize: "1rem" }}>
+              <p className="AC-Project-SkillsPara">
                 <span
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: "1rem",
-                    marginTop: "2rem",
-                  }}
+                className="AC-Project-SkillsSpan"
                 >
                   Skills :{" "}
                 </span>
@@ -101,14 +93,10 @@ function ProjectCard() {
                   : "NA"}
               </p>
             </div>
-            <div className="column2">
+            <div className="AC-Project-column2">
               <p>
                 <span
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: "1rem",
-                    marginTop: "1rem",
-                  }}
+                className="AC-Project-ProjectIdSpan"
                 >
                   Project ID :{" "}
                 </span>
@@ -119,11 +107,7 @@ function ProjectCard() {
                 <br />
                 <br />
                 <span
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: "1rem",
-                    marginTop: "1rem",
-                  }}
+                className="AC-Project-StartDateSpan"
                 >
                   Start Date :{" "}
                 </span>
@@ -131,11 +115,7 @@ function ProjectCard() {
               </p>
               <p>
                 <span
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: "1rem",
-                    marginTop: "1rem",
-                  }}
+           className="AC-Project-TeamSpan"
                 >
                   Team :{" "}
                 </span>

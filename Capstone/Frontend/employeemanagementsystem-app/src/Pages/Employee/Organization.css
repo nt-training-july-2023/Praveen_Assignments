@@ -7,7 +7,8 @@
     display:flex;
     flex-wrap: wrap;
     padding: 15px;
-    overflow-y: scroll;
+    justify-content:space-evenly;
+    /* overflow-y: scroll; */
     /* height: 500px ; */
   }
   
@@ -25,7 +26,7 @@
     box-shadow: 0 4px 6px rgb(139, 132, 138);
     margin: 5px;
     height:180px ;
-    width: 24rem;
+    width: 29rem;
     margin-top: 2rem;
     margin-left: 1rem;
     flex-shrink: 0;
@@ -41,9 +42,8 @@
     padding: 10px;
   }
   
-  .EDcard-card h2 {
+  .EDcard-h2 {
     font-size: 1.5rem !important;
-    margin-bottom: 0.5rem;
     color: #000000;
   }
   
@@ -66,5 +66,36 @@
   .EDcard-assign-button:hover {
     background-color: #0056b3;
   }
-  
+  .EDcard-designationSpan{
+    font-size: 0.8rem;
+     margin-top: -0.5rem
+  }
+  .EDcard-ManagerNameSpan{
+    font-weight: bold;
+  }
+  .EDcard-ContactSpan{
+    font-weight: bold;
+  }
+  .EDcard-EmailSpan{
+    font-weight: bold; 
+  }
+  .EDcard-EmployeeIdPara{
+    font-size: 15px;
+    margin-top: -0.9rem;
+  }
+  .EDcard-EmployeeIdSpan{
+    font-weight: bold; 
+  }
+  .EDcard-DOBPara{
+    margin-top: 0.8rem;
+  }
+  .EDcard-DOBSpan{
+    font-weight: bold; 
+  }
+  .EDcard-DOJSpan{
+    font-weight: bold; 
+  }
+  .EDcard-LocationSpan{
+    font-weight: bold;
+  }
 

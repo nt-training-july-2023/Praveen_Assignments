@@ -4,6 +4,7 @@ package com.backend.EMS.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.backend.EMS.Constants.SuccessConstants;
 import com.backend.EMS.DTO.LoginInDto;
 import com.backend.EMS.DTO.LoginOutDto;
 import com.backend.EMS.Model.Employee;
@@ -32,7 +33,7 @@ public class LoginService {
                 .findByEmail(loginInDto.getEmail());
 
         LoginOutDto loginResponse = new LoginOutDto();
-        loginResponse.setMessage("Login Successful");
+        loginResponse.setMessage(SuccessConstants.LOGINSUCCESS);
         loginResponse.setRole(employee.getRole());
         loginResponse.setId(employee.getId());
         loginResponse.setName(employee.getName());

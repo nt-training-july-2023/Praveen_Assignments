@@ -4,6 +4,7 @@ import "./MyProfile.css";
 import { useNavigate } from "react-router-dom";
 import employeeService from "../../Service/EmployeeService";
 import Button from "../../components/Button";
+import { toast } from "react-toastify";
 
 const MyProfile = () => {
   const [employeeData, setEmployeeData] = useState({});
@@ -18,7 +19,21 @@ const MyProfile = () => {
       const response = await employeeService.getMyProfile(id);
       setEmployeeData(response.data);
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        console.log(error);
+        toast.error(error.response.data.message, {
+          position: "top-right",
+          autoClose: 3000,
+          
+        });
+      } else {
+        toast.error("oops !! server down", {
+          position: "top-center",
+          autoClose: 3000,
+          
+        });
+      }
+      
     }
   };
   

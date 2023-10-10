@@ -20,9 +20,8 @@ export default function ManagerList() {
   useEffect(() => {
     getAllManagers();
   }, []);
-  //   console.log(employees)
   return (
-    <div className="card-container">
+    <div className="AC-SM-card-container">
       {employees.map((employee) => {
         return <SingleManagerCard employee={employee} />;
       })}

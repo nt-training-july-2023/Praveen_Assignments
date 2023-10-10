@@ -6,7 +6,7 @@ import designations from "../../../components/Dropdowns/Designations";
 import locations from "../../../components/Dropdowns/Locations";
 import Roles from "../../../components/Dropdowns/Roles";
 import bcrypt from "bcryptjs";
-import { Slide, toast } from "react-toastify"; // Import toast and ToastContainer from react-toastify
+import { Slide, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SkillsDropDown from "../../../components/Dropdowns/Skills";
 import MultipleSelectDropdown from "../../../components/MultipleSelectDropdown/MultipleSelectDropdown";
@@ -15,6 +15,7 @@ import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import Select from "../../../components/Select";
 import Label from "../../../components/Label";
+import UnauthorizedPage from "../../Unauthorized";
 
 function AddEmployee() {
   const [name, setName] = useState("");
@@ -78,7 +79,7 @@ function AddEmployee() {
 
   const validateEmployeeId = () => {
     const Employee_ID = /^N\d{4}$/;
-    if (empId === "" || !Employee_ID.test(empId) || empId == "N0000") {
+    if (empId === "" || !Employee_ID.test(empId) || empId === "N0000") {
       setEmployeeIdError(
         "Employee ID should be in the pattern NXXXX (X should be numbers)"
       );
@@ -160,27 +161,21 @@ function AddEmployee() {
     validateSkills();
 
     function reverseDateFormat(inputDate) {
-      // Split the input date using the '-' separator
       const dateParts = inputDate.split("-");
 
-      // Check if the input has three parts (year, month, day)
       if (dateParts.length === 3) {
-        // Reverse the parts and join them with '-' separator
         const reversedDate =
           dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
         return reversedDate;
       } else {
-        // Handle invalid input format
         return "Invalid Date Format";
       }
     }
 
     const reversedDate = reverseDateFormat(dob);
-    // console.log(reversedDate);
 
     const dobInput = dob;
     const resultDob = reversedDate.replaceAll("-", "");
-    // console.log(resultDob);
 
     const DefaultPassword = empId + "@" + resultDob;
     console.log(DefaultPassword);
@@ -214,7 +209,7 @@ function AddEmployee() {
         autoClose: 3000,
         toastId,
       });
-      return; // Exit the function if there are errors
+      return;
     } else {
       const employeeData = {
         name: name,
@@ -243,7 +238,7 @@ function AddEmployee() {
             transition: Slide,
           });
           navigate("/adminDashboard");
-          // Reset form fields after successful registration
+
           setName("");
           setEmail("");
           setEmpId("");
@@ -260,24 +255,31 @@ function AddEmployee() {
         } else if (response.data.statusCode === 500) {
           alert(response.data.message);
         }
-      } catch (err) {
-        toast.error(err.response.data.message, {
-          position: "top-right",
-          autoClose: 3000,
-          toastId,
-        });
+      } catch (error) {
+        if (error.response) {
+          toast.error(error.response.data.message, {
+            position: "top-right",
+            autoClose: 3000,
+            toastId,
+          });
+        } else {
+          toast.error("oops !! server down", {
+            position: "top-center",
+            autoClose: 3000,
+            toastId,
+          });
+        }
       }
     }
   };
   const userRole = localStorage.getItem("userRole");
   if (userRole !== "Admin") {
-    return <h1>Unauthorized access</h1>;
+    return <UnauthorizedPage />;
   }
   return (
     <div className="AddEmployee-container">
       <div className="AddEmployee-form">
         <div className="AddEmployee-form-header">
-          {/* <div className="RegistrationFormContainer" > */}
           <h2>ADD EMPLOYEE</h2>
         </div>
 
@@ -294,11 +296,11 @@ function AddEmployee() {
             />
           </div>
           {nameError && (
-            <span style={{ fontSize: "12px", color: "red" }}>{nameError}</span>
+            <span className={"AddEmployee-spanError"}>{nameError}</span>
           )}
 
           <div className="AddEmployee-form-group">
-            <Label className="AddEmployee-form-label" text={"Email"}/>
+            <Label className="AddEmployee-form-label" text={"Email"} />
             <Input
               className={"AddEmployee-input"}
               type={"email"}
@@ -311,11 +313,13 @@ function AddEmployee() {
             />
           </div>
           {emailError && (
-            <span style={{ fontSize: "12px", color: "red" }}>{emailError}</span>
+            <span className={"AddEmployee-spanError"}>{emailError}</span>
           )}
 
           <div className="AddEmployee-form-group">
-            <Label className="AddEmployee-form-label"  text={"EmployeeId"}>EmployeeId</Label>
+            <Label className="AddEmployee-form-label" text={"EmployeeId"}>
+              EmployeeId
+            </Label>
             <Input
               className={"AddEmployee-input"}
               type={"text"}
@@ -328,12 +332,10 @@ function AddEmployee() {
             />
           </div>
           {employeeIdError && (
-            <span style={{ fontSize: "12px", color: "red" }}>
-              {employeeIdError}
-            </span>
+            <span className={"AddEmployee-spanError"}>{employeeIdError}</span>
           )}
           <div className="AddEmployee-form-group">
-            <Label className={"AddEmployee-form-label"} text={"DOB"}/>
+            <Label className={"AddEmployee-form-label"} text={"DOB"} />
             <Input
               className={"AddEmployee-input"}
               type={"date"}
@@ -346,11 +348,11 @@ function AddEmployee() {
             />
           </div>
           {dobError && (
-            <span style={{ fontSize: "12px", color: "red" }}>{dobError}</span>
+            <span className={"AddEmployee-spanError"}>{dobError}</span>
           )}
 
           <div className="AddEmployee-form-group">
-            <Label className={"form-label"} text={"DOJ"}/>
+            <Label className={"AddEmployee-form-label"} text={"DOJ"} />
             <Input
               className={"AddEmployee-input"}
               type={"date"}
@@ -363,11 +365,11 @@ function AddEmployee() {
             />
           </div>
           {dojError && (
-            <span style={{ fontSize: "12px", color: "red" }}>{dojError}</span>
+            <span className={"AddEmployee-spanError"}>{dojError}</span>
           )}
 
           <div className="AddEmployee-form-group">
-            <Label className={"AddEmployee-form-label"} text={"location"}/>
+            <Label className={"AddEmployee-form-label"} text={"Location"} />
             <Select
               className={"AddEmployee-form-dropdown"}
               value={location}
@@ -375,23 +377,14 @@ function AddEmployee() {
               onBlur={validateLocation}
               placeholder={"Select Location"}
               options={locations}
-            >
-              {/* <option value="">Select Location</option> */}
-              {/* {locations.map((option, index) => (
-                <option key={index} value={option}>
-                  {option}
-                </option>
-              ))} */}
-            </Select>
+            ></Select>
           </div>
           {locationError && (
-            <span style={{ fontSize: "12px", color: "red" }}>
-              {locationError}
-            </span>
+            <span className={"AddEmployee-spanError"}>{locationError}</span>
           )}
 
           <div class="AddEmployee-form-group">
-            <Label className={"AddEmployee-form-label"} text={"designation"}/>
+            <Label className={"AddEmployee-form-label"} text={"Designation"} />
             <Select
               className={"AddEmployee-form-dropdown"}
               value={designation}
@@ -399,23 +392,14 @@ function AddEmployee() {
               onBlur={validateDesignation}
               placeholder={"Select Designation"}
               options={designations}
-            >
-              {/* <option value="">Select Designation</option> */}
-              {/* {designations.map((option, index) => (
-                <option key={index} value={option}>
-                  {option}
-                </option>
-              ))} */}
-            </Select>
+            ></Select>
           </div>
           {designationError && (
-            <span style={{ fontSize: "12px", color: "red" }}>
-              {designationError}
-            </span>
+            <span className={"AddEmployee-spanError"}>{designationError}</span>
           )}
 
           <div class="AddEmployee-form-group">
-            <Label className={"AddEmployee-form-label"} text={"role"}/>
+            <Label className={"AddEmployee-form-label"} text={"Role"} />
             <Select
               className={"AddEmployee-form-dropdown"}
               value={role}
@@ -433,10 +417,10 @@ function AddEmployee() {
             </Select>
           </div>
           {roleError && (
-            <span style={{ fontSize: "12px", color: "red" }}>{roleError}</span>
+            <span className={"AddEmployee-spanError"}>{roleError}</span>
           )}
           <div className="AddEmployee-form-group">
-            <Label className={"AddEmployee-form-label"} text={"Skills"}/>
+            <Label className={"AddEmployee-form-label"} text={"Skills"} />
             <MultipleSelectDropdown
               options={SkillsDropDown.map((skill) => ({
                 value: skill,
@@ -452,13 +436,11 @@ function AddEmployee() {
             />
           </div>
           {skillsError && (
-            <span style={{ fontSize: "12px", color: "red" }}>
-              {skillsError}
-            </span>
+            <span className={"AddEmployee-spanError"}>{skillsError}</span>
           )}
 
           <div className="AddEmployee-form-group">
-            <Label className="AddEmployee-form-label" text={"contactNo"}/>
+            <Label className="AddEmployee-form-label" text={"Contact No"} />
             <Input
               className={"AddEmployee-input"}
               type={"text"}
@@ -471,9 +453,7 @@ function AddEmployee() {
             />
           </div>
           {contactError && (
-            <span style={{ fontSize: "12px", color: "red" }}>
-              {contactError}
-            </span>
+            <span className={"AddEmployee-spanError"}>{contactError}</span>
           )}
         </div>
         <div className="AddEmployee-buttons">

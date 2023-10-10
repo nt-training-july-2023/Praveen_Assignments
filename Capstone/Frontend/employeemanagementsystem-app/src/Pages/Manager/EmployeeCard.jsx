@@ -39,7 +39,7 @@ function EmployeeCarddd() {
       return false; // Return false in case of an error
     }
   };
-  
+
   const getAllEmployees = async () => {
     setIsLoading(true);
     try {
@@ -47,35 +47,41 @@ function EmployeeCarddd() {
         selectedSkills,
         showUnassigned
       );
-  
+
       const employeesWithIsRequested = await Promise.all(
         response.data.map(async (employee) => {
           const isRequested = await IsRequested(employee.id);
           return { ...employee, isRequested };
         })
       );
-  
+
       setEmployees(employeesWithIsRequested);
       setIsLoading(false);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      if (error.response) {
+        console.log(error);
+        toast.error(error.response.data.message, {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      } else {
+        toast.error("oops !! server down", {
+          position: "top-center",
+          autoClose: 3000,
+          
+        });
+      }
     }
   };
-  
-
 
   function reverseDateFormat(inputDate) {
-    // Split the input date using the '-' separator
     const dateParts = inputDate.split("-");
 
-    // Check if the input has three parts (year, month, day)
     if (dateParts.length === 3) {
-      // Reverse the parts and join them with '-' separator
       const reversedDate =
         dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
       return reversedDate;
     } else {
-      // Handle invalid input format
       return "Invalid Date Format";
     }
   }
@@ -134,21 +140,21 @@ function EmployeeCarddd() {
                 <div className="MD-column1">
                   <h2>{employee.name}</h2>
                   <p>
-                    <span style={{ fontSize: "0.7rem", marginTop: "-0.2rem" }}>
+                    <span className="MD-designationSpan">
                       {employee.designation}
                     </span>
                   </p>
-                  <p style={{ marginTop: "1rem" }}>
+                  <p className="MD-ProjectNamePara">
                     {employee.projectId ? (
                       <p>
-                        <span style={{ fontWeight: "bold" }}>
+                        <span className="MD-ProjectNameSpan">
                           Project Name :
                         </span>{" "}
                         {employee.projectName}
                       </p>
                     ) : (
                       <p>
-                        <span style={{ fontWeight: "bold" }}>
+                        <span className="MD-ProjectNameSpan">
                           Project Name :
                         </span>{" "}
                         N/A
@@ -157,57 +163,55 @@ function EmployeeCarddd() {
                   </p>
                   {employee.managerName ? (
                     <p>
-                      <span style={{ fontWeight: "bold" }}>Manager : </span>
+                      <span className="MD-ProjectNameSpan">Manager : </span>
                       {employee.managerName}
                     </p>
                   ) : (
                     <p>
-                      <span style={{ fontWeight: "bold" }}>Manager:</span>{" "}
+                      <span className="MD-ProjectNameSpan">Manager:</span>{" "}
                       Ankita
                     </p>
                   )}
                   <p>
-                    <span style={{ fontWeight: "bold" }}>Contact : </span>
+                    <span className="MD-ProjectNameSpan">Contact : </span>
                     {employee.contactNo}
                   </p>
                   <p>
-                    <span style={{ fontWeight: "bold" }}>Email : </span>
+                    <span className="MD-ProjectNameSpan">Email : </span>
                     {employee.email}
                   </p>
                   <p>
-                    <span style={{ fontWeight: "bold" }}>Skills : </span>
+                    <span className="MD-ProjectNameSpan">Skills : </span>
                     {employee.skills.join(",")}
                   </p>
                 </div>
                 <div className="MD-column2">
                   <br></br>
-                  <p style={{ fontSize: "15px", marginTop: "-0.9rem" }}>
-                    <span style={{ fontWeight: "bold" }}>Employee id : </span>
+                  <p className="MD-ProjectId-para">
+                    <span className="MD-ProjectNameSpan">Employee id : </span>
                     {employee.empId}
                   </p>
                   <br></br>
-                  <p style={{ marginTop: "0.8rem" }}>
-                    <span style={{ fontWeight: "bold" }}>DOB : </span>
+                  <p className="MD-DOBPara">
+                    <span className="MD-ProjectNameSpan">DOB : </span>
                     {reverseDateFormat(employee.dob)}
                   </p>
                   <p>
-                    <span style={{ fontWeight: "bold" }}>DOJ: </span>
+                    <span className="MD-ProjectNameSpan">DOJ: </span>
                     {reverseDateFormat(employee.doj)}
                   </p>
                   <p>
-                    <span style={{ fontWeight: "bold" }}>Location : </span>
+                    <span className="MD-ProjectNameSpan">Location : </span>
                     {employee.location}
                   </p>
                   {!employee.projectId && (
                     <p>
                       {employee.isRequested ? (
-                        <Button 
-                        className={"MD-requested-button"}
-                         disabled
-                         text={"Requested"}
-                         />
-                          
-                        
+                        <Button
+                          className={"MD-requested-button"}
+                          disabled
+                          text={"Requested"}
+                        />
                       ) : (
                         <Button
                           className={"MD-assign-button"}

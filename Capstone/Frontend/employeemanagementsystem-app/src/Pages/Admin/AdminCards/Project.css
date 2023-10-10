@@ -1,43 +1,93 @@
 
-  .project-card-container {
+  .AC-Project-card-container {
     display: flex;
     flex-wrap: wrap;
-    height: 400px; 
-    overflow-y: scroll; 
+   
+    display: flex;
+    justify-content:space-evenly;
+    
+    flex-wrap: wrap;
+  
+    padding: 20px;
 }
 
-.project-card-container::-webkit-scrollbar {
+.AC-Project-card-container::-webkit-scrollbar {
     width: 0;
     height: 0;
 }
 
-.card {
+.AC-Project-card {
     display: flex;
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
     background-color: #f9f9f9;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgb(139, 132, 138);
     margin: 5px;
-    width: 24rem;
+    width: 29rem;
     margin-top: 2rem;
-    margin-left: 1rem;
     flex-shrink: 0;
-    height: 210px;
+    height: 190px;
 }
 
-.column {
-    flex: 1;
-    padding: 10px;
-    
+.AC-Project-h2{
+    font-size: 1.5rem !important;
+    margin-bottom: 0.5rem;
+    color: #000000;
 }
+
 
 p {
-    font-size: 12px;
-    margin-right: 2px!important ;
+    margin: 0.5rem;
+  font-size: 0.7rem;
+  color: #1b1a1a!important;
 }
-.column1{
+.AC-Project-column1{
     width:60%;
+    padding: 2px;
 }
-.column2{
+.AC-Project-column2{
     width: 40%;
+}
+.AC-Project-HeadSpan{
+    font-weight:bold;
+}
+.AC-Project-Description-Para{
+    font-size: 1rem;
+}
+.AC-Project-DescriptionSpan{
+    font-weight:bold;
+    font-size: 1rem;
+    margin-top: 2rem;
+}
+.AC-Project-ReadmoreSpan{
+    color: blue;
+    text-decoration-line: underline;
+}
+.AC-Project-SkillsPara{
+    font-size: 1rem;
+}
+.AC-Project-SkillsSpan{
+    font-weight: bold;
+    font-size : 1rem;
+    margin-top : 2rem;
+}
+.AC-Project-ProjectIdSpan{
+    font-weight: bold;
+    font-size : 1rem;
+    margin-top : 2rem;
+
+}
+.AC-Project-StartDateSpan{
+    font-weight: bold;
+    font-size : 1rem;
+    margin-top : 2rem;
+
+}
+.AC-Project-TeamSpan{
+    font-weight: bold;
+    font-size : 1rem;
+    margin-top : 2rem;
 }

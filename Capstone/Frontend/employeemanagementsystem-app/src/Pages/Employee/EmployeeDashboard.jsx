@@ -4,6 +4,7 @@ import Organization from './Organization.jsx';
 import './EmployeeDashboard.css';
 import MyProfile from './MyProfile.jsx';
 import Button from '../../components/Button.jsx';
+import UnauthorizedPage from '../Unauthorized.jsx';
 
 
 
@@ -31,15 +32,13 @@ function EmployeeDashboard() {
 
   const userRole = localStorage.getItem('userRole');
   if(userRole!='Employee'){
-    return(
-      <h1>unauthorized access</h1>
-    )
+    return <UnauthorizedPage/>;
   }
   return (
     <div className="ED-body-container">
       <div className="ED-nav-bar">
         <div>
-          <h4>Welcome {name}</h4>
+          <h4 className='ED-h4'>Welcome {name}</h4>
         </div>
         <div className="ED-tabs">
           <div

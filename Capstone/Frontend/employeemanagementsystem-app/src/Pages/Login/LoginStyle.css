@@ -82,8 +82,11 @@ font-size: 25px;
     color: red;
   }
   .error-message{
+    text-align: left;
     margin-bottom: 10px;
-  }
+    margin-left: 65px;
+}
+  
   .message {
     margin-top: 10px;
     color: #d9534f;

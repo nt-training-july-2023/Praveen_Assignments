@@ -18,6 +18,7 @@ import AdminDashboard from './Pages/Admin/AdminDashboard';
 import EmployeeDashboard from './Pages/Employee/EmployeeDashboard';
 import ManagerDashboard from './Pages/Manager/ManagerDashboard';
 import RequestResource from './Pages/Manager/RequestResource';
+import UnauthorizedPage from './Pages/Unauthorized';
 
 
 
@@ -31,15 +32,16 @@ function App() {
       <Route path="/" element={<Login/>} />
       {/* <Route path="/" element={<LoginPrivateRoute Component={Login} isLoggegIn={localStorage.getItem('IsLoggedIn')}/>} /> */}
       <Route path="/register" element={<AdminRegistration/>} />
-      <Route path="/addEmployee" element={ <AddEmployee/>}/>
-      <Route path="/addProject" element={<AddProject/>}/>
+      <Route path="/addEmployee" element={ <PrivateRoute Component={AddEmployee} isLoggegIn={localStorage.getItem('IsLoggedIn')}/>}/>
+      <Route path="/addProject" element={<PrivateRoute Component={AddProject} isLoggegIn={localStorage.getItem('IsLoggedIn')}/>}/>
       <Route exact path="/adminDashboard" element={<PrivateRoute Component={AdminDashboard} isLoggegIn={localStorage.getItem('IsLoggedIn')}/>} />
-      <Route path="/employeeDashboard" element={<EmployeeDashboard/>}/>
-      <Route path='/managerDashboard' element={<ManagerDashboard/>}/>
-      <Route path='/assignProject/:employeeId' element={<AssignProject/>}/>
-      <Route path='/updateSkill/:employeeId' element={<UpdateSkills/>}/>
-      <Route path='/requestResource/:employeeId' element={<RequestResource/>}/>
-      <Route path='/resourceRequestedList' element={<RequestedResourcesList/>}/>
+      <Route path="/employeeDashboard" element={<PrivateRoute Component={EmployeeDashboard} isLoggegIn={localStorage.getItem('IsLoggedIn')}/>}/>
+      <Route path='/managerDashboard' element={<PrivateRoute Component={ManagerDashboard} isLoggegIn={localStorage.getItem('IsLoggedIn')}/>}/>
+      <Route path='/assignProject/:employeeId' element={<PrivateRoute Component={AssignProject} isLoggegIn={localStorage.getItem('IsLoggedIn')}/>}/>
+      <Route path='/updateSkill/:employeeId' element={<PrivateRoute Component={UpdateSkills} isLoggegIn={localStorage.getItem('IsLoggedIn')}/>}/>
+      <Route path='/requestResource/:employeeId' element={<PrivateRoute Component={RequestResource} isLoggegIn={localStorage.getItem('IsLoggedIn')}/>}/>
+      <Route path='/resourceRequestedList' element={<PrivateRoute Component={RequestedResourcesList} isLoggegIn={localStorage.getItem('IsLoggedIn')}/>}/>
+      <Route path='/unauthorized' element={<UnauthorizedPage/>}/>
 
       </Routes>
     </Router>

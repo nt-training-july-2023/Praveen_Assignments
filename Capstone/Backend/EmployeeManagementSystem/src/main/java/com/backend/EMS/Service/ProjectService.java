@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.backend.EMS.Constants.SuccessConstants;
 import com.backend.EMS.DTO.ProjectInDto;
 import com.backend.EMS.DTO.ProjectOutDto;
 import com.backend.EMS.DTO.ResponseDto;
@@ -47,7 +48,7 @@ public class ProjectService {
         Project project = this.modelMapper.map(projectInDto, Project.class);
         ResponseDto responseDto = new ResponseDto();
         projectRepository.save(project);
-        responseDto.setMessage("Project Added Successfully");
+        responseDto.setMessage(SuccessConstants.ADDED);
         return responseDto;
     }
     /**

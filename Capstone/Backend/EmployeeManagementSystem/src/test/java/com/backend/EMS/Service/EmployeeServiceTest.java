@@ -21,6 +21,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 
+import com.backend.EMS.Constants.SuccessConstants;
 import com.backend.EMS.DTO.EmployeeInDto;
 import com.backend.EMS.DTO.EmployeeOutDto;
 import com.backend.EMS.DTO.IsRequestedInDto;
@@ -84,7 +85,7 @@ public class EmployeeServiceTest {
         ResponseDto responseDto = employeeService.addEmployee(employeeInDto);
 
         assertNotNull(responseDto);
-        assertEquals("Employee Added successfully", responseDto.getMessage());
+        assertEquals(SuccessConstants.ADDED, responseDto.getMessage());
     }
     @Test
     public void testUpdateEmployee() {
@@ -261,7 +262,7 @@ public class EmployeeServiceTest {
 
         ResponseDto response = employeeService.updateSkills(id, updateSkillsDto);
 
-        assertEquals("Skills Updated", response.getMessage());
+        assertEquals(SuccessConstants.SKILLS_ADDED, response.getMessage());
         assertEquals(2, employee.getSkills().size());
     }
     

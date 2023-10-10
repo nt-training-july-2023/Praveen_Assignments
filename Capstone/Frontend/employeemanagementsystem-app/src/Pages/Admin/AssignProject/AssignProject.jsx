@@ -20,7 +20,6 @@ function AssignProject() {
 
   const location = useLocation();
   const stateData = location.state;
-  
 
   useEffect(() => {
     getAllProjects();
@@ -34,7 +33,7 @@ function AssignProject() {
       console.error("Error fetching projects data:", error);
     }
   };
-  
+
   const handleUpdate = async () => {
     const toastId = "handleUpdate";
     if (projectId === 0 || managerId === 0) {
@@ -42,7 +41,6 @@ function AssignProject() {
         position: "top-right",
         autoClose: 1000,
         toastId,
-        
       });
       return;
     } else {
@@ -51,12 +49,25 @@ function AssignProject() {
           projectId: projectId,
           managerId: managerId,
         };
-      
-        const response = await adminService.assignProject(employeeId,data);
+
+        const response = await adminService.assignProject(employeeId, data);
         console.log("Employee updated:", response.data);
         navigate("/AdminDashboard");
       } catch (error) {
-        console.error("Error updating employee:", error);
+        if (error.response) {
+          console.error("Error updating employee:", error);
+          // toast.error(error.response.data.message, {
+          //   position: "top-right",
+          //   autoClose: 3000,
+          //   toastId,
+          // });
+        } else {
+          toast.error("oops !! server down", {
+            position: "top-center",
+            autoClose: 3000,
+            toastId,
+          });
+        }
       }
     }
   };
@@ -104,17 +115,17 @@ function AssignProject() {
         </select>
 
         <div className="AP-button-container">
-          <Button 
-          type="button" 
-          onClick={handleUpdate}
-           text={"Assign Project"}
+          <Button
+            type="button"
+            onClick={handleUpdate}
+            text={"Assign Project"}
           />
           <Button
-           type="button" 
-           className={"secondary"}
-           onClick={handleCancel}
+            type="button"
+            className={"secondary"}
+            onClick={handleCancel}
             text={"Cancel"}
-            />
+          />
         </div>
       </div>
     </div>

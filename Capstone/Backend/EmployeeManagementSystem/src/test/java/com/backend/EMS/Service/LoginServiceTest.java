@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.backend.EMS.Constants.SuccessConstants;
 import com.backend.EMS.Controller.EmployeeController;
 import com.backend.EMS.DTO.LoginInDto;
 import com.backend.EMS.DTO.LoginOutDto;
@@ -48,7 +49,7 @@ class LoginServiceTest {
 
         LoginOutDto loginResponse = loginService.login(loginInDto);
 
-        assertEquals("Login Successful", loginResponse.getMessage());
+        assertEquals(SuccessConstants.LOGINSUCCESS, loginResponse.getMessage());
         assertEquals(Role.Admin, loginResponse.getRole());
         assertEquals(1L, loginResponse.getId());
         assertEquals("John Doe", loginResponse.getName());

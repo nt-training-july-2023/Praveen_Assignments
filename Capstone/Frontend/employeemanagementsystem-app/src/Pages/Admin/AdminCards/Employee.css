@@ -1,42 +1,44 @@
-.card-container {
+.AC-Employee-card-container {
     display: flex;
     flex-wrap: wrap;
     /* height: 200px ; */
     overflow-y: scroll;
     padding: 20px;
+    justify-content:space-evenly;
   }
   
-  .card-container::-webkit-scrollbar {
+  .AC-Employee-card-container::-webkit-scrollbar {
     width: 0;
     height: 0;
   }
   
-  .AD-card {
+  .AC-Employee-card {
     display: flex;
+   
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
     background-color: #f9f9f9;
     box-shadow: 0 4px 6px rgb(139, 132, 138);
     margin: 5px;
-    height:210px ;
-    width: 24rem;
+    height:194px ;
+    width: 29rem;
     margin-top: 2rem;
     margin-left: 1rem;
     flex-shrink: 0;
     transition: transform 0.2s ease;
   }
   
-  .AD-card:hover {
+  .AC-Employee-card:hover {
     transform: scale(1.02);
   }
   
-  .column {
+  .AC-Employee-column1 {
     flex: 1;
-    padding: 20px;
+    padding: 6px;
   }
   
-  h2 {
+  .AC-Employee-h2 {
     font-size: 1.5rem !important;
     margin-bottom: 0.5rem;
     color: #000000;
@@ -48,19 +50,76 @@
     color: #000000;
   }
   
-  .AD-assign-button {
+  .AC-Employee-assign-button {
     background-color: #007bff;
     color: #fff;
     border: none;
     margin-top: 5px;
-    padding: 8px 10px;
+    padding:11px 7px !important;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.2s ease;
     width: 80%;
   }
+  .AC-Employee-Unassign-button{
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    margin-top: 5px;
+    padding: 11px 7px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    width: 80%;
+
+  }
   
-  .AD-assign-button:hover {
+  .AC-Employee-assign-button:hover {
     background-color: #0056b3;
   }
+.AC-Employee-Unassign-button:hover{
+  background-color: #0056b3;
+}
+.AC-Employee-designationSpan{
+  font-size: 1rem;
+   margin-top: -0.2rem;
+}
+.AC-Employee-projectNameSpan{
+  font-weight: bold;
+
+}
+.AC-Employee-managerNameSpan{
+  font-weight: bold;
+}
+.AC-Employee-contactSpan{
+  font-weight: bold;
+}
+.AC-Employee-emailSpan{
+  font-weight: bold;
+}
+
+.AC-Employee-employeeIdSpan{
+  font-weight: bold;
+}
+.AC-Employee-DOBSpan{
+  font-weight: bold;
+}
+.AC-Employee-DOJSpan{
+  font-weight: bold;
+}
+.AC-Employee-locationSpan{
+  font-weight: bold;
+}
+.AC-Employee-projectNamePara{
+  margin-top: 1rem;
+}
+.AC-Employee-EmployeeIdPara{
+  font-size: 15px;
+   margin-top: 0.7rem;
+}
+.AC-Employee-DOB-Para{
+  margin-top: 1rem;
+}
+
+
   

@@ -52,7 +52,7 @@ function Login() {
       };
 
       const response = await loginService.login(loginData); // Use await here
-
+      if(response){
       if (response.status === 200) {
         setMessage1("Login Successful");
         setEmail("");
@@ -73,9 +73,18 @@ function Login() {
           navigate("/managerDashboard");
         }
       }
-    } catch (error) {
+    }} catch (error) {
+      if(error.response){
       setMessage(error.response.data.message);
-      setMessage1("");
+      setMessage1("");}
+      else{
+        toast.error("oops !! server down", {
+          position:"top-center",
+          autoClose: 3000,
+          toastId,
+        });
+
+      }
     }
   };
   const redirectToRegister = () => {
@@ -88,12 +97,19 @@ function Login() {
         navigate("/adminDashboard");
       } else if (role === "Manager") {
         navigate("/managerDashboard");
-      } else if (role === "Admin") {
-        navigate("/adminDashboard");
+      } else if (role === "Employee") {
+        navigate("/employeeDashboard");
       }
     }
   };
   useEffect(() => {
+    // if (role === "Admin") {
+    //   navigate("/adminDashboard");
+    // } else if (role === "Manager") {
+    //   navigate("/managerDashboard");
+    // } else if (role === "Admin") {
+    //   navigate("/adminDashboard");
+    // }
     page();
   }, []);
 

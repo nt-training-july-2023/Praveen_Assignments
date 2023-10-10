@@ -1,17 +1,16 @@
 .MD-card-container {
-    /* display: flex;
-    flex-wrap: wrap;
-    height: 200px ;
-    overflow-y: scroll;
-    padding: 20px; */
+
     display:flex;
     flex-wrap: wrap;
     padding: 15px;
-    overflow-y: scroll;
-    width: 100%;
-    /* height: 500px ; */
+    /* overflow-y: scroll; */
+    width: 95%;
+    justify-content:space-evenly;
   }
-
+.MD-container{
+  display: flex;
+  justify-content:space-evenly;
+}
 
 
 .MD-filter{
@@ -49,11 +48,10 @@ text-align: right;
     background-color: #f9f9f9;
     box-shadow: 0 4px 6px rgb(139, 132, 138);
     margin: 5px;
-    height:240px ;
-    width: 24rem;
+    height:220px ;
+    width: 30rem;
     margin-top: 2rem;
-    margin-left: 1rem;
-    flex-shrink: 0;
+    margin-left: rem;
     transition: transform 0.2s ease;
   }
   .Radiobutton{
@@ -127,6 +125,24 @@ text-align: right;
     background-color: #007bff;
  
     
+  }
+  .MD-designationSpan{
+    font-size: 0.9rem ;
+     margin-top: -0.2rem
+  }
+  .MD-ProjectNamePara{
+    margin-top : 1rem;
+  }
+  .MD-ProjectNameSpan{
+    font-weight: bold;
+  }
+  .MD-DOBPara{
+    margin-top: 1.4rem;
+  }
+
+  .MD-ProjectId-para{
+    font-size: 15px;
+    margin-top: -0.9rem
   }
   
 

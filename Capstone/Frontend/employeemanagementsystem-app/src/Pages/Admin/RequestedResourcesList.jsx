@@ -4,6 +4,8 @@ import "./RequestedResourceList.css";
 import { useNavigate } from "react-router-dom";
 import adminService from "../../Service/AdminService";
 import Button from "../../components/Button";
+import UnauthorizedPage from "../Unauthorized";
+import { toast } from "react-toastify";
 function RequestedResourcesList() {
   const [RRList, setRRList] = useState([]);
   const [deleteResponse, setDeleteResponse] = useState("");
@@ -24,7 +26,7 @@ function RequestedResourcesList() {
       console.error("Error fetching data:", error);
     }
   };
-  
+
   const handleReject = async (id) => {
     try {
       const response = await adminService.rejectRequestedResource(id);
@@ -34,7 +36,7 @@ function RequestedResourcesList() {
       console.error("Error fetching data:", error);
     }
   };
-  
+
   const handleAcceptClick = async (id) => {
     try {
       const response = await adminService.acceptRequestedResource(id);
@@ -49,16 +51,16 @@ function RequestedResourcesList() {
   };
   const userRole = localStorage.getItem("userRole");
   if (userRole !== "Admin") {
-    return <h1>Unauthorized access</h1>;
+    return <UnauthorizedPage />;
   }
   return (
     <div>
       <h1 className="RR-head">REQUESTED RESOURCES</h1>
-      <Button 
-      type="button" 
-      className={"RR-closeee"}
-      onClick={handleCancel}
-        text ={"Back To home"}
+      <Button
+        type="button"
+        className={"RR-closeee"}
+        onClick={handleCancel}
+        text={"Back To home"}
       />
 
       {isLoading ? ( // Check if data is still loading
@@ -99,7 +101,6 @@ function RequestedResourcesList() {
                       onClick={() => handleReject(requ.id)}
                       text={"Reject"}
                     />
-
                   </td>
                 </tr>
               ))}

@@ -62,8 +62,11 @@ body{
     justify-content: space-between;
     height:30%;
   }
+  .AddProject-h2{
+    margin-bottom: 20px;
+  }
   .AddProject-form-label {
-    padding-top: 1opx;
+    padding-top: 10px;
   }
   .AddProject-input {
     padding: 10px;
@@ -105,12 +108,11 @@ body{
     font-family: Arial, sans-serif;
     font-size: 14px;
     line-height: 1.5;
-    resize: vertical; /* Allow vertical resizing */
+    resize: vertical; 
     margin-left: 9.5rem;
     margin-top:-1rem;
   }
 
-  /* CSS for a label (optional) */
   .AddProject-label {
     font-weight: bold;
   }
@@ -158,5 +160,9 @@ body{
   }
   .AddProject-button-cancel:hover {
     background-color: #8B0000;
+  }
+  .AddProject-spanError{
+     font-size: 12px;
+      color: red; 
   }
   

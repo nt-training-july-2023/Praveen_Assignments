@@ -64,7 +64,7 @@ class ProjectControllerTest {
         doNothing().when(validator).checkProject(projectDto);
         when(projectService.addProject(projectDto)).thenReturn(response);
 
-        MvcResult mvcResult = this.mockMvc.perform(post("/api/addProject")
+        MvcResult mvcResult = this.mockMvc.perform(post("/api/admin/add-project")
                 .contentType(MediaType.APPLICATION_JSON).content(inputJSON))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
@@ -89,7 +89,7 @@ class ProjectControllerTest {
 
         when(projectService.getAllProject()).thenReturn(list);
 
-        MvcResult mvcResult = this.mockMvc.perform(get("/api/projectCards")
+        MvcResult mvcResult = this.mockMvc.perform(get("/api/projects")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();

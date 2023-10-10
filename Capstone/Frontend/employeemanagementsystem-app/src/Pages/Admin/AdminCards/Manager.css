@@ -1,9 +1,10 @@
-.card-container {
+.AC-SM-card-container {
+
   display: flex;
+  justify-content:space-evenly;
+  
   flex-wrap: wrap;
-  height: 400px;
-  /* height: auto; */
-  overflow-y: scroll;
+
   padding: 20px;
 }
 
@@ -12,30 +13,35 @@
   height: 0;
 }
 
-.card {
+.AC-SM-card {
   display: flex;
-  border: none;
-  border-radius: 10px;
-  background-color: #fffbfb;
-  box-shadow: 0 4px 6px grey;
-  margin: 10px;
-  height: 210px;
-  width: 24rem !important;
-  margin-left: 12rem;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgb(139, 132, 138);
+  margin: 5px;
+  height:194px ;
+  width: 30rem;
+  margin-top: 2rem;
   flex-shrink: 0;
   transition: transform 0.2s ease;
 }
 
-.card:hover {
+.AC-SM-card:hover {
   transform: scale(1.02);
 }
 
-.column {
-  flex: 1;
-  padding: 20px;
+.AC-SM-column1 {
+  flex: 1 ;
+  padding: 7px;
+}
+.AC-SM-column2{
+  flex: 1 1;
+  padding: 7px;
 }
 
-h2 {
+.AC-SM-h2 {
   font-size: 1.5rem;
   margin-bottom: 0.3rem;
   color: #110f0f;
@@ -46,20 +52,44 @@ p {
   font-size: 0.9rem;
   color: #000000;
 }
-
-.assign-button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+.AC-SM-DesignationSpan{
+  font-size: 0.8rem;
+   margin-top: -0.rem
+}
+.AC-SM-LocationSpan{
+  font-weight: bold;
+}
+.AC-SM-EmailSpan{
+  font-weight: bold;
+}
+.AC-SM-ConatctSpan{
+  font-weight: bold;
+}
+.AC-SM-LocationSpan{
+  font-weight: bold;
+}
+.AC-SM-EmployeeIdPara{
+  font-size: 15px;
+  margin-top: -0.8rem 
+}
+.AC-SM-EmployeeIdSpan{
+  font-weight: bold;
+}
+.AC-SM-ProjectSkillsPara{
+  margin-top: 0.8rem;
+}
+.AC-SM-TeamPara{
+  margin-top: 1rem;
+}
+.AC-SM-TeamSpan{
+  font-weight: bold;
+}
+.AC-SM-ProjectSkillsSpan{
+  font-weight: bold;
 }
 
-.assign-button:hover {
-  background-color: #0056b3;
-}
+
+
 
 
 

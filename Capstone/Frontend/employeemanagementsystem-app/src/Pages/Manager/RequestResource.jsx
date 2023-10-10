@@ -13,8 +13,8 @@ import Label from "../../components/Label";
 function RequestResource() {
   const [projects, setProjects] = useState([]);
   const [employeeName, setEmployeeName] = useState([]);
-  const [managerId, setManagerId] = useState(0);
-  const [projectId, setProjectId] = useState(0);
+  const [managerId, setManagerId] = useState();
+  const [projectId, setProjectId] = useState();
   const [assignError, setAssignError] = useState();
   const [managerData, setManagerData] = useState({});
   const [description, setDescription] = useState("");
@@ -60,7 +60,7 @@ function RequestResource() {
     const toastId = "handleUpdate";
     validateAssign();
     validateDescription();
-    if (projectId === "" || managerId === "" || description === "") {
+    if (projectId === null || managerId === null || description === "") {
       toast.error("Please fill all details", {
         position: "top-right",
         autoClose: 1000,
@@ -153,7 +153,7 @@ function RequestResource() {
           ></textarea>
         </div>
         {descriptionError && (
-          <span style={{ fontSize: "12px", color: "red" }}>
+          <span className="RR-descriptionSpan">
             {descriptionError}
           </span>
         )}

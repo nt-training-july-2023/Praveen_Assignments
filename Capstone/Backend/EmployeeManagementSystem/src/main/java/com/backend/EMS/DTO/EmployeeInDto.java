@@ -3,10 +3,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.backend.EMS.Constants.ErrorConstants;
 import com.backend.EMS.Model.Designation;
 import com.backend.EMS.Model.Location;
 import com.backend.EMS.Model.Role;
 
+import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -24,13 +26,12 @@ public class EmployeeInDto {
     /**
      * The name of the employee.
      */
-    @NotBlank(message = "Name cannot be empty")
+    @NotBlank(message = ErrorConstants.NAME_REQUIRED)
     private String name;
 
     /**
      * The email of the employee.
      */
-    @NotBlank(message = "Name cannot be empty")
     @Pattern(regexp = ".+@nucleusteq\\.com$", message = "Email"
             + " must end with @nucleusteq.com")
     private String email;
@@ -57,12 +58,14 @@ public class EmployeeInDto {
     /**
      * The location of the employee.
      */
+    @Enumerated(EnumType.STRING)
     @NotNull
     private Location location;
 
     /**
      * The designation of the employee.
      */
+    @Enumerated(EnumType.STRING)
     @NotNull
     private Designation designation;
     /**
@@ -73,12 +76,13 @@ public class EmployeeInDto {
     /**
      * The password of the employee.
      */
-    @NotBlank(message = "Password should not be empty")
+    @NotBlank(message = ErrorConstants.INVALID_PASSWORD_MESSAGE)
     private String password;
 
     /**
      * The role of employee.
      */
+    @Enumerated(EnumType.STRING)
     @NotNull
     private Role role;
 

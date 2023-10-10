@@ -199,7 +199,6 @@ function AdminRegistration() {
       adminService
         .registerAdmin(adminData)
         .then((response) => {
-          // if(response){
           toast.success("Admin Registered", {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 3000,
@@ -210,7 +209,6 @@ function AdminRegistration() {
             toastId,
             transition: Slide,
           });
-          // Reset form fields after successful registration
           setName("");
           setEmail("");
           setEmpId("");
@@ -221,17 +219,25 @@ function AdminRegistration() {
           setContactNo("");
           setPassword("");
           setConfirmPassword("");
-          // }
         })
-        .catch((err) => {
-          toast.error(err.response.data.message, {
-            position: "top-right",
-            autoClose: 3000,
-            toastId,
-          });
+        .catch((error) => {
+          if (error.response) {
+            toast.error(error.response.data.message, {
+              position: "top-right",
+              autoClose: 3000,
+              toastId,
+            });
+          } else {
+            toast.error("oops !! server down", {
+              position: "top-center",
+              autoClose: 3000,
+              toastId,
+            });
+          }
         });
     }
   };
+  
   return (
     <div className="AdminRegistration-container">
       <div className="AdminRegistration-form-container">
@@ -253,7 +259,7 @@ function AdminRegistration() {
               />
             </div>
             {nameError && (
-              <span style={{ fontSize: "12px", color: "red" }}>
+              <span className ="AR-errorSpans">
                 {nameError}
               </span>
             )}
@@ -275,7 +281,7 @@ function AdminRegistration() {
               />
             </div>
             {emailError && (
-              <span style={{ fontSize: "12px", color: "red" }}>
+              <span className ="AR-errorSpans">
                 {emailError}
               </span>
             )}
@@ -297,7 +303,7 @@ function AdminRegistration() {
               />
             </div>
             {employeeIdError && (
-              <span style={{ fontSize: "12px", color: "red" }}>
+              <span className ="AR-errorSpans">
                 {employeeIdError}
               </span>
             )}
@@ -315,11 +321,11 @@ function AdminRegistration() {
               />
             </div>
             {dobError && (
-              <span style={{ fontSize: "12px", color: "red" }}>{dobError}</span>
+              <span className ="AR-errorSpans">{dobError}</span>
             )}
 
             <div className="AdminRegistration-form-group">
-              <Label className={"form-label"} text={"DOJ"} />
+              <Label className={"AdminRegistration-form-label"} text={"DOJ"} />
               <Input
                 className={"AdminRegistration-form-input"}
                 type={"date"}
@@ -332,7 +338,7 @@ function AdminRegistration() {
               />
             </div>
             {dojError && (
-              <span style={{ fontSize: "12px", color: "red" }}>{dojError}</span>
+              <span className ="AR-errorSpans">{dojError}</span>
             )}
 
             <div className="AdminRegistration-form-group">
@@ -357,7 +363,7 @@ function AdminRegistration() {
               {/* </Sele> */}
             </div>
             {locationError && (
-              <span style={{ fontSize: "12px", color: "red" }}>
+              <span className ="AR-errorSpans">
                 {locationError}
               </span>
             )}
@@ -385,7 +391,7 @@ function AdminRegistration() {
               </Select> */}
             </div>
             {designationError && (
-              <span style={{ fontSize: "12px", color: "red" }}>
+              <span className ="AR-errorSpans">
                 {designationError}
               </span>
             )}
@@ -407,7 +413,7 @@ function AdminRegistration() {
               />
             </div>
             {contactError && (
-              <span style={{ fontSize: "12px", color: "red" }}>
+              <span className ="AR-errorSpans">
                 {contactError}
               </span>
             )}
@@ -429,7 +435,7 @@ function AdminRegistration() {
               />
             </div>
             {passwordError && (
-              <span style={{ fontSize: "12px", color: "red" }}>
+              <span className ="AR-errorSpans">
                 {passwordError}
               </span>
             )}
@@ -450,7 +456,7 @@ function AdminRegistration() {
               />
             </div>
             {confirmPasswordError && (
-              <span style={{ fontSize: "12px", color: "red" }}>
+              <span className ="AR-errorSpans">
                 {confirmPasswordError}
               </span>
             )}

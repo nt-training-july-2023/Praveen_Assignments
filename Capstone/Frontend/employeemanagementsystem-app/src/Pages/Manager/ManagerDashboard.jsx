@@ -6,6 +6,7 @@ import EmployeeCarddd from './EmployeeCard';
 import ManagerList from '../Admin/AdminCards/AllMangerCards';
 import ProjectCard from '../Admin/AdminCards/Project';
 import Button from '../../components/Button';
+import UnauthorizedPage from '../Unauthorized';
 
 
 function ManagerDashboard() {
@@ -35,7 +36,7 @@ function ManagerDashboard() {
 
   const userRole = localStorage.getItem('userRole');
   if (userRole !== 'Manager') {
-    return <h1>Unauthorized access</h1>;
+    return <UnauthorizedPage/>;
   }
 
   return (

@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
-    <fullyQualifiedTypeName name="com.backend.EMS.Exception.UserAlreadyFound"/>
-    <fullyQualifiedTypeName name="java.lang.System"/>
-    <fullyQualifiedTypeName name="jakarta.annotation.Generated"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
-    <fullyQualifiedTypeName name="com.backend.EMS.DTO.EmployeeOutDto"/>
     <fullyQualifiedTypeName name="com.backend.EMS.DTO.LoginResponseDto"/>
     <fullyQualifiedTypeName name="com.backend.EMS.Model.Designation"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
@@ -33,31 +27,37 @@
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="com.backend.EMS.Service.LoginService"/>
     <fullyQualifiedTypeName name="com.fasterxml.jackson.databind.ObjectMapper"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="java.util.Collections"/>
-    <fullyQualifiedTypeName name="com.backend.EMS.Repository.RequestResourceRepository"/>
     <fullyQualifiedTypeName name="com.backend.EMS.Model.Project"/>
     <fullyQualifiedTypeName name="org.modelmapper.ModelMapper"/>
     <fullyQualifiedTypeName name="jakarta.validation.ConstraintViolationException"/>
     <fullyQualifiedTypeName name="com.backend.EMS.DTO.IsRequestedOutDto"/>
     <fullyQualifiedTypeName name="org.slf4j.LoggerFactory"/>
     <fullyQualifiedTypeName name="ch.qos.logback.classic.Logger"/>
-    <fullyQualifiedTypeName name="com.backend.EMS.Repository.ProjectRepository"/>
     <fullyQualifiedTypeName name="org.springframework.context.support.BeanDefinitionDsl.Role"/>
     <fullyQualifiedTypeName name="jakarta.validation.Valid"/>
     <fullyQualifiedTypeName name="jakarta.validation.constraints.NotEmpty"/>
-    <fullyQualifiedTypeName name="com.backend.EMS.Model.Location"/>
-    <fullyQualifiedTypeName name="com.backend.EMS.Model.Role"/>
-    <fullyQualifiedTypeName name="com.backend.EMS.Exception.UserNotFound"/>
     <fullyQualifiedTypeName name="com.backend.EMS.DTO.RequestResourceInDto"/>
     <fullyQualifiedTypeName name="com.backend.EMS.DTO.RequestResourceOutDto"/>
     <fullyQualifiedTypeName name="com.backend.EMS.DTO.ProjectOutDto"/>
     <fullyQualifiedTypeName name="com.backend.EMS.Service.ProjectService"/>
     <fullyQualifiedTypeName name="com.backend.EMS.Validation.Validation"/>
     <fullyQualifiedTypeName name="java.util.HashMap"/>
-    <fullyQualifiedTypeName name="java.util.Map"/>
     <fullyQualifiedTypeName name="jakarta.validation.constraints.NotBlank"/>
-    <fullyQualifiedTypeName name="jakarta.validation.constraints.NotNull"/>
     <fullyQualifiedTypeName name="jakarta.persistence.Enumerated"/>
+    <fullyQualifiedTypeName name="jakarta.validation.constraints.NotNull"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.Repository.EmployeeRepository"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.Repository.ProjectRepository"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.Repository.RequestResourceRepository"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.Model.Role"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.Model.Location"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.Exception.UserNotFound"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.DTO.EmployeeInDto"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.Exception.UserAlreadyFound"/>
+    <fullyQualifiedTypeName name="jakarta.validation.ValidationException"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.Map"/>
+    <fullyQualifiedTypeName name="com.backend.EMS.Constants.ErrorConstants"/>
 </qualifiedTypeNameHistroy>

@@ -10,9 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 
+import com.backend.EMS.Constants.ErrorConstants;
 import com.backend.EMS.DTO.EmployeeInDto;
 import com.backend.EMS.DTO.LoginInDto;
 import com.backend.EMS.DTO.ProjectInDto;
@@ -69,9 +68,9 @@ public class Validation {
             EmployeeInDto employeeInDto) {
         if (employeeRepository.findByEmail(employeeInDto.
                 getEmail()) != null) {
-            LOGGER.error("Email id already exists");
+            LOGGER.error(ErrorConstants.DUPLICATE_EMAIL);
             throw new UserAlreadyFound(
-                    "Email id already exists");
+                    ErrorConstants.DUPLICATE_EMAIL);
         }
     }
     /**
@@ -81,10 +80,10 @@ public class Validation {
     public final void checkAdminExists() {
         List<Employee> employee = employeeRepository.
                 findByRole(Role.Admin);
-        if(employee.size()!=0) {
-            LOGGER.error("Admin Already exists");
+        if (employee.size() != 0) {
+            LOGGER.error(ErrorConstants.ADMIN_FOUND);
             throw new UserAlreadyFound(
-            "Admin Already Exists");
+                    ErrorConstants.ADMIN_FOUND);
         }
     }
     /**
@@ -97,10 +96,10 @@ public class Validation {
     public final void checkRoleExists(final String role) {
         try {
             Role.valueOf(role);
-            return; 
+            return;
         } catch (IllegalArgumentException e) {
-            LOGGER.error("Role is not Present");
-            throw new UserNotFound("Role not found");
+            LOGGER.error(ErrorConstants.ROLE_NOT_FOUND);
+            throw new UserNotFound(ErrorConstants.ROLE_NOT_FOUND);
         }
     }
     /**
@@ -112,9 +111,9 @@ public class Validation {
             EmployeeInDto employeeInDto) {
         if (employeeRepository.findByEmpId(employeeInDto.
                 getEmpId()) != null) {
-            LOGGER.error("Employee id already exists");
+            LOGGER.error(ErrorConstants.DUPLICATE_EMPID);
                 throw new UserAlreadyFound(
-                        "Employee id already exists");
+                        ErrorConstants.DUPLICATE_EMPID);
         }
     }
     /**
@@ -126,9 +125,9 @@ public class Validation {
             EmployeeInDto employeeInDto) {
         if (employeeRepository.findByContactNo(employeeInDto.
               getContactNo()) != null) {
-            LOGGER.error("Contact Number already exists");
+            LOGGER.error(ErrorConstants.DUPLICATE_PHONE_NUMBER);
                 throw new UserAlreadyFound(
-                        "Contact Number already exists");
+                        ErrorConstants.DUPLICATE_PHONE_NUMBER);
         }
     }
     /**
@@ -139,9 +138,9 @@ public class Validation {
     public final void checkProject(final ProjectInDto projectInDto) {
         if (projectRepository.findByProjectName(
                 projectInDto.getProjectName()) != null) {
-            LOGGER.error("Project already exists");
+            LOGGER.error(ErrorConstants.DUPLICATE_PROJECT_NAME);
              throw new UserAlreadyFound(
-                     "Project already exists");
+                     ErrorConstants.DUPLICATE_PROJECT_NAME);
          }
     }
     /**
@@ -151,8 +150,8 @@ public class Validation {
      */
     public final void checkEmailNotExists(final LoginInDto loginInDto) {
         if (employeeRepository.findByEmail(loginInDto.getEmail()) == null) {
-            LOGGER.error("Invalid Email");
-            throw new UserNotFound("Invalid Email");
+            LOGGER.error(ErrorConstants.EMAIL_NOT_FOUND);
+            throw new UserNotFound(ErrorConstants.EMAIL_NOT_FOUND);
         }
     }
     /**
@@ -176,12 +175,12 @@ public class Validation {
             if (!passwordEncoder.matches(
                     decodePassword(loginInDto.getPassword()),
                     employee.getPassword())) {
-               LOGGER.error("Invalid Password");
-               throw new UserNotFound("Invalid Password");
+               LOGGER.error(ErrorConstants.INVAILD_PASSWORD);
+               throw new UserNotFound(ErrorConstants.INVAILD_PASSWORD);
             }
           } catch (IllegalArgumentException e) {
                 LOGGER.error("Invalid encoded password: " + e.getMessage());
-                throw new CustomException("Invalid Password");
+                throw new CustomException(ErrorConstants.INVAILD_PASSWORD);
             }
         }
 
@@ -214,8 +213,8 @@ public class Validation {
         public final void checkEmployeeExists(final Long id) {
             Employee employee = employeeRepository.findById(id).orElse(null);
             if (employee == null || employee.getRole() == Role.Admin) {
-                LOGGER.error("Employee does not exists");
-                throw new UserNotFound("employee not exists");
+                LOGGER.error(ErrorConstants.EMPLOYEE_NOT_FOUND);
+                throw new UserNotFound(ErrorConstants.EMPLOYEE_NOT_FOUND);
             }
         }
         /**
@@ -228,8 +227,8 @@ public class Validation {
         public final void checkProjectExists(final Long id) {
            Project project = projectRepository.findById(id).orElse(null);
             if (project == null) {
-                LOGGER.error("Project does not exist");
-                throw new UserNotFound("Project Not Found");
+                LOGGER.error(ErrorConstants.PROJECT_NOT_FOUND);
+                throw new UserNotFound(ErrorConstants.PROJECT_NOT_FOUND);
             }
         }
         /**
@@ -242,11 +241,11 @@ public class Validation {
         public final void checkManagerExists(final Long id) {
             Employee employee = employeeRepository.findById(id).orElse(null);
             if (employee == null) {
-                LOGGER.error("Employee does not exists");
-                throw new UserNotFound("Employee not exists");
+                LOGGER.error(ErrorConstants.EMPLOYEE_NOT_FOUND);
+                throw new UserNotFound(ErrorConstants.EMPLOYEE_NOT_FOUND);
             } else if (employee.getRole() != Role.Manager) {
-                LOGGER.error("Manager does not exists");
-                throw new UserNotFound("Manager does not exists");
+                LOGGER.error(ErrorConstants.MANAGER_NOT_FOUND);
+                throw new UserNotFound(ErrorConstants.MANAGER_NOT_FOUND);
             }
         }
         /**
@@ -260,8 +259,8 @@ public class Validation {
             RequestResource requestResource = requestResourceRepository.
                     findById(id).orElse(null);
             if (requestResource == null) {
-                LOGGER.error("RequestResource does not Exists");
-                throw new UserNotFound("RequestResource not Exists");
+                LOGGER.error(ErrorConstants.REQUES_NOT_FOUND);
+                throw new UserNotFound(ErrorConstants.REQUES_NOT_FOUND);
             }
         }
         /**
@@ -274,20 +273,27 @@ public class Validation {
         public final void checkOnlyEmployeeExists(final Long id) {
             Employee employee = employeeRepository.findById(id).orElse(null);
             if (employee == null || employee.getRole() != Role.Employee) {
-                LOGGER.error("Employee does not exists");
-                throw new UserNotFound("employee not exists");
+                LOGGER.error(ErrorConstants.EMPLOYEE_NOT_FOUND);
+                throw new UserNotFound(ErrorConstants.EMPLOYEE_NOT_FOUND);
             }
         }
-        public final void assignProject(Long id, Long managerId,Long projectId) {
-            if(managerId==null || projectId==null) {
-                throw new UserNotFound("managerId and projectId "
-                        + " should not be null");
+        /**
+         *
+         * @param id The id of employee to assign the project.
+         * @param managerId The managerId to assign for the project.
+         * @param projectId The projectId to assign  to the employee.
+         */
+        public final void assignProject(final Long id,
+                final Long managerId, final Long projectId) {
+            if (managerId == null || projectId == null) {
+                LOGGER.error(ErrorConstants.MANAGERID_AND_PROJECTID_REQUIRED);
+                throw new UserNotFound(
+                        ErrorConstants.MANAGERID_AND_PROJECTID_REQUIRED);
             }
             checkEmployeeExists(id);
             checkManagerExists(managerId);
             checkProjectExists(projectId);
         }
-        
 
 }
 

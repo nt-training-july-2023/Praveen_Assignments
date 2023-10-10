@@ -9,6 +9,7 @@ import axios from "axios";
 import "./UpdateSkills.css";
 import employeeService from "../../Service/EmployeeService";
 import Button from "../../components/Button";
+import UnauthorizedPage from "../Unauthorized";
 
 function UpdateSkills() {
   const [skills, setSkills] = useState([]);
@@ -48,7 +49,20 @@ function UpdateSkills() {
         console.log("Employee updated:", response.data);
         navigate("/EmployeeDashboard");
       } catch (error) {
-        console.error("Error updating employee:", error);
+        if (error.response) {
+          console.log(error);
+          toast.error(error.response.data.message, {
+            position: "top-right",
+            autoClose: 3000,
+            toastId,
+          });
+        } else {
+          toast.error("oops !! server down", {
+            position: "top-center",
+            autoClose: 3000,
+            toastId,
+          });
+        }
       }
     }
   };
@@ -59,7 +73,7 @@ function UpdateSkills() {
 
   const userRole = localStorage.getItem("userRole");
   if (userRole !== "Employee") {
-    return <h1>Unauthorized access</h1>;
+    return <UnauthorizedPage />;
   }
 
   return (
@@ -69,7 +83,9 @@ function UpdateSkills() {
       </div>
       <br />
       <div className="US-container">
-        <h2 style={{ fontWeight: "bold" }}>{stateData.empName}</h2>
+        <h2 style={{ fontWeight: "bold", marginBottom: "1rem" }}>
+          {stateData.empName}
+        </h2>
 
         <div className="US-form-group">
           <label className="US-form-label">Skills</label>

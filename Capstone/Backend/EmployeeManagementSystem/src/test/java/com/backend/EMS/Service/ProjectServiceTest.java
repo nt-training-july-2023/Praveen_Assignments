@@ -16,6 +16,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 
+import com.backend.EMS.Constants.SuccessConstants;
 import com.backend.EMS.DTO.ProjectInDto;
 import com.backend.EMS.DTO.ProjectOutDto;
 import com.backend.EMS.DTO.ResponseDto;
@@ -61,7 +62,7 @@ public class ProjectServiceTest {
         ResponseDto response = projectService.addProject(projectInDto);
 
         assertNotNull(response);
-        assertEquals("Project Added Successfully", response.getMessage());
+        assertEquals(SuccessConstants.ADDED, response.getMessage());
     }
     
     @Test
@@ -130,13 +131,14 @@ public class ProjectServiceTest {
         project1.setId(1L);
         project1.setProjectName("Project A");
         project1.setManagerId(managerId);
-        project1.setRequiredSkills(List.of("python", "java"));;
-
+        project1.setRequiredSkills(List.of("python", "java"));
+        project1.setDescription("project NuoData about dataaa");
         Project project2 = new Project();
         project2.setId(2L);
         project2.setProjectName("Project B");
         project2.setManagerId(managerId);
         project2.setRequiredSkills(List.of("python", "java"));
+        project2.setDescription("project NuoData about dataaa");
 
         List<Project> projects = List.of(project1, project2);
 
@@ -159,12 +161,14 @@ public class ProjectServiceTest {
         projectOutDto1.setProjectName("Project A");
         projectOutDto1.setManagerId(managerId);
         projectOutDto1.setTeam(List.of("Employee 1", "Employee 2"));
-
+        projectOutDto1.setDescription("project NuoData about dataaa");
+        
         ProjectOutDto projectOutDto2 = new ProjectOutDto();
         projectOutDto2.setId(2L);
         projectOutDto2.setProjectName("Project B");
         projectOutDto2.setManagerId(managerId);
         projectOutDto2.setTeam(List.of("Employee 1", "Employee 2"));
+        projectOutDto2.setDescription("prr");
 
         when(modelMapper.map(project1, ProjectOutDto.class)).thenReturn(projectOutDto1);
         when(modelMapper.map(project2, ProjectOutDto.class)).thenReturn(projectOutDto2);
@@ -183,17 +187,20 @@ public class ProjectServiceTest {
         assertEquals(2L, retrievedProject2.getId());
         assertEquals("Project B", retrievedProject2.getProjectName());
         assertEquals(managerId, retrievedProject2.getManagerId());
+        ProjectOutDto projectOutDto = createSampleProjectDto();
+        System.out.println(retrievedProject2.getDescription());
+//        assertEquals(projectOutDto,retrievedProject2);
     }
 
-    private ProjectInDto createSampleProjectDto() {
-        ProjectInDto projectInDto = new ProjectInDto();
-        projectInDto.setProjectName("NuoData");
-        projectInDto.setId(1L);
-        projectInDto.setManagerId(1L);
-        projectInDto.setRequiredSkills(List.of("python", "java"));
-        projectInDto.setDescription("project NuoData about dataaa");
+    private ProjectOutDto createSampleProjectDto() {
+        ProjectOutDto projectOutDto = new ProjectOutDto();
+        projectOutDto.setProjectName("Project B");
+        projectOutDto.setId(2L);
+        projectOutDto.setManagerId(1L);
+        projectOutDto.setRequiredSkills(List.of("python", "java"));
+        projectOutDto.setDescription("project NuoData about dataaa");
         
-        return projectInDto;
+        return projectOutDto;
     }
     
 

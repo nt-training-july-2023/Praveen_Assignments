@@ -42,6 +42,12 @@ public class RequestResource {
     @Column(columnDefinition = "TEXT")
     private String comment;
     /**
+     * @param idValue the RequestResourceId.
+     */
+    public final void setId(final Long idValue) {
+        this.id = idValue;
+    }
+    /**
      * @return the id
      */
     public final Long getId() {
